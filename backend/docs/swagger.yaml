@@ -1,0 +1,997 @@
+basePath: /
+definitions:
+  models.AddSetRequest:
+    properties:
+      reps:
+        example: 10
+        type: integer
+      weight:
+        example: 50.5
+        type: number
+    type: object
+  models.CompleteWorkoutRequest:
+    properties:
+      note:
+        example: Great workout!
+        type: string
+    type: object
+  models.CreateExerciseRequest:
+    properties:
+      description_eng:
+        example: A basic chest exercise.
+        type: string
+      description_ru:
+        example: Базовое упражнение для груди.
+        type: string
+      image_url:
+        example: https://example.com/benchpress.jpg
+        type: string
+      muscle_group_id:
+        example: 1
+        type: integer
+      name_eng:
+        example: Bench Press
+        type: string
+      name_ru:
+        example: Жим лежа
+        type: string
+    required:
+    - muscle_group_id
+    - name_eng
+    - name_ru
+    type: object
+  models.CreateMuscleGroupRequest:
+    properties:
+      image_url:
+        example: http://example.com/chest.jpg
+        type: string
+      name_eng:
+        example: Chest
+        type: string
+      name_ru:
+        example: Грудь
+        type: string
+    required:
+    - name_eng
+    - name_ru
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.Exercise:
+    properties:
+      created_at:
+        type: string
+      description_eng:
+        type: string
+      description_ru:
+        type: string
+      id:
+        type: integer
+      image_url:
+        type: string
+      muscle_group:
+        $ref: '#/definitions/models.MuscleGroup'
+      name_eng:
+        type: string
+      name_ru:
+        type: string
+    type: object
+  models.ExerciseResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      muscle_group:
+        $ref: '#/definitions/models.MuscleGroupDTO'
+      name:
+        type: string
+    type: object
+  models.FitnessLevel:
+    properties:
+      id:
+        type: integer
+      name_eng:
+        type: string
+      name_ru:
+        type: string
+    type: object
+  models.GetMuscleGroupsResponse:
+    properties:
+      id:
+        type: integer
+      image_url:
+        type: string
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  models.GetUserProfileResponse:
+    properties:
+      avatar_url:
+        type: string
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      fitness_level:
+        type: string
+      last_login:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    type: object
+  models.GoogleTokenRequest:
+    properties:
+      access_token:
+        type: string
+    required:
+    - access_token
+    type: object
+  models.IncompleteWorkoutResponse:
+    properties:
+      created_at:
+        type: string
+      exercise:
+        $ref: '#/definitions/models.Exercise'
+      id:
+        type: integer
+      is_completed:
+        type: boolean
+      note:
+        type: string
+      sets:
+        items:
+          $ref: '#/definitions/models.Set'
+        type: array
+    type: object
+  models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.MuscleGroup:
+    properties:
+      id:
+        type: integer
+      image_url:
+        type: string
+      name_eng:
+        type: string
+      name_ru:
+        type: string
+    type: object
+  models.MuscleGroupDTO:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Permission:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.Provider:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  models.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    type: object
+  models.Role:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      permissions:
+        items:
+          $ref: '#/definitions/models.Permission'
+        type: array
+    type: object
+  models.Set:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      reps:
+        type: integer
+      weight:
+        type: number
+      workout_session_id:
+        type: integer
+    type: object
+  models.StartWorkoutRequest:
+    properties:
+      exercise_id:
+        example: 1
+        type: integer
+    type: object
+  models.StartWorkoutResponse:
+    properties:
+      created_at:
+        type: string
+      is_completed:
+        type: boolean
+      last_session:
+        $ref: '#/definitions/models.WorkoutSessionResponse'
+      session_id:
+        type: integer
+    required:
+    - created_at
+    - is_completed
+    - session_id
+    type: object
+  models.TokensResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  models.UpdateExerciseRequest:
+    properties:
+      description_eng:
+        example: A basic chest exercise.
+        type: string
+      description_ru:
+        example: Базовое упражнение для груди.
+        type: string
+      image_url:
+        example: https://example.com/benchpress.jpg
+        type: string
+      muscle_group_id:
+        example: 1
+        type: integer
+      name_eng:
+        example: Bench Press
+        type: string
+      name_ru:
+        example: Жим лежа
+        type: string
+    required:
+    - muscle_group_id
+    - name_eng
+    - name_ru
+    type: object
+  models.User:
+    properties:
+      avatar_url:
+        type: string
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      fitness_level:
+        $ref: '#/definitions/models.FitnessLevel'
+      fitness_level_id:
+        type: integer
+      id:
+        type: string
+      last_login:
+        type: string
+      provider:
+        $ref: '#/definitions/models.Provider'
+      provider_id:
+        type: integer
+      provider_user_id:
+        type: string
+      role:
+        $ref: '#/definitions/models.Role'
+      role_id:
+        type: integer
+      username:
+        type: string
+    type: object
+  models.WorkoutSessionResponse:
+    properties:
+      created_at:
+        type: string
+      exercise:
+        properties:
+          id:
+            type: integer
+          muscle_group:
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+            type: object
+          name:
+            type: string
+        type: object
+      id:
+        type: integer
+      is_completed:
+        type: boolean
+      note:
+        type: string
+      sets:
+        items:
+          $ref: '#/definitions/models.Set'
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: Sila API
+  version: "1.0"
+paths:
+  /auth/google/token:
+    post:
+      consumes:
+      - application/json
+      description: Logs in a user using Google OAuth2 Access Token.
+      parameters:
+      - description: Google OAuth2 Access Token
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.GoogleTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Access and refresh tokens
+          schema:
+            $ref: '#/definitions/models.TokensResponse'
+        "400":
+          description: Invalid request payload or access token is required
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to get user info from Google or error creating/updating
+            user
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Google OAuth2 Token Login
+      tags:
+      - Authentication
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint logs in a user and returns tokens
+      parameters:
+      - description: Login user
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Tokens
+          schema:
+            $ref: '#/definitions/models.TokensResponse'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Invalid credentials
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login user
+      tags:
+      - Auth
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Refreshes the access and refresh tokens using a valid refresh token.
+      parameters:
+      - description: Refresh token
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: access_token" "refresh_token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: error" "Invalid input or Refresh token required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: error" "Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Refresh JWT tokens
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint registers a new user with email, password, and username
+      parameters:
+      - description: Register user
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Tokens
+          schema:
+            $ref: '#/definitions/models.TokensResponse'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Email already in use
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - Auth
+  /auth/validate-token:
+    get:
+      description: This endpoint validates a user's JWT token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Valid token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Invalid token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Validate user token
+      tags:
+      - Auth
+  /exercises:
+    get:
+      description: Get a list of all exercises with information on muscle groups in
+        the requested language (English or Russian). Supports filtering by muscle_group_id
+        and searching by name.
+      parameters:
+      - description: Filter by muscle group ID
+        in: query
+        name: muscle_group_id
+        type: integer
+      - description: Search by exercise name (both in Russian and English)
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of exercises
+          schema:
+            items:
+              $ref: '#/definitions/models.ExerciseResponse'
+            type: array
+        "500":
+          description: Failed to retrieve exercises
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all exercises
+      tags:
+      - Exercises
+    post:
+      consumes:
+      - application/json
+      description: Create a new exercise with names in both English and Russian, and
+        specify the muscle group.
+      parameters:
+      - description: Create new exercise
+        in: body
+        name: exercise
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateExerciseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Created exercise
+          schema:
+            $ref: '#/definitions/models.Exercise'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to create exercise
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new exercise
+      tags:
+      - Exercises
+  /exercises/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing exercise with new names in both English and
+        Russian, and update the muscle group.
+      parameters:
+      - description: Exercise ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update exercise
+        in: body
+        name: exercise
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateExerciseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated exercise
+          schema:
+            $ref: '#/definitions/models.Exercise'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Exercise not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to update exercise
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update an existing exercise
+      tags:
+      - Exercises
+  /fitness-levels:
+    get:
+      consumes:
+      - application/json
+      description: Получение списка всех уровней физической подготовки с названиями
+        на английском и русском языках.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of fitness levels
+          schema:
+            items:
+              $ref: '#/definitions/models.FitnessLevel'
+            type: array
+        "500":
+          description: Failed to retrieve fitness levels
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all fitness levels
+      tags:
+      - FitnessLevels
+  /muscle-groups:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all muscle groups in the requested language (English
+        or Russian).
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of muscle groups
+          schema:
+            items:
+              $ref: '#/definitions/models.GetMuscleGroupsResponse'
+            type: array
+        "500":
+          description: Failed to retrieve muscle groups
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all muscle groups
+      tags:
+      - MuscleGroups
+    post:
+      consumes:
+      - application/json
+      description: Create a new muscle group with names in both English and Russian.
+      parameters:
+      - description: Muscle group data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateMuscleGroupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Created muscle group
+          schema:
+            $ref: '#/definitions/models.MuscleGroup'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to create muscle group
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create a new muscle group
+      tags:
+      - MuscleGroups
+  /muscle-groups/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Обновление информации о группе мышц с учетом названий на двух языках.
+      parameters:
+      - description: Muscle group ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated muscle group data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.MuscleGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated muscle group
+          schema:
+            $ref: '#/definitions/models.MuscleGroup'
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Muscle group not found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Failed to update muscle group
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update a muscle group
+      tags:
+      - MuscleGroups
+  /user/profile:
+    get:
+      description: Retrieves the profile information of the authenticated user, including
+        email, username, fitness level, avatar, and role.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns the user profile data
+          schema:
+            $ref: '#/definitions/models.GetUserProfileResponse'
+        "401":
+          description: No token provided or invalid token
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get User Profile
+      tags:
+      - User
+  /workout/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve details of a specific workout session including sets,
+        exercise info, and muscle group.
+      parameters:
+      - description: Workout session ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout session details
+          schema:
+            $ref: '#/definitions/models.WorkoutSessionResponse'
+        "400":
+          description: Invalid session ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout session not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get details of a workout session
+      tags:
+      - Workout
+  /workout/add-set/{id}:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows adding a set (reps and weight) to an ongoing
+        workout session.
+      parameters:
+      - description: Workout session ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Set data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddSetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Set added successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid input or session ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout session not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to add set
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Add a set to a workout session
+      tags:
+      - Workout
+  /workout/complete/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Marks a workout session as completed and allows adding a final
+        note.
+      parameters:
+      - description: Workout session ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Completion note
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.CompleteWorkoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout session completed successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid input or session ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout session not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to complete workout session
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Complete a workout session
+      tags:
+      - Workout
+  /workout/exercise/{exercise_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated workout sessions for a specific exercise for
+        the authenticated user, with support for different languages.
+      parameters:
+      - description: Exercise ID
+        in: path
+        name: exercise_id
+        required: true
+        type: integer
+      - description: Limit the number of results
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Paginated list of workout sessions
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid exercise ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to retrieve workout sessions
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get workout sessions by exercise
+      tags:
+      - Workout
+  /workout/incomplete:
+    get:
+      description: Retrieve all incomplete workout sessions for the authenticated
+        user, with support for different languages.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of incomplete workouts
+          schema:
+            items:
+              $ref: '#/definitions/models.IncompleteWorkoutResponse'
+            type: array
+        "500":
+          description: Failed to retrieve incomplete workouts
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get incomplete workout sessions
+      tags:
+      - Workout
+  /workout/start:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint starts a workout session for a specific exercise
+        and optionally returns the last completed session if available.
+      parameters:
+      - description: Exercise ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.StartWorkoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: New workout session and last session (if any)
+          schema:
+            $ref: '#/definitions/models.StartWorkoutResponse'
+        "400":
+          description: Invalid input or Exercise ID missing
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to start workout session
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Start a workout session
+      tags:
+      - Workout
+schemes:
+- http,
+- https
+swagger: "2.0"
