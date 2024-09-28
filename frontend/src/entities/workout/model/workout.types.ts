@@ -15,6 +15,7 @@ export interface CompleteTrainingArgs {
   feedback: string
 }
 
-export type WorkoutSession = components['schemas']['models.WorkoutSessionResponse']
+export type WorkoutSession =
+  components['schemas']['models.WorkoutSessionResponse']
 
 export type Set = components['schemas']['models.Set']

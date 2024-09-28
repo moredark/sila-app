@@ -1,2 +1,2 @@
-export { useGetExercises } from './api/useGetExercises';
-export * from './model/exercise.types';
+export { useGetExercises } from './api/useGetExercises'
+export * from './model/exercise.types'
