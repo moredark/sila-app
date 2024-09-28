@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Определение переменных как HSL */
 :root {
-  --background: 0 0% 100%; /* Белый */
-  --foreground: 240 10% 3.9%; /* Чёрный */
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 240 10% 3.9%;
   --popover: 0 0% 100%;
@@ -53,6 +52,18 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+}
+
+html, body {
+  -webkit-overflow-scrolling: auto;
+  scroll-behavior: auto;
+}
+
+input,
+textarea,
+select,
+button {
+  font-size: 16px;
 }
 
 @layer base {

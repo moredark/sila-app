@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import '../src/app/styles/globals.css'
 import '../src/shared/lib/i18n'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import Head from 'next/head'
 
 const geistSans = localFont({
   src: '../src/app/fonts/GeistVF.woff',
@@ -29,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -21,7 +21,7 @@ const WorkoutSessionPage: FC<Props> = ({ workoutData }) => {
     const [isEndWorkoutDrawerOpen, setEndWorkoutDrawerOpen] = useState(false);
 
     return (
-        <div className='flex h-full flex-col justify-between p-4'>
+        <div className='flex h-full flex-col justify-between p-4 pb-16'>
             <WorkoutHeader exerciseName={data?.exercise?.name} />
             <WorkoutSets sets={data?.sets} />
             <WorkoutActions
