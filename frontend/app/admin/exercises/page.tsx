@@ -25,13 +25,10 @@ const createExerciseSchema = z.object({
 type CreateExerciseFormData = z.infer<typeof createExerciseSchema>
 
 const AdminCreateExercisePage = () => {
-  const { data: muscleGroups, isLoading: isLoadingMuscleGroups } =
-    useGetMuscleGroups()
+  const { data: muscleGroups, isLoading: isLoadingMuscleGroups } = useGetMuscleGroups()
   const { mutateAsync: createExercise } = useCreateExercise()
 
-  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string | null>(
-    null
-  )
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState<string | null>(null)
 
   const {
     register,
@@ -70,39 +67,27 @@ const AdminCreateExercisePage = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label>Exercise Name (RU)</label>
-              <Input
-                {...register('name_ru')}
-                placeholder="Enter the exercise name in Russian"
-              />
-              {errors.name_ru && (
-                <p className="text-red-500">{errors.name_ru.message}</p>
-              )}
+              <Input {...register('name_ru')} placeholder="Enter the exercise name in Russian" />
+              {errors.name_ru && <p className="text-red-500">{errors.name_ru.message}</p>}
             </div>
 
             <div>
               <label>Exercise Name (ENG)</label>
-              <Input
-                {...register('name_eng')}
-                placeholder="Enter the exercise name in English"
-              />
-              {errors.name_eng && (
-                <p className="text-red-500">{errors.name_eng.message}</p>
-              )}
+              <Input {...register('name_eng')} placeholder="Enter the exercise name in English" />
+              {errors.name_eng && <p className="text-red-500">{errors.name_eng.message}</p>}
             </div>
 
             <div>
               <label>Muscle Group</label>
               <Combobox
                 options={
-                  muscleGroups?.map((group) => ({
+                  muscleGroups?.map(group => ({
                     //@ts-ignore
                     label: group.name ?? '',
                     value: group.id ?? '',
                   })) ?? []
                 }
-                onSelect={(value) =>
-                  setSelectedMuscleGroup(value ? String(value) : null)
-                }
+                onSelect={value => setSelectedMuscleGroup(value ? String(value) : null)}
                 placeholder="Select a muscle group"
               />
 

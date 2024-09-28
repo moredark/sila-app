@@ -3423,8 +3423,7 @@ packages:
       {
         integrity: sha512-Q1yTZljBp1DcVAQD7LxduEqFRpjIeZc+5VnQ+gU8qG9WvY3U5rqK0IVONRWNtngh3orb197bfy1Sz4wlwcplxg==,
       }
-    engines:
-      { node: '>=18.0.0 || >=20.0.0 || >=22.0.0', npm: '>=6', yarn: '>=1' }
+    engines: { node: '>=18.0.0 || >=20.0.0 || >=22.0.0', npm: '>=6', yarn: '>=1' }
     hasBin: true
 
   i18next-typescript@0.1.0:

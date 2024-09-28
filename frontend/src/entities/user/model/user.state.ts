@@ -12,7 +12,7 @@ interface UserState {
   logout: () => void
 }
 
-export const useUserStore = create<UserState>((set) => {
+export const useUserStore = create<UserState>(set => {
   const accessToken = Cookies.get(ACCESS_TOKEN_KEY) || null
   const refreshToken = Cookies.get(REFRESH_TOKEN_KEY) || null
   const isAuthenticated = !!accessToken

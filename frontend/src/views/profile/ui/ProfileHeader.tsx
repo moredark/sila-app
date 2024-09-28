@@ -10,11 +10,7 @@ interface ProfileHeaderProps {
   avatarUrl: string | undefined
 }
 
-export const ProfileHeader: FC<ProfileHeaderProps> = ({
-  username,
-  email,
-  avatarUrl,
-}) => {
+export const ProfileHeader: FC<ProfileHeaderProps> = ({ username, email, avatarUrl }) => {
   const { t } = useTranslation()
 
   return (
@@ -29,9 +25,7 @@ export const ProfileHeader: FC<ProfileHeaderProps> = ({
         )}
       </Avatar>
       <div>
-        <CardTitle className="text-center text-lg font-bold">
-          {username || t('user')}
-        </CardTitle>
+        <CardTitle className="text-center text-lg font-bold">{username || t('user')}</CardTitle>
         <p className="text-sm text-muted-foreground">{email}</p>
       </div>
     </CardHeader>

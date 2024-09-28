@@ -63,7 +63,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
         <Input
           placeholder="Search exercises..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={e => setSearchQuery(e.target.value)}
           className="pl-10"
         />
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -74,7 +74,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
           <Combobox
             placeholder="Select Muscle Group"
             options={
-              muscleGroups?.map((group) => ({
+              muscleGroups?.map(group => ({
                 label: group.name || '',
                 value: group.id || '',
               })) || []
@@ -88,7 +88,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        {data?.map((exercise) => (
+        {data?.map(exercise => (
           <Card
             key={exercise.id}
             className={`cursor-pointer bg-card p-2 ${
@@ -97,9 +97,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
             onClick={() => onSelectExercise(exercise.id!)}
           >
             <CardHeader className="p-2">
-              <CardTitle className="text-sm text-foreground">
-                {exercise.name}
-              </CardTitle>
+              <CardTitle className="text-sm text-foreground">{exercise.name}</CardTitle>
               <CardDescription className="text-xs text-muted-foreground">
                 {exercise.muscle_group?.name}
               </CardDescription>

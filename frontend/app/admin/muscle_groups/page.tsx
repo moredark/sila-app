@@ -52,19 +52,14 @@ const AdminMuscleGroup: FC = () => {
           <h2 className="mb-4 text-2xl">Create Muscle Group</h2>
         </CardHeader>
         <CardContent>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="max-w-md space-y-4"
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="max-w-md space-y-4">
             <div>
               <Input
                 placeholder="Name in Russian"
                 {...register('name_ru')}
                 aria-invalid={!!errors.name_ru}
               />
-              {errors.name_ru && (
-                <p className="text-sm text-red-500">{errors.name_ru.message}</p>
-              )}
+              {errors.name_ru && <p className="text-sm text-red-500">{errors.name_ru.message}</p>}
             </div>
 
             <div>
@@ -73,11 +68,7 @@ const AdminMuscleGroup: FC = () => {
                 {...register('name_eng')}
                 aria-invalid={!!errors.name_eng}
               />
-              {errors.name_eng && (
-                <p className="text-sm text-red-500">
-                  {errors.name_eng.message}
-                </p>
-              )}
+              {errors.name_eng && <p className="text-sm text-red-500">{errors.name_eng.message}</p>}
             </div>
 
             <Button type="submit" className="w-full" disabled={isPending}>

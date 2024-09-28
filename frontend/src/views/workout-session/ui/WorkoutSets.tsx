@@ -14,7 +14,7 @@ const WorkoutSets: FC<WorkoutSetsProps> = ({ sets }) => {
   return (
     <div className="flex flex-col gap-3">
       {!!sets?.length ? (
-        sets?.map((set) => (
+        sets?.map(set => (
           <Card key={set.id} className="flex items-center justify-between p-4">
             <span>
               {set.reps} {t('reps')}
@@ -25,9 +25,7 @@ const WorkoutSets: FC<WorkoutSetsProps> = ({ sets }) => {
           </Card>
         ))
       ) : (
-        <h2 className="text-center text-xl text-zinc-500">
-          {t('set-is-empty')}
-        </h2>
+        <h2 className="text-center text-xl text-zinc-500">{t('set-is-empty')}</h2>
       )}
     </div>
   )

@@ -24,18 +24,16 @@ const generateTypes = () => {
   const locales = fs.readdirSync(localesPath)
   const keys = new Set()
 
-  locales.forEach((locale) => {
-    const translations = require(
-      path.join(localesPath, locale, 'translation.json')
-    )
+  locales.forEach(locale => {
+    const translations = require(path.join(localesPath, locale, 'translation.json'))
     const extractedKeys = extractKeys(translations)
-    extractedKeys.forEach((key) => keys.add(key))
+    extractedKeys.forEach(key => keys.add(key))
   })
 
   const types = `
   // Generated i18n keys
   export type TranslationKeys = 
-    ${[...keys].map((key) => `'${key}'`).join(' |\n    ')};
+    ${[...keys].map(key => `'${key}'`).join(' |\n    ')};
   `
 
   fs.writeFileSync(typesPath, types.trim())

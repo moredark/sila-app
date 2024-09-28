@@ -7,7 +7,7 @@ export const registerSchema = z
     confirmPassword: z.string().min(6, 'confirm-password-invalid'),
     username: z.string().min(3, 'username-invalid'),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine(data => data.password === data.confirmPassword, {
     message: 'passwords-no-match',
     path: ['confirmPassword'],
   })

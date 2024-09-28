@@ -6,7 +6,7 @@ import { useWorkoutStore } from './workout.store'
 import { WorkoutSession } from './workout.types'
 
 export const useStartWorkout = () => {
-  const startWorkout = useWorkoutStore((state) => state.startWorkout)
+  const startWorkout = useWorkoutStore(state => state.startWorkout)
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -24,7 +24,7 @@ export const useStartWorkout = () => {
 }
 
 export const useAddSet = () => {
-  const addSet = useWorkoutStore((state) => state.addSet)
+  const addSet = useWorkoutStore(state => state.addSet)
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -58,18 +58,12 @@ export const useAddSet = () => {
 }
 
 export const useCompleteWorkout = () => {
-  const completeWorkout = useWorkoutStore((state) => state.completeWorkout)
-  const resetWorkout = useWorkoutStore((state) => state.resetWorkout)
+  const completeWorkout = useWorkoutStore(state => state.completeWorkout)
+  const resetWorkout = useWorkoutStore(state => state.resetWorkout)
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({
-      sessionId,
-      feedback,
-    }: {
-      sessionId: number
-      feedback: string
-    }) =>
+    mutationFn: ({ sessionId, feedback }: { sessionId: number; feedback: string }) =>
       PUT(`/workout/complete/{id}`, {
         params: {
           path: {

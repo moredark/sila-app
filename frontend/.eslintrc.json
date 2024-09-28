@@ -13,13 +13,7 @@
     "es6": true,
     "node": true
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks",
-    "import",
-    "tailwindcss"
-  ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "import", "tailwindcss"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
@@ -49,7 +43,10 @@
     "import/no-named-as-default": "off",
     "tailwindcss/no-custom-classname": "off",
     "import/no-named-as-default-member": "off",
-    "react-hooks/rules-of-hooks": "error",
+    "react/jsx-max-props-per-line": "off",
+    "react/jsx-first-prop-new-line": "off",
+    "react/jsx-wrap-multilines": "off",
+    "prettier/prettier": "off",
     "react-hooks/exhaustive-deps": "warn",
     "import/order": [
       "error",
@@ -87,14 +84,7 @@
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"],
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
@@ -149,13 +139,6 @@
         "react/require-default-props": "off",
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/no-throw-literal": "off",
-        "react/jsx-max-props-per-line": [
-          "error",
-          {
-            "maximum": 1,
-            "when": "always"
-          }
-        ],
         "@typescript-eslint/naming-convention": [
           "error",
           {
