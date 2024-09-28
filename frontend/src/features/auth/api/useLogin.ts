@@ -14,10 +14,7 @@ interface LoginCredentials {
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: async ({
-      email,
-      password,
-    }: LoginCredentials): Promise<TokensResponse> => {
+    mutationFn: async ({ email, password }: LoginCredentials): Promise<TokensResponse> => {
       const result = await POST('/auth/login', { body: { email, password } })
 
       if (result.response.status !== 200 || !result.data) {
@@ -32,10 +29,7 @@ export const useLogin = () => {
   })
 }
 
-export const handleSuccessfulLogin = (
-  data: TokensResponse,
-  push: (url: string) => void
-) => {
+export const handleSuccessfulLogin = (data: TokensResponse, push: (url: string) => void) => {
   if (data && data.access_token && data.refresh_token) {
     useUserStore.getState().setTokens(data.access_token, data.refresh_token)
     toast.success('Login successful!')

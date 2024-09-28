@@ -10,13 +10,7 @@ const GoogleLogo: FC = ({}) => {
       viewBox="-0.5 0 48 48"
       version="1.1"
     >
-      <g
-        id="Icons"
-        stroke="none"
-        strokeWidth="1"
-        fill="none"
-        fillRule="evenodd"
-      >
+      <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="Color-" transform="translate(-401.000000, -860.000000)">
           <g id="Google" transform="translate(401.000000, 860.000000)">
             <path

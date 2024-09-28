@@ -39,7 +39,7 @@ export const LoginForm = () => {
   }
 
   const googleLogin = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    onSuccess: async tokenResponse => {
       try {
         const { data } = await POST('/auth/google/token', {
           body: { access_token: tokenResponse.access_token },
@@ -50,7 +50,7 @@ export const LoginForm = () => {
         console.error(error)
       }
     },
-    onError: (error) => {
+    onError: error => {
       console.error(error)
       toast.error(t('login-failed'))
     },

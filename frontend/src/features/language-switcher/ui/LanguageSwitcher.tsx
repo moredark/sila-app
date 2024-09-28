@@ -1,13 +1,7 @@
 'use client'
 
 import { useTranslation } from '@/shared/lib'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/shared/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/select'
 
 import { useLanguage } from '../model/useLanguage'
 

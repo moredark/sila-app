@@ -22,11 +22,7 @@ interface AddSetDrawerProps {
   workoutId: number
 }
 
-const AddSetDrawer: FC<AddSetDrawerProps> = ({
-  open,
-  onOpenChange,
-  workoutId,
-}) => {
+const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId }) => {
   const { t } = useTranslation()
   const {
     register,
@@ -51,29 +47,16 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({
           <DrawerTitle>{t('add-set')}</DrawerTitle>
           <DrawerDescription>{t('enter-reps-weight')}</DrawerDescription>
         </DrawerHeader>
-        <form
-          onSubmit={handleSubmit(handleAddSetSubmit)}
-          className="space-y-6 px-6 py-12"
-        >
+        <form onSubmit={handleSubmit(handleAddSetSubmit)} className="space-y-6 px-6 py-12">
           <div>
             <label>{t('reps')}</label>
-            <Input
-              type="number"
-              {...register('reps', { required: t('reps-required') })}
-            />
-            {errors.reps && (
-              <span className="text-red-500">{errors.reps.message}</span>
-            )}
+            <Input type="number" {...register('reps', { required: t('reps-required') })} />
+            {errors.reps && <span className="text-red-500">{errors.reps.message}</span>}
           </div>
           <div>
             <label>{t('weight')}</label>
-            <Input
-              type="number"
-              {...register('weight', { required: t('weight-required') })}
-            />
-            {errors.weight && (
-              <span className="text-red-500">{errors.weight.message}</span>
-            )}
+            <Input type="number" {...register('weight', { required: t('weight-required') })} />
+            {errors.weight && <span className="text-red-500">{errors.weight.message}</span>}
           </div>
           <Button type="submit" className="mt-4 w-full">
             {t('submit')}

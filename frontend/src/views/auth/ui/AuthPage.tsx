@@ -23,11 +23,7 @@ export const AuthPage = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center p-6">
-      <Tabs
-        value={currentTab}
-        onValueChange={handleTabChange}
-        className="w-full max-w-md"
-      >
+      <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full max-w-md">
         <TabsList
           role="tablist"
           aria-orientation="horizontal"

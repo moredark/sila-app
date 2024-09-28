@@ -39,9 +39,7 @@ export function Combobox<T extends string | number>({
   const [search, setSearch] = React.useState('')
 
   const filteredOptions = search
-    ? options.filter((option) =>
-        option.label.toLowerCase().includes(search.toLowerCase())
-      )
+    ? options.filter(option => option.label.toLowerCase().includes(search.toLowerCase()))
     : options
 
   const handleSelect = (selectedValue: T) => {
@@ -59,9 +57,7 @@ export function Combobox<T extends string | number>({
           aria-expanded={open}
           className={cn('w-full justify-between', className)}
         >
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder}
+          {value ? options.find(option => option.value === value)?.label : placeholder}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -70,12 +66,12 @@ export function Combobox<T extends string | number>({
           <CommandInput
             placeholder={searchPlaceholder}
             value={search}
-            onInput={(e) => setSearch(e.currentTarget.value)}
+            onInput={e => setSearch(e.currentTarget.value)}
           />
           <CommandList>
             <CommandEmpty>No options found.</CommandEmpty>
             <CommandGroup>
-              {filteredOptions.map((option) => (
+              {filteredOptions.map(option => (
                 <CommandItem
                   key={option.value}
                   value={option.value.toString()}
@@ -84,7 +80,7 @@ export function Combobox<T extends string | number>({
                   <Check
                     className={cn(
                       'mr-2 h-4 w-4',
-                      value === option.value ? 'opacity-100' : 'opacity-0'
+                      value === option.value ? 'opacity-100' : 'opacity-0',
                     )}
                   />
                   {option.label}

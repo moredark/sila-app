@@ -8,13 +8,7 @@ type NavButtonProps = {
   isActive?: boolean
 }
 
-export const NavButton = ({
-  icon,
-  label,
-  onClick,
-  isMain,
-  isActive,
-}: NavButtonProps) => {
+export const NavButton = ({ icon, label, onClick, isMain, isActive }: NavButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -24,7 +18,7 @@ export const NavButton = ({
           ? 'scale-105 rounded bg-primary text-primary-foreground shadow-lg'
           : isActive
             ? 'text-primary dark:text-primary-foreground'
-            : 'text-muted-foreground dark:text-neutral-400'
+            : 'text-muted-foreground dark:text-neutral-400',
       )}
       aria-label={label}
       style={{ flexBasis: '33.33%' }}

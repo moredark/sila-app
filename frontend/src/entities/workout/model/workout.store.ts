@@ -20,7 +20,7 @@ interface WorkoutState {
 export const useWorkoutStore = create<WorkoutState>()(
   devtools(
     persist(
-      (set) => ({
+      set => ({
         workoutId: null,
         exerciseId: null,
         sets: [],
@@ -33,7 +33,7 @@ export const useWorkoutStore = create<WorkoutState>()(
             isCompleted: false,
           }),
         addSet: (reps, weight) =>
-          set((state) => ({
+          set(state => ({
             sets: [...state.sets, { reps, weight }],
           })),
         completeWorkout: () => set({ isCompleted: true }),
@@ -48,7 +48,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       {
         name: 'workout-storage',
         getStorage: () => sessionStorage,
-      }
-    )
-  )
+      },
+    ),
+  ),
 )

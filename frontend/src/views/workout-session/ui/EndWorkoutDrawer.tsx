@@ -24,11 +24,7 @@ interface EndWorkoutDrawerProps {
   workoutId: number
 }
 
-const EndWorkoutDrawer: FC<EndWorkoutDrawerProps> = ({
-  open,
-  onOpenChange,
-  workoutId,
-}) => {
+const EndWorkoutDrawer: FC<EndWorkoutDrawerProps> = ({ open, onOpenChange, workoutId }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const { register, handleSubmit } = useForm<{ feedback: string }>()
@@ -53,16 +49,10 @@ const EndWorkoutDrawer: FC<EndWorkoutDrawerProps> = ({
           <DrawerTitle>{t('end-workout')}</DrawerTitle>
           <DrawerDescription>{t('optional-feedback')}</DrawerDescription>
         </DrawerHeader>
-        <form
-          onSubmit={handleSubmit(handleEndWorkoutSubmit)}
-          className="space-y-6 px-6 py-12"
-        >
+        <form onSubmit={handleSubmit(handleEndWorkoutSubmit)} className="space-y-6 px-6 py-12">
           <div>
             <label>{t('feedback')}</label>
-            <Textarea
-              {...register('feedback')}
-              placeholder={t('feedback-placeholder')}
-            />
+            <Textarea {...register('feedback')} placeholder={t('feedback-placeholder')} />
           </div>
           <Button type="submit" className="mt-4 w-full">
             {t('end-workout')}

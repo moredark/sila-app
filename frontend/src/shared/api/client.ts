@@ -40,9 +40,7 @@ const authMiddleware: Middleware = {
         if (refreshToken) {
           const tokens = await refreshTokens(refreshToken)
           if (tokens && tokens.access_token && tokens.refresh_token) {
-            useUserStore
-              .getState()
-              .setTokens(tokens.access_token, tokens.refresh_token)
+            useUserStore.getState().setTokens(tokens.access_token, tokens.refresh_token)
           } else {
             throw new Error('Token refresh failed')
           }

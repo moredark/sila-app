@@ -16,9 +16,7 @@ import { ExerciseList } from './ExerciseList'
 
 export const StartWorkoutPage: FC = () => {
   const { t } = useTranslation()
-  const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(
-    null
-  )
+  const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(null)
   const { mutateAsync: startWorkout } = useStartWorkout()
   const { push } = useRouter()
 
@@ -26,7 +24,7 @@ export const StartWorkoutPage: FC = () => {
 
   const handleStartTraining = () => {
     if (selectedExerciseId) {
-      startWorkout({ exerciseId: selectedExerciseId }).then((res) => {
+      startWorkout({ exerciseId: selectedExerciseId }).then(res => {
         if (res.data?.session_id) {
           push(`/workout/${res.data.session_id}`)
         }
@@ -50,26 +48,19 @@ export const StartWorkoutPage: FC = () => {
           <h2 className="mb-3 text-center text-lg">{t('choose-exercise')}</h2>
           <ExerciseList
             selectedExerciseId={selectedExerciseId}
-            onSelectExercise={(id) =>
-              setSelectedExerciseId(id === selectedExerciseId ? null : id)
-            }
+            onSelectExercise={id => setSelectedExerciseId(id === selectedExerciseId ? null : id)}
           />
           <div
             className={`fixed inset-x-0 bottom-20 flex justify-center p-4 transition-all duration-300${selectedExerciseId ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-10 opacity-0'}`}
           >
-            <Button
-              onClick={handleStartTraining}
-              className="w-full max-w-xs p-6 text-lg"
-            >
+            <Button onClick={handleStartTraining} className="w-full max-w-xs p-6 text-lg">
               {t('start-workout')}
             </Button>
           </div>
         </TabsContent>
 
         <TabsContent value="incomplete">
-          <h2 className="mb-3 text-center text-lg">
-            {t('incomplete-workouts')}
-          </h2>
+          <h2 className="mb-3 text-center text-lg">{t('incomplete-workouts')}</h2>
           {incompleteWorkouts ? (
             <ul className="mb-6">
               {incompleteWorkouts.data?.map((workout: WorkoutSession) => (
@@ -79,9 +70,7 @@ export const StartWorkoutPage: FC = () => {
                     onClick={() => push(`/workout/${workout.id}`)}
                   >
                     <p>{workout.exercise?.name}</p>
-                    <p className="text-zinc-500">
-                      {workout.exercise?.muscle_group?.name}
-                    </p>
+                    <p className="text-zinc-500">{workout.exercise?.muscle_group?.name}</p>
                     <p>
                       {t('sets')}: {workout.sets?.length || 0}
                     </p>

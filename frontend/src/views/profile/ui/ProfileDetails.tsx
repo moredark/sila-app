@@ -9,11 +9,7 @@ interface ProfileDetailsProps {
   bio: string | undefined
 }
 
-export const ProfileDetails: FC<ProfileDetailsProps> = ({
-  fitnessLevel,
-  joinedDate,
-  bio,
-}) => {
+export const ProfileDetails: FC<ProfileDetailsProps> = ({ fitnessLevel, joinedDate, bio }) => {
   const { t } = useTranslation()
 
   return (

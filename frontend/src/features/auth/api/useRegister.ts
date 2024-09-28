@@ -31,9 +31,7 @@ export const useRegister = () => {
         toast.error('Failed to retrieve tokens.')
       }
     },
-    onError: (error: {
-      response?: { status: number; data?: RegisterError }
-    }) => {
+    onError: (error: { response?: { status: number; data?: RegisterError } }) => {
       const response = error?.response
 
       if (response?.status === 409) {
