@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupUserRoutes(app *fiber.App) {
-	user := app.Group("/user", middleware.Authenticate)
+func SetupUserRoutes(api fiber.Router) {
+	user := api.Group("/user", middleware.Authenticate)
 	{
 		user.Get("/profile", controllers.GetUserProfile)
 	}

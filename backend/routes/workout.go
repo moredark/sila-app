@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupWorkoutRoutes(app *fiber.App) {
-	workout := app.Group("/workout", middleware.Authenticate)
+func SetupWorkoutRoutes(api fiber.Router) {
+	workout := api.Group("/workout", middleware.Authenticate)
 	{
 		workout.Post("/start", controllers.StartWorkoutSession)
 		workout.Post("/add-set/:id", controllers.AddSetToWorkout)

@@ -8,7 +8,7 @@ import (
 
 func Setup(app *fiber.App) {
 	api := app.Group("/api")
-	
+
 	SetupAuthRoutes(api)
 	SetupUserRoutes(api)
 	SetupAdminRoutes(api)
