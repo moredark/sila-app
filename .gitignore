@@ -1,1 +1,4 @@
 .env
+certbot/
+*.pem
+*.key
