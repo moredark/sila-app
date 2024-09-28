@@ -9,13 +9,13 @@ import (
 func Setup(app *fiber.App) {
 	api := app.Group("/api")
 	
-	SetupAuthRoutes(app)
-	SetupUserRoutes(app)
-	SetupAdminRoutes(app)
-	SetupFitnessLevelsRoutes(app)
-	SetupMuscleGroupRoutes(app)
-	SetupExercisesRoutes(app)
-	SetupWorkoutRoutes(app)
+	SetupAuthRoutes(api)
+	SetupUserRoutes(api)
+	SetupAdminRoutes(api)
+	SetupFitnessLevelsRoutes(api)
+	SetupMuscleGroupRoutes(api)
+	SetupExercisesRoutes(api)
+	SetupWorkoutRoutes(api)
 
-	app.Get("/swagger/*", swagger.HandlerDefault)
+	api.Get("/swagger/*", swagger.HandlerDefault)
 }
