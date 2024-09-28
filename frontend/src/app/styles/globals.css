@@ -54,16 +54,10 @@ body {
   color: hsl(var(--foreground));
 }
 
-html, body {
+html,
+body {
   -webkit-overflow-scrolling: auto;
   scroll-behavior: auto;
-}
-
-input,
-textarea,
-select,
-button {
-  font-size: 16px;
 }
 
 @layer base {

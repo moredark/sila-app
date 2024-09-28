@@ -45,9 +45,9 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/no-require-imports": "off",
-    "@typescript-eslint/no-empty-object-type": "off",  
-    "import/no-named-as-default":"off",
-    "tailwindcss/no-custom-classname":"off",
+    "@typescript-eslint/no-empty-object-type": "off",
+    "import/no-named-as-default": "off",
+    "tailwindcss/no-custom-classname": "off",
     "import/no-named-as-default-member": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -86,9 +86,7 @@
             "position": "before"
           }
         ],
-        "pathGroupsExcludedImportTypes": [
-          "builtin"
-        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
         "groups": [
           "builtin",
           "external",
@@ -144,14 +142,9 @@
   },
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
-      "plugins": [
-        "@typescript-eslint"
-      ],
+      "plugins": ["@typescript-eslint"],
       "rules": {
         "react/require-default-props": "off",
         "@typescript-eslint/no-use-before-define": "off",
@@ -167,11 +160,7 @@
           "error",
           {
             "selector": "variable",
-            "format": [
-              "camelCase",
-              "PascalCase",
-              "UPPER_CASE"
-            ],
+            "format": ["camelCase", "PascalCase", "UPPER_CASE"],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow"
           }

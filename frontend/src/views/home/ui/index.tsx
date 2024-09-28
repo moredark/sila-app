@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
 
-export const HomePage: FC = ({ }) => {
-    return <div>
-        Главная
-    </div>;
-};
+export const HomePage: FC = ({}) => {
+  return <div>Главная</div>
+}

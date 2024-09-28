@@ -1,7 +1,7 @@
-import { AuthPage } from "@/views/auth"
+import { AuthPage } from '@/views/auth'
 
 const LoginPage = () => {
-    return <AuthPage />
+  return <AuthPage />
 }
 
 export default LoginPage

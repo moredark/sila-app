@@ -9,7 +9,7 @@ export const APP_ROUTES = {
     GOOGLE_CALLBACK: '/auth/google/callback',
   },
   ADMIN: {
-    HOME:"/admin",
+    HOME: '/admin',
     USERS: '/admin/users',
     WORKOUTS: '/admin/workouts',
     EXERCISES: '/admin/exercises',
