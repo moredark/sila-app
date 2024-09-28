@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupExercisesRoutes(app *fiber.App) {
-	exercises := app.Group("/exercises")
+func SetupExercisesRoutes(api fiber.Router) {
+	exercises := api.Group("/exercises")
 	{
 		exercises.Get("/", controllers.GetExercises)
 		exercises.Use(middleware.Authenticate, middleware.RequirePermission("admin"))

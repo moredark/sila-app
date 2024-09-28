@@ -5,8 +5,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupFitnessLevelsRoutes(app *fiber.App) {
-	fitnessLevels := app.Group("/fitness-levels")
+func SetupFitnessLevelsRoutes(api fiber.Router) {
+	fitnessLevels := api.Group("/fitness-levels")
 	{
 		fitnessLevels.Get("/", controllers.GetFitnessLevels)
 	}

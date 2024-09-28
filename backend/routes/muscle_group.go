@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupMuscleGroupRoutes(app *fiber.App) {
-	muscleGroups := app.Group("/muscle-groups")
+func SetupMuscleGroupRoutes(api fiber.Router) {
+	muscleGroups := api.Group("/muscle-groups")
 	{
 		muscleGroups.Get("/", controllers.GetMuscleGroups)
 		muscleGroups.Use(middleware.Authenticate, middleware.RequirePermission("admin"))
