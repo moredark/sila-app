@@ -54,5 +54,7 @@
   "or": "or",
   "google-sign-in":"Sign in with Google",
   "login-failed" : "Login Failed",
-  "logout": "Logout"
+  "logout": "Logout",
+  "search-exercises": "Search exercises...",
+  "select-muscle-group": "Select Muscle Group"
 }

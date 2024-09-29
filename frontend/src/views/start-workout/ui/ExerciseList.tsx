@@ -11,6 +11,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Combobox } from '@/shared/ui/combobox'
 import { Input } from '@/shared/ui/input'
 import { Skeleton } from '@/shared/ui/skeleton'
+import { useTranslation } from '@/shared/lib'
 
 type ExerciseListProps = {
   selectedExerciseId: number | null
@@ -21,6 +22,8 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
   selectedExerciseId,
   onSelectExercise,
 }) => {
+  const { t } = useTranslation()
+
   const [muscleGroupId, setMuscleGroupId] = useState<number | ''>('')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
@@ -61,7 +64,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
     <div className="space-y-2">
       <div className="relative">
         <Input
-          placeholder="Search exercises..."
+          placeholder={t('search-exercises')}
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
           className="pl-10"
@@ -72,7 +75,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
       <div className="flex items-center gap-2">
         <div className="grow">
           <Combobox
-            placeholder="Select Muscle Group"
+            placeholder={t('select-muscle-group')}
             options={
               muscleGroups?.map(group => ({
                 label: group.name || '',
@@ -91,9 +94,8 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
         {data?.map(exercise => (
           <Card
             key={exercise.id}
-            className={`cursor-pointer bg-card p-2 ${
-              selectedExerciseId === exercise.id ? 'border border-primary' : ''
-            }`}
+            className={`cursor-pointer bg-card p-2 ${selectedExerciseId === exercise.id ? 'border border-primary' : ''
+              }`}
             onClick={() => onSelectExercise(exercise.id!)}
           >
             <CardHeader className="p-2">
