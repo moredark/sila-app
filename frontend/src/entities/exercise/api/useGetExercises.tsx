@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GET } from '@/shared/api/client'
 import { useLanguage } from '@/features/language-switcher/model/useLanguage';
+import { GET } from '@/shared/api/client'
 
 export const useGetExercises = ({
   muscle_group_id,
