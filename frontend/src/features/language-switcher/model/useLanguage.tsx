@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 
 import Cookies from 'js-cookie'
-import { useTranslation as useTranslationOriginal } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 export const useLanguage = () => {
-  const { i18n } = useTranslationOriginal()
+  const { i18n } = useTranslation()
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language)
 
   const changeLanguage = (lang: string) => {
