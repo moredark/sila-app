@@ -58,7 +58,7 @@ export const LoginForm = () => {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Input
             id="email"
