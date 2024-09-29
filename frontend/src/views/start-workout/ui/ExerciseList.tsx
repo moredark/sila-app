@@ -6,12 +6,12 @@ import { Search, XIcon } from 'lucide-react'
 
 import { useGetExercises } from '@/entities/exercise'
 import { useGetMuscleGroups } from '@/entities/muscle-group/api/useGetMuscleGroups'
+import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Combobox } from '@/shared/ui/combobox'
 import { Input } from '@/shared/ui/input'
 import { Skeleton } from '@/shared/ui/skeleton'
-import { useTranslation } from '@/shared/lib'
 
 type ExerciseListProps = {
   selectedExerciseId: number | null
