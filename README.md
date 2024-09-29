@@ -156,7 +156,7 @@ Navigate to [https://sila-danila.ru](https://sila-danila.ru) using your mobile b
 
 ## Contributing
 
-Contributions are welcome! Please follow the [Contributing Guidelines](https://github.com/moredark/sila-app/CONTRIBUTING.md) to get started.
+Contributions are welcome! Please follow the `CONTRIBUTING.md` to get started.
 
 ## License
 
