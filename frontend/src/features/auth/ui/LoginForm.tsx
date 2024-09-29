@@ -57,40 +57,42 @@ export const LoginForm = () => {
   })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Input
-          id="email"
-          {...register('email')}
-          placeholder={t('email')}
-          aria-invalid={!!errors.email}
-          aria-describedby="email-error"
-        />
-        {errors.email && (
-          <p id="email-error" className="text-sm text-red-500">
-            {t('email-invalid')}
-          </p>
-        )}
-      </div>
-      <div>
-        <Input
-          id="password"
-          type="password"
-          {...register('password')}
-          placeholder={t('password')}
-          aria-invalid={!!errors.password}
-          aria-describedby="password-error"
-        />
-        {errors.password && (
-          <p id="password-error" className="text-sm text-red-500">
-            {t('password-invalid')}
-          </p>
-        )}
-      </div>
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} >
+        <div>
+          <Input
+            id="email"
+            {...register('email')}
+            placeholder={t('email')}
+            aria-invalid={!!errors.email}
+            aria-describedby="email-error"
+          />
+          {errors.email && (
+            <p id="email-error" className="text-sm text-red-500">
+              {t('email-invalid')}
+            </p>
+          )}
+        </div>
+        <div>
+          <Input
+            id="password"
+            type="password"
+            {...register('password')}
+            placeholder={t('password')}
+            aria-invalid={!!errors.password}
+            aria-describedby="password-error"
+          />
+          {errors.password && (
+            <p id="password-error" className="text-sm text-red-500">
+              {t('password-invalid')}
+            </p>
+          )}
+        </div>
 
-      <Button type="submit" disabled={isPending} className="w-full">
-        {isPending ? t('logging-in') : t('login')}
-      </Button>
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? t('logging-in') : t('login')}
+        </Button>
+      </form>
 
       <div className="flex items-center">
         <div className="grow border-t border-zinc-800"></div>
@@ -105,6 +107,7 @@ export const LoginForm = () => {
       >
         <GoogleLogo /> {t('google-sign-in')}
       </Button>
-    </form>
+    </div>
+
   )
 }

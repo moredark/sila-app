@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { GET } from '@/shared/api/client'
+import { useLanguage } from '@/features/language-switcher/model/useLanguage';
 
 export const useGetExercises = ({
   muscle_group_id,
   search,
 }: { muscle_group_id?: number; search?: string } = {}) => {
+  const { currentLanguage } = useLanguage()
+
   return useQuery({
-    queryKey: ['exercises', muscle_group_id, search],
+    queryKey: ['exercises', muscle_group_id, search, currentLanguage],
     queryFn: async () => {
       const result = await GET('/exercises', {
         params: {
