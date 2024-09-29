@@ -30,7 +30,7 @@ export const NavigationMenu = () => {
   ]
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 flex h-16 items-center justify-between border-t border-border bg-background py-2 shadow-md dark:bg-neutral-900">
+    <nav className="fixed inset-x-0 bottom-0 z-50 flex h-16 items-center justify-between border-t border-border bg-background pb-2 shadow-md dark:bg-neutral-900">
       {navItems.map((item, index) => (
         <NavButton
           key={index}
