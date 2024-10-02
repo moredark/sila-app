@@ -108,6 +108,5 @@ export const LoginForm = () => {
         <GoogleLogo /> {t('google-sign-in')}
       </Button>
     </div>
-
   )
 }

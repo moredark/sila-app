@@ -94,8 +94,9 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
         {data?.map(exercise => (
           <Card
             key={exercise.id}
-            className={`cursor-pointer bg-card p-2 ${selectedExerciseId === exercise.id ? 'border border-primary' : ''
-              }`}
+            className={`cursor-pointer bg-card p-2 ${
+              selectedExerciseId === exercise.id ? 'border border-primary' : ''
+            }`}
             onClick={() => onSelectExercise(exercise.id!)}
           >
             <CardHeader className="p-2">

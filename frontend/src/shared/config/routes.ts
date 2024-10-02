@@ -3,6 +3,7 @@ export const APP_ROUTES = {
   PROFILE: '/profile',
   SETTINGS: '/settings',
   WORKOUT: '/workout',
+  WORKOUT_HISTORY: '/workout-history',
   AUTH: {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',

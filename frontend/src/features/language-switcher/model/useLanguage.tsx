@@ -10,10 +10,10 @@ export const useLanguage = () => {
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language)
 
   const changeLanguage = (lang: string) => {
-    Cookies.set('language', lang, { expires: 7, sameSite: 'strict', path: '/' });
-    i18n.changeLanguage(lang);
-    setCurrentLanguage(lang);
-  };
+    Cookies.set('language', lang, { expires: 7, sameSite: 'strict', path: '/' })
+    i18n.changeLanguage(lang)
+    setCurrentLanguage(lang)
+  }
 
   useEffect(() => {
     const savedLang = Cookies.get('language')

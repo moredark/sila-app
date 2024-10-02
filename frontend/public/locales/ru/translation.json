@@ -56,5 +56,12 @@
   "login-failed": "Ошибка авторизации",
   "logout": "Выйти",
   "search-exercises": "Поиск упражнений...",
-  "select-muscle-group": "Выберите группу мышц"
+  "select-muscle-group": "Выберите группу мышц",
+  "history": "История",
+  "nothing-found": "Ничего не найдено",
+  "select-exercise": "Выберете упражнение",
+  "avg-weight": "Средний вес",
+  "completed": "Завершено",
+  "not_completed": "Не завершено",
+  "set": "Подход"
 }
