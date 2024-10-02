@@ -181,6 +181,15 @@ definitions:
       name:
         type: string
     type: object
+  models.PaginatedWorkoutResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/models.IncompleteWorkoutResponse'
+        type: array
+      total:
+        type: integer
+    type: object
   models.Permission:
     properties:
       id:
@@ -918,8 +927,7 @@ paths:
         "200":
           description: Paginated list of workout sessions
           schema:
-            additionalProperties: true
-            type: object
+            $ref: '#/definitions/models.PaginatedWorkoutResponse'
         "400":
           description: Invalid exercise ID
           schema:

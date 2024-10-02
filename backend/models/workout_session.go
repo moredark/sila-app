@@ -35,3 +35,7 @@ type StartWorkoutResponse struct {
 	CreatedAt   string                  `json:"created_at" validate:"required"`
 	LastSession *WorkoutSessionResponse `json:"last_session,omitempty"`
 }
+type PaginatedWorkoutResponse struct {
+	Items []IncompleteWorkoutResponse `json:"items"`
+	Total int64                       `json:"total"`
+}

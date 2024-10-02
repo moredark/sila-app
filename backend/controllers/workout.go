@@ -337,7 +337,7 @@ func GetIncompleteWorkouts(c *fiber.Ctx) error {
 // @Param exercise_id path int true "Exercise ID"
 // @Param limit query int false "Limit the number of results"
 // @Param offset query int false "Offset for pagination"
-// @Success 200 {object} map[string]interface{} "Paginated list of workout sessions"
+// @Success 200 {object} models.PaginatedWorkoutResponse "Paginated list of workout sessions"
 // @Failure 400 {object} map[string]string "Invalid exercise ID"
 // @Failure 500 {object} map[string]string "Failed to retrieve workout sessions"
 // @Router /workout/exercise/{exercise_id} [get]
