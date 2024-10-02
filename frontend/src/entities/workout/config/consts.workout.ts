@@ -1,0 +1,1 @@
+export const WORKOUTS_BY_EXERCISES_LIMIT = 20

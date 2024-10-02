@@ -1,7 +1,7 @@
 const { exec } = require('child_process')
 const fs = require('fs')
 
-const API_DOCS_URL = 'http://localhost:8080/swagger/doc.json'
+const API_DOCS_URL = 'https://sila-danila.ru/api/swagger/doc.json'
 
 const SCHEMA_ROUTE = './src/shared/api/schema.d.ts'
 

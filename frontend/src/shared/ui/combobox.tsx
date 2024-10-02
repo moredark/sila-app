@@ -38,13 +38,18 @@ export function Combobox<T extends string | number>({
   const [value, setValue] = React.useState<T | null>(defaultValue || null)
   const [search, setSearch] = React.useState('')
 
+  React.useEffect(() => {
+    setValue(defaultValue || null)
+  }, [defaultValue])
+
   const filteredOptions = search
     ? options.filter(option => option.label.toLowerCase().includes(search.toLowerCase()))
     : options
 
   const handleSelect = (selectedValue: T) => {
-    setValue(selectedValue === value ? null : selectedValue)
-    onSelect(selectedValue === value ? null : selectedValue)
+    const newValue = selectedValue === value ? null : selectedValue
+    setValue(newValue)
+    onSelect(newValue)
     setOpen(false)
   }
 

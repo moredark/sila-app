@@ -992,9 +992,7 @@ export interface paths {
             [name: string]: unknown
           }
           content: {
-            'application/json': {
-              [key: string]: unknown
-            }
+            'application/json': components['schemas']['models.PaginatedWorkoutResponse']
           }
         }
         /** @description Invalid exercise ID */
@@ -1309,6 +1307,10 @@ export interface components {
     'models.MuscleGroupDTO': {
       id?: number
       name?: string
+    }
+    'models.PaginatedWorkoutResponse': {
+      items?: components['schemas']['models.IncompleteWorkoutResponse'][]
+      total?: number
     }
     'models.Permission': {
       id?: number

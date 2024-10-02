@@ -1,6 +1,6 @@
 'use client'
 
-import { BicepsFlexed, Settings, User } from 'lucide-react'
+import { BicepsFlexed, HistoryIcon, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { APP_ROUTES } from '@/shared/config'
@@ -20,7 +20,11 @@ export const NavigationMenu = () => {
   const { t } = useTranslation()
 
   const navItems: NavItem[] = [
-    { label: t('settings'), icon: <Settings />, route: APP_ROUTES.SETTINGS },
+    {
+      label: t('history'),
+      icon: <HistoryIcon />,
+      route: APP_ROUTES.WORKOUT_HISTORY,
+    },
     {
       label: t('nav-workout'),
       icon: <BicepsFlexed />,

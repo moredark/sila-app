@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { GET, POST, PUT } from '@/shared/api/client'
 
+import { WORKOUTS_BY_EXERCISES_LIMIT } from '../config/consts.workout'
+
 import { useWorkoutStore } from './workout.store'
 import { WorkoutSession } from './workout.types'
 
@@ -126,5 +128,45 @@ export const useGetIncompleteWorkouts = () => {
   return useQuery({
     queryKey: ['incompleteWorkouts'],
     queryFn: () => GET('/workout/incomplete'),
+  })
+}
+
+export const useGetWorkoutsByExercises = ({
+  exercise_id,
+  page,
+  limit = WORKOUTS_BY_EXERCISES_LIMIT,
+}: {
+  exercise_id: number
+  page: number
+  limit?: number
+}) => {
+  return useQuery({
+    queryKey: ['workoutsByExercises', exercise_id, page, limit],
+    queryFn: () =>
+      GET(`/workout/exercise/{exercise_id}`, {
+        params: {
+          path: {
+            exercise_id,
+          },
+          query: {
+            limit,
+            offset: (page - 1) * limit,
+          },
+        },
+      }),
+  })
+}
+
+export const useGetWorkoutById = ({ workout_id }: { workout_id: number }) => {
+  return useQuery({
+    queryKey: [workout_id],
+    queryFn: () =>
+      GET(`/workout/{id}`, {
+        params: {
+          path: {
+            id: workout_id,
+          },
+        },
+      }),
   })
 }
