@@ -813,8 +813,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Paginated list of workout sessions",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "$ref": "#/definitions/models.PaginatedWorkoutResponse"
                         }
                     },
                     "400": {
@@ -1240,6 +1239,20 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "models.PaginatedWorkoutResponse": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.IncompleteWorkoutResponse"
+                    }
+                },
+                "total": {
+                    "type": "integer"
                 }
             }
         },
