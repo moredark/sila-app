@@ -72,6 +72,17 @@ const WorkoutByIdPage: FC<Props> = ({ workoutId }) => {
           </Table>
         </CardContent>
       </Card>
+
+      {exerciseData?.note && (
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('note')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">{exerciseData?.note}</p>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

@@ -63,5 +63,6 @@
   "avg-weight": "Avg Weight",
   "completed": "Completed",
   "not_completed": "Not Completed",
-  "set": "Set"
+  "set": "Set",
+  "note": "Note"
 }
