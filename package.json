@@ -5,12 +5,12 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "frontend/**/*.{ts,tsx}": [
-      "cd frontend && pnpm eslint --fix",
-      "cd frontend && pnpm prettier --write"
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "pnpm --dir frontend exec eslint --fix",
+      "pnpm --dir frontend exec prettier --write"
     ],
-    "frontend/**/*.{scss}": [
-      "cd frontend && pnpm prettier --write"
+    "frontend/**/*.{css,scss,md}": [
+      "pnpm --dir frontend exec prettier --write"
     ]
   },
   "license": "MIT",
