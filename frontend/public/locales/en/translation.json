@@ -64,5 +64,9 @@
   "completed": "Completed",
   "not_completed": "Not Completed",
   "set": "Set",
-  "note": "Note"
+  "note": "Note",
+  "current-workout": "Current",
+  "last-workout": "Previous",
+  "last-session": "Previous Session",
+  "last-session-not-found": "Previous Session Not Found"
 }

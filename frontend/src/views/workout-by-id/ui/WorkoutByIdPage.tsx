@@ -7,6 +7,8 @@ import { Badge } from '@/shared/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Skeleton } from '@/shared/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table'
+import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
+import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
 
 interface Props {
   workoutId: number
@@ -44,45 +46,9 @@ const WorkoutByIdPage: FC<Props> = ({ workoutId }) => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('sets')}</CardTitle>
-          <CardDescription>
-            {t('avg-weight')}: {exerciseData?.sets && calculateAverageWeight(exerciseData?.sets)} kg
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t('set')}</TableHead>
-                <TableHead>{t('weight')}</TableHead>
-                <TableHead>{t('reps')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {exerciseData?.sets?.map((set, index) => (
-                <TableRow key={set.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{set.weight}</TableCell>
-                  <TableCell>{set.reps}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      {exerciseData?.sets && <SetsTable sets={exerciseData.sets} />}
 
-      {exerciseData?.note && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('note')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">{exerciseData?.note}</p>
-          </CardContent>
-        </Card>
-      )}
+      {exerciseData?.note && <WorkoutNote note={exerciseData.note} />}
     </div>
   )
 }

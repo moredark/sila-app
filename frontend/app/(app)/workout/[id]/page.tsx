@@ -1,6 +1,6 @@
 import { getWorkout } from '@/entities/workout/model/workout.api'
-import WorkoutSessionPage from '@/views/workout-session/ui'
 import { ACCESS_TOKEN_KEY } from '@/shared/config/auth'
+import { WorkoutSessionPage } from '@/views/workout-session/ui'
 import { cookies } from 'next/headers'
 import { FC } from 'react'
 

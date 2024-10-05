@@ -64,5 +64,9 @@
   "completed": "Завершено",
   "not_completed": "Не завершено",
   "set": "Подход",
-  "note": "Заметка"
+  "note": "Заметка",
+  "current-workout": "Текущая",
+  "last-workout": "Прошлая",
+  "last-session": "Прошлая тренировка",
+  "last-session-not-found": "Прошлая тренировка не найдена"
 }
