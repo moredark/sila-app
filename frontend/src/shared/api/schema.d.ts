@@ -1288,7 +1288,7 @@ export interface components {
     }
     'models.IncompleteWorkoutResponse': {
       created_at?: string
-      exercise?: components['schemas']['models.Exercise']
+      exercise?: components['schemas']['models.ExerciseResponse']
       id?: number
       is_completed?: boolean
       note?: string
