@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
+'use client'
+
+import React, { FC, useState } from 'react'
 
 import { WorkoutSession } from '@/entities/workout/model/workout.types'
 import AddSetDrawer from '@/features/workout/ui/AddSetDrawer'
 import EndWorkoutDrawer from '@/features/workout/ui/EndWorkoutDrawer'
-import { TabsContent } from '@/shared/ui'
+import { TabsContent, Timer } from '@/shared/ui'
 
 import WorkoutActions from './WorkoutActions'
 import WorkoutHeader from './WorkoutHeader'
@@ -16,6 +18,7 @@ interface CurrentWorkoutContentProps {
   setAddSetDrawerOpen: (open: boolean) => void
   isEndWorkoutDrawerOpen: boolean
   setEndWorkoutDrawerOpen: (open: boolean) => void
+  handleSetAdded: () => void
 }
 
 const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
@@ -25,6 +28,7 @@ const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
   setAddSetDrawerOpen,
   isEndWorkoutDrawerOpen,
   setEndWorkoutDrawerOpen,
+  handleSetAdded,
 }) => {
   return (
     <TabsContent value="current">
@@ -39,6 +43,7 @@ const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
           open={isAddSetDrawerOpen}
           onOpenChange={setAddSetDrawerOpen}
           workoutId={workoutData.id!}
+          onSetAdded={handleSetAdded}
         />
         <EndWorkoutDrawer
           open={isEndWorkoutDrawerOpen}

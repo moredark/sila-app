@@ -20,9 +20,10 @@ interface AddSetDrawerProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   workoutId: number
+  onSetAdded: () => void
 }
 
-const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId }) => {
+const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, onSetAdded }) => {
   const { t } = useTranslation()
   const {
     register,
@@ -37,6 +38,7 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId }) 
       reps: Number(data.reps),
       weight: Number(data.weight),
     })
+    onSetAdded()
     onOpenChange(false)
   }
 

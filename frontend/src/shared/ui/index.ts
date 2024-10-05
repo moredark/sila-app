@@ -14,3 +14,4 @@ export {
 export { Input } from './input'
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 export { Toaster } from './sonner'
+export { Timer } from './timer'
