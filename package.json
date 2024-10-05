@@ -1,0 +1,21 @@
+{
+  "name": "sila-app",
+  "version": "1.0.0",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "frontend/**/*.{ts,tsx}": [
+      "cd frontend && pnpm eslint --fix",
+      "cd frontend && pnpm prettier --write"
+    ],
+    "frontend/**/*.{scss}": [
+      "cd frontend && pnpm prettier --write"
+    ]
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10"
+  }
+}
