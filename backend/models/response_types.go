@@ -22,12 +22,12 @@ type LastWorkoutSessionResponse struct {
 }
 
 type IncompleteWorkoutResponse struct {
-	ID          int       `json:"id"`
-	Note        string    `json:"note,omitempty"`
-	IsCompleted bool      `json:"is_completed"`
-	CreatedAt   time.Time `json:"created_at"`
-	Exercise    Exercise  `json:"exercise"`
-	Sets        []Set     `json:"sets"`
+	ID          int              `json:"id"`
+	Note        string           `json:"note,omitempty"`
+	IsCompleted bool             `json:"is_completed"`
+	CreatedAt   time.Time        `json:"created_at"`
+	Exercise    ExerciseResponse `json:"exercise"`
+	Sets        []Set            `json:"sets"`
 }
 
 type ErrorResponse struct {
