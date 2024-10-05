@@ -430,12 +430,13 @@ func GetWorkoutsByExercise(c *fiber.Ctx) error {
 			Note:        session.Note,
 			IsCompleted: session.IsCompleted,
 			CreatedAt:   session.CreatedAt,
-			Exercise: models.Exercise{
-				ID:      session.Exercise.ID,
-				NameEng: exerciseName,
-				MuscleGroup: models.MuscleGroup{
-					ID:      session.Exercise.MuscleGroup.ID,
-					NameEng: muscleGroupName,
+			Exercise: models.ExerciseResponse{
+				ID:   session.Exercise.ID,
+				Name: exerciseName,
+				MuscleGroup: models.GetMuscleGroupsResponse{
+					ID:       session.Exercise.MuscleGroup.ID,
+					Name:     muscleGroupName,
+					ImageURL: session.Exercise.MuscleGroup.ImageURL,
 				},
 			},
 			Sets: session.Sets,
