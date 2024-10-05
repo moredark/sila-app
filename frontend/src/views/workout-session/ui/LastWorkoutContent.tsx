@@ -19,7 +19,7 @@ const LastWorkoutContent: FC<LastWorkoutContentProps> = ({ data }) => {
       {data?.last_session?.sets ? (
         <SetsTable sets={data.last_session?.sets} />
       ) : (
-        <p>{t('last-session-not-found')}</p>
+        <p className="text-center">{t('last-session-not-found')}</p>
       )}
       {data?.last_session?.note && <WorkoutNote note={data.last_session.note} />}
     </TabsContent>
