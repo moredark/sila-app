@@ -199,12 +199,12 @@ func CompleteWorkoutSession(c *fiber.Ctx) error {
 
 // GetWorkoutSession godoc
 // @Summary Get details of a workout session
-// @Description Retrieve details of a specific workout session including sets, exercise info, and muscle group.
+// @Description Retrieve details of a specific workout session including sets, exercise info, muscle group, and last session.
 // @Tags Workout
 // @Accept json
 // @Produce json
 // @Param id path int true "Workout session ID"
-// @Success 200 {object} models.WorkoutSessionResponse "Workout session details"
+// @Success 200 {object} models.WorkoutSessionResponse "Workout session details with last session"
 // @Failure 400 {object} map[string]string "Invalid session ID"
 // @Failure 404 {object} map[string]string "Workout session not found"
 // @Router /workout/{id} [get]
@@ -228,22 +228,59 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 		muscleGroupName = session.Exercise.MuscleGroup.NameRu
 	}
 
+	// Ищем последнюю завершенную сессию перед текущей
+	var lastSession models.WorkoutSession
+	err = config.DB.
+		Where("user_id = ? AND exercise_id = ? AND is_completed = ? AND created_at < ?", session.UserID, session.ExerciseID, true, session.CreatedAt).
+		Order("created_at DESC").
+		Preload("Sets").
+		Preload("Exercise.MuscleGroup").
+		First(&lastSession).Error
+
+	var lastSessionResponse *models.LastWorkoutSessionResponse
+	if err == nil {
+		lastExerciseName := lastSession.Exercise.NameEng
+		lastMuscleGroupName := lastSession.Exercise.MuscleGroup.NameEng
+		if lang == "ru" {
+			lastExerciseName = lastSession.Exercise.NameRu
+			lastMuscleGroupName = lastSession.Exercise.MuscleGroup.NameRu
+		}
+
+		lastSessionResponse = &models.LastWorkoutSessionResponse{
+			ID:          lastSession.ID,
+			Note:        lastSession.Note,
+			IsCompleted: lastSession.IsCompleted,
+			CreatedAt:   lastSession.CreatedAt,
+			Sets:        lastSession.Sets,
+			Exercise: models.ExerciseResponse{
+				ID:   lastSession.Exercise.ID,
+				Name: lastExerciseName,
+				MuscleGroup: models.GetMuscleGroupsResponse{
+					ID:       lastSession.Exercise.MuscleGroup.ID,
+					Name:     lastMuscleGroupName,
+					ImageURL: lastSession.Exercise.MuscleGroup.ImageURL,
+				},
+			},
+		}
+	}
+
 	response := models.WorkoutSessionResponse{
 		ID:          session.ID,
 		Note:        session.Note,
 		IsCompleted: session.IsCompleted,
 		CreatedAt:   session.CreatedAt,
-		Sets:        make([]models.Set, 0),
+		Sets:        session.Sets,
+		Exercise: models.ExerciseResponse{
+			ID:   session.Exercise.ID,
+			Name: exerciseName,
+			MuscleGroup: models.GetMuscleGroupsResponse{
+				ID:       session.Exercise.MuscleGroup.ID,
+				Name:     muscleGroupName,
+				ImageURL: session.Exercise.MuscleGroup.ImageURL,
+			},
+		},
+		LastSession: lastSessionResponse,
 	}
-
-	if len(session.Sets) > 0 {
-		response.Sets = session.Sets
-	}
-
-	response.Exercise.ID = session.Exercise.ID
-	response.Exercise.Name = exerciseName
-	response.Exercise.MuscleGroup.ID = session.Exercise.MuscleGroup.ID
-	response.Exercise.MuscleGroup.Name = muscleGroupName
 
 	return c.JSON(response)
 }

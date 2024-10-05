@@ -88,7 +88,7 @@ definitions:
       id:
         type: integer
       muscle_group:
-        $ref: '#/definitions/models.MuscleGroupDTO'
+        $ref: '#/definitions/models.GetMuscleGroupsResponse'
       name:
         type: string
     type: object
@@ -156,6 +156,27 @@ definitions:
           $ref: '#/definitions/models.Set'
         type: array
     type: object
+  models.LastWorkoutSessionResponse:
+    properties:
+      created_at:
+        example: "2023-10-01T10:00:00Z"
+        type: string
+      exercise:
+        $ref: '#/definitions/models.ExerciseResponse'
+      id:
+        example: 1
+        type: integer
+      is_completed:
+        example: true
+        type: boolean
+      note:
+        example: Previous workout notes
+        type: string
+      sets:
+        items:
+          $ref: '#/definitions/models.Set'
+        type: array
+    type: object
   models.LoginRequest:
     properties:
       email:
@@ -172,13 +193,6 @@ definitions:
       name_eng:
         type: string
       name_ru:
-        type: string
-    type: object
-  models.MuscleGroupDTO:
-    properties:
-      id:
-        type: integer
-      name:
         type: string
     type: object
   models.PaginatedWorkoutResponse:
@@ -326,23 +340,13 @@ definitions:
       created_at:
         type: string
       exercise:
-        properties:
-          id:
-            type: integer
-          muscle_group:
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-            type: object
-          name:
-            type: string
-        type: object
+        $ref: '#/definitions/models.ExerciseResponse'
       id:
         type: integer
       is_completed:
         type: boolean
+      last_session:
+        $ref: '#/definitions/models.LastWorkoutSessionResponse'
       note:
         type: string
       sets:
@@ -778,7 +782,7 @@ paths:
       consumes:
       - application/json
       description: Retrieve details of a specific workout session including sets,
-        exercise info, and muscle group.
+        exercise info, muscle group, and last session.
       parameters:
       - description: Workout session ID
         in: path
@@ -789,7 +793,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: Workout session details
+          description: Workout session details with last session
           schema:
             $ref: '#/definitions/models.WorkoutSessionResponse'
         "400":

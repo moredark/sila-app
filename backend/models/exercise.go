@@ -39,11 +39,11 @@ type UpdateExerciseRequest struct {
 }
 
 type ExerciseResponse struct {
-	ID          int            `json:"id"`
-	Name        string         `json:"name"`
-	Description string         `json:"description,omitempty"`
-	MuscleGroup MuscleGroupDTO `json:"muscle_group"`
-	CreatedAt   time.Time      `json:"created_at"`
+	ID          int                     `json:"id"`
+	Name        string                  `json:"name"`
+	Description string                  `json:"description,omitempty"`
+	MuscleGroup GetMuscleGroupsResponse `json:"muscle_group"`
+	CreatedAt   time.Time               `json:"created_at"`
 }
 
 type MuscleGroupDTO struct {
