@@ -7,7 +7,7 @@ type WorkoutSessionResponse struct {
 	Note        string                      `json:"note,omitempty"`
 	IsCompleted bool                        `json:"is_completed"`
 	CreatedAt   time.Time                   `json:"created_at"`
-	Sets        []Set                       `json:"sets,omitempty"`
+	Sets        []Set                       `json:"sets"`
 	Exercise    ExerciseResponse            `json:"exercise"`
 	LastSession *LastWorkoutSessionResponse `json:"last_session,omitempty"`
 }
@@ -17,7 +17,7 @@ type LastWorkoutSessionResponse struct {
 	Note        string           `json:"note,omitempty" example:"Previous workout notes"`
 	IsCompleted bool             `json:"is_completed" example:"true"`
 	CreatedAt   time.Time        `json:"created_at" example:"2023-10-01T10:00:00Z"`
-	Sets        []Set            `json:"sets,omitempty"`
+	Sets        []Set            `json:"sets"`
 	Exercise    ExerciseResponse `json:"exercise"`
 }
 

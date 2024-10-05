@@ -228,8 +228,14 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 		muscleGroupName = session.Exercise.MuscleGroup.NameRu
 	}
 
-	// Ищем последнюю завершенную сессию перед текущей
+	sets := session.Sets
+	if sets == nil {
+		sets = []models.Set{}
+	}
+
 	var lastSession models.WorkoutSession
+	var lastSessionResponse *models.LastWorkoutSessionResponse = nil
+
 	err = config.DB.
 		Where("user_id = ? AND exercise_id = ? AND is_completed = ? AND created_at < ?", session.UserID, session.ExerciseID, true, session.CreatedAt).
 		Order("created_at DESC").
@@ -237,7 +243,6 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 		Preload("Exercise.MuscleGroup").
 		First(&lastSession).Error
 
-	var lastSessionResponse *models.LastWorkoutSessionResponse
 	if err == nil {
 		lastExerciseName := lastSession.Exercise.NameEng
 		lastMuscleGroupName := lastSession.Exercise.MuscleGroup.NameEng
@@ -246,12 +251,17 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 			lastMuscleGroupName = lastSession.Exercise.MuscleGroup.NameRu
 		}
 
+		lastSessionSets := lastSession.Sets
+		if lastSessionSets == nil {
+			lastSessionSets = []models.Set{}
+		}
+
 		lastSessionResponse = &models.LastWorkoutSessionResponse{
 			ID:          lastSession.ID,
 			Note:        lastSession.Note,
 			IsCompleted: lastSession.IsCompleted,
 			CreatedAt:   lastSession.CreatedAt,
-			Sets:        lastSession.Sets,
+			Sets:        lastSessionSets,
 			Exercise: models.ExerciseResponse{
 				ID:   lastSession.Exercise.ID,
 				Name: lastExerciseName,
@@ -269,7 +279,7 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 		Note:        session.Note,
 		IsCompleted: session.IsCompleted,
 		CreatedAt:   session.CreatedAt,
-		Sets:        session.Sets,
+		Sets:        sets,
 		Exercise: models.ExerciseResponse{
 			ID:   session.Exercise.ID,
 			Name: exerciseName,
