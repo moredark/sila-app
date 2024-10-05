@@ -921,7 +921,7 @@ const docTemplate = `{
         },
         "/workout/{id}": {
             "get": {
-                "description": "Retrieve details of a specific workout session including sets, exercise info, and muscle group.",
+                "description": "Retrieve details of a specific workout session including sets, exercise info, muscle group, and last session.",
                 "consumes": [
                     "application/json"
                 ],
@@ -943,7 +943,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Workout session details",
+                        "description": "Workout session details with last session",
                         "schema": {
                             "$ref": "#/definitions/models.WorkoutSessionResponse"
                         }
@@ -1098,7 +1098,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "muscle_group": {
-                    "$ref": "#/definitions/models.MuscleGroupDTO"
+                    "$ref": "#/definitions/models.GetMuscleGroupsResponse"
                 },
                 "name": {
                     "type": "string"
@@ -1203,6 +1203,36 @@ const docTemplate = `{
                 }
             }
         },
+        "models.LastWorkoutSessionResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string",
+                    "example": "2023-10-01T10:00:00Z"
+                },
+                "exercise": {
+                    "$ref": "#/definitions/models.ExerciseResponse"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "is_completed": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "note": {
+                    "type": "string",
+                    "example": "Previous workout notes"
+                },
+                "sets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Set"
+                    }
+                }
+            }
+        },
         "models.LoginRequest": {
             "type": "object",
             "properties": {
@@ -1227,17 +1257,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "name_ru": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.MuscleGroupDTO": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
                     "type": "string"
                 }
             }
@@ -1459,32 +1478,16 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "exercise": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "integer"
-                        },
-                        "muscle_group": {
-                            "type": "object",
-                            "properties": {
-                                "id": {
-                                    "type": "integer"
-                                },
-                                "name": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "name": {
-                            "type": "string"
-                        }
-                    }
+                    "$ref": "#/definitions/models.ExerciseResponse"
                 },
                 "id": {
                     "type": "integer"
                 },
                 "is_completed": {
                     "type": "boolean"
+                },
+                "last_session": {
+                    "$ref": "#/definitions/models.LastWorkoutSessionResponse"
                 },
                 "note": {
                     "type": "string"
