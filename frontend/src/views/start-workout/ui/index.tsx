@@ -70,7 +70,6 @@ export const StartWorkoutPage: FC = () => {
                     onClick={() => push(`/workout/${workout.id}`)}
                   >
                     <p>{workout.exercise?.name}</p>
-                    <p className="text-zinc-500">{workout.exercise?.muscle_group?.name}</p>
                     <p>
                       {t('sets')}: {workout.sets?.length || 0}
                     </p>
