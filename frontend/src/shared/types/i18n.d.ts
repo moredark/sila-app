@@ -65,3 +65,4 @@ export type TranslationKeys =
   | 'completed'
   | 'not_completed'
   | 'set'
+  | 'note'
