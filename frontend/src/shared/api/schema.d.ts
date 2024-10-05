@@ -1152,7 +1152,7 @@ export interface paths {
     }
     /**
      * Get details of a workout session
-     * @description Retrieve details of a specific workout session including sets, exercise info, and muscle group.
+     * @description Retrieve details of a specific workout session including sets, exercise info, muscle group, and last session.
      */
     get: {
       parameters: {
@@ -1166,7 +1166,7 @@ export interface paths {
       }
       requestBody?: never
       responses: {
-        /** @description Workout session details */
+        /** @description Workout session details with last session */
         200: {
           headers: {
             [name: string]: unknown
@@ -1260,7 +1260,7 @@ export interface components {
       created_at?: string
       description?: string
       id?: number
-      muscle_group?: components['schemas']['models.MuscleGroupDTO']
+      muscle_group?: components['schemas']['models.GetMuscleGroupsResponse']
       name?: string
     }
     'models.FitnessLevel': {
@@ -1294,6 +1294,18 @@ export interface components {
       note?: string
       sets?: components['schemas']['models.Set'][]
     }
+    'models.LastWorkoutSessionResponse': {
+      /** @example 2023-10-01T10:00:00Z */
+      created_at?: string
+      exercise?: components['schemas']['models.ExerciseResponse']
+      /** @example 1 */
+      id?: number
+      /** @example true */
+      is_completed?: boolean
+      /** @example Previous workout notes */
+      note?: string
+      sets?: components['schemas']['models.Set'][]
+    }
     'models.LoginRequest': {
       email?: string
       password?: string
@@ -1303,10 +1315,6 @@ export interface components {
       image_url?: string
       name_eng?: string
       name_ru?: string
-    }
-    'models.MuscleGroupDTO': {
-      id?: number
-      name?: string
     }
     'models.PaginatedWorkoutResponse': {
       items?: components['schemas']['models.IncompleteWorkoutResponse'][]
@@ -1382,16 +1390,10 @@ export interface components {
     }
     'models.WorkoutSessionResponse': {
       created_at?: string
-      exercise?: {
-        id?: number
-        muscle_group?: {
-          id?: number
-          name?: string
-        }
-        name?: string
-      }
+      exercise?: components['schemas']['models.ExerciseResponse']
       id?: number
       is_completed?: boolean
+      last_session?: components['schemas']['models.LastWorkoutSessionResponse']
       note?: string
       sets?: components['schemas']['models.Set'][]
     }

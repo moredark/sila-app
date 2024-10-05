@@ -7,7 +7,7 @@ interface WorkoutHeaderProps {
 const WorkoutHeader: FC<WorkoutHeaderProps> = ({ exerciseName }) => {
   return (
     <div className="flex justify-center">
-      <h2 className="text-4xl">{exerciseName}</h2>
+      <h2 className="text-2xl">{exerciseName}</h2>
     </div>
   )
 }

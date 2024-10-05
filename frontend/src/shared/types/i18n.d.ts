@@ -66,3 +66,7 @@ export type TranslationKeys =
   | 'not_completed'
   | 'set'
   | 'note'
+  | 'current-workout'
+  | 'last-workout'
+  | 'last-session'
+  | 'last-session-not-found'
