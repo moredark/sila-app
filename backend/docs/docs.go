@@ -867,6 +867,77 @@ const docTemplate = `{
                 }
             }
         },
+        "/workout/set/{id}": {
+            "delete": {
+                "description": "This endpoint allows deleting a set by its ID from a workout session.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workout"
+                ],
+                "summary": "Delete a set from a workout session",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Set ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Set deleted successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid set ID",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "You do not have permission to delete this set",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Set not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to delete set",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/workout/start": {
             "post": {
                 "description": "This endpoint starts a workout session for a specific exercise and optionally returns the last completed session if available.",
@@ -959,6 +1030,75 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Workout session not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "This endpoint allows deleting a workout session by its ID.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workout"
+                ],
+                "summary": "Delete a workout session",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Workout session ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Workout session deleted successfully",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid session ID",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "You do not have permission to delete this workout session",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Workout session not found",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to delete workout session",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -1184,7 +1324,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "exercise": {
-                    "$ref": "#/definitions/models.Exercise"
+                    "$ref": "#/definitions/models.ExerciseResponse"
                 },
                 "id": {
                     "type": "integer"
