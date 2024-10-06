@@ -68,5 +68,11 @@
   "current-workout": "Current",
   "last-workout": "Previous",
   "last-session": "Previous Session",
-  "last-session-not-found": "Previous Session Not Found"
+  "last-session-not-found": "Previous Session Not Found",
+  "confirm-deletion": "Confirm Deletion",
+  "confirm-deletion-message": "Are you sure you want to delete this workout?",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "workout-deleted": "Workout deleted successfully",
+  "workout-delete-failed": "Failed to delete workout"
 }

@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 
 import { Set } from '@/entities/workout/model/workout.types'
+import { WorkoutSet } from '@/entities/workout/ui'
+import DeleteSetButton from '@/features/workout/ui/DeleteSetButton'
 import { useTranslation } from '@/shared/lib'
 import { Card } from '@/shared/ui/card'
 
@@ -14,16 +16,7 @@ const WorkoutSets: FC<WorkoutSetsProps> = ({ sets }) => {
   return (
     <div className="flex flex-col gap-3">
       {!!sets?.length ? (
-        sets?.map(set => (
-          <Card key={set.id} className="flex items-center justify-between p-4">
-            <span>
-              {set.reps} {t('reps')}
-            </span>
-            <span>
-              {set.weight} {t('weight')}
-            </span>
-          </Card>
-        ))
+        sets?.map(set => <WorkoutSet key={set.id} set={set} />)
       ) : (
         <h2 className="text-center text-xl text-zinc-500">{t('set-is-empty')}</h2>
       )}
