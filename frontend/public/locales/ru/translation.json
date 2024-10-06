@@ -68,5 +68,11 @@
   "current-workout": "Текущая",
   "last-workout": "Прошлая",
   "last-session": "Прошлая тренировка",
-  "last-session-not-found": "Прошлая тренировка не найдена"
+  "last-session-not-found": "Прошлая тренировка не найдена",
+  "confirm-deletion": "Подтвердите удаление",
+  "confirm-deletion-message": "Вы уверены, что хотите удалить эту тренировку?",
+  "cancel": "Отмена",
+  "delete": "Удалить",
+  "workout-deleted": "Тренировка успешно удалена",
+  "workout-delete-failed": "Не удалось удалить тренировку"
 }

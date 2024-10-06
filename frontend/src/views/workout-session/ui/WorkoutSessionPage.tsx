@@ -49,7 +49,7 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutData }) => {
 
   return (
     <div className="h-full p-4 pb-[85px]">
-      <WorkoutTabs>
+      <WorkoutTabs workoutId={workoutData.id}>
         <CurrentWorkoutContent
           data={data}
           workoutData={workoutData}

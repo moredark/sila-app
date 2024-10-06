@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { GET, POST, PUT } from '@/shared/api/client'
+import { DELETE, GET, POST, PUT } from '@/shared/api/client'
 
 import { WORKOUTS_BY_EXERCISES_LIMIT } from '../config/consts.workout'
 
@@ -168,5 +168,25 @@ export const useGetWorkoutById = ({ workout_id }: { workout_id: number }) => {
           },
         },
       }),
+  })
+}
+
+export const useDeleteSet = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ setId }: { setId: number }) =>
+      DELETE(`/workout/set/{id}`, {
+        params: {
+          path: {
+            id: setId,
+          },
+        },
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['workout'],
+      })
+    },
   })
 }

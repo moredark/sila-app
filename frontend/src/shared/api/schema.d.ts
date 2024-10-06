@@ -1077,6 +1077,94 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/workout/set/{id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    /**
+     * Delete a set from a workout session
+     * @description This endpoint allows deleting a set by its ID from a workout session.
+     */
+    delete: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          /** @description Set ID */
+          id: number
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description Set deleted successfully */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Invalid set ID */
+        400: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description You do not have permission to delete this set */
+        403: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Set not found */
+        404: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Failed to delete set */
+        500: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+      }
+    }
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/workout/start': {
     parameters: {
       query?: never
@@ -1201,7 +1289,79 @@ export interface paths {
     }
     put?: never
     post?: never
-    delete?: never
+    /**
+     * Delete a workout session
+     * @description This endpoint allows deleting a workout session by its ID.
+     */
+    delete: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          /** @description Workout session ID */
+          id: number
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description Workout session deleted successfully */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Invalid session ID */
+        400: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description You do not have permission to delete this workout session */
+        403: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Workout session not found */
+        404: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+        /** @description Failed to delete workout session */
+        500: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              [key: string]: string
+            }
+          }
+        }
+      }
+    }
     options?: never
     head?: never
     patch?: never
