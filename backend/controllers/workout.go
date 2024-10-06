@@ -152,6 +152,48 @@ func AddSetToWorkout(c *fiber.Ctx) error {
 	})
 }
 
+// DeleteSet godoc
+// @Summary Delete a set from a workout session
+// @Description This endpoint allows deleting a set by its ID from a workout session.
+// @Tags Workout
+// @Accept json
+// @Produce json
+// @Param id path int true "Set ID"
+// @Success 200 {object} map[string]string "Set deleted successfully"
+// @Failure 400 {object} map[string]string "Invalid set ID"
+// @Failure 403 {object} map[string]string "You do not have permission to delete this set"
+// @Failure 404 {object} map[string]string "Set not found"
+// @Failure 500 {object} map[string]string "Failed to delete set"
+// @Router /workout/set/{id} [delete]
+func DeleteSet(c *fiber.Ctx) error {
+	setID, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid set ID", err.Error())
+	}
+
+	user, err := utils.GetUserFromContext(c)
+	if err != nil {
+		return err
+	}
+
+	var set models.Set
+	if err := config.DB.Preload("WorkoutSession").First(&set, setID).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusNotFound, "Set not found", err.Error())
+	}
+
+	if set.WorkoutSession.UserID != user.ID {
+		return utils.HandleError(c, fiber.StatusForbidden, "You do not have permission to delete this set", "")
+	}
+
+	if err := config.DB.Delete(&set).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to delete set", err.Error())
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Set deleted successfully",
+	})
+}
+
 // CompleteWorkoutSession godoc
 // @Summary Complete a workout session
 // @Description Marks a workout session as completed and allows adding a final note.
@@ -194,6 +236,52 @@ func CompleteWorkoutSession(c *fiber.Ctx) error {
 		"is_completed": session.IsCompleted,
 		"created_at":   session.CreatedAt,
 		"note":         session.Note,
+	})
+}
+
+// DeleteWorkoutSession godoc
+// @Summary Delete a workout session
+// @Description This endpoint allows deleting a workout session by its ID.
+// @Tags Workout
+// @Accept json
+// @Produce json
+// @Param id path int true "Workout session ID"
+// @Success 200 {object} map[string]string "Workout session deleted successfully"
+// @Failure 400 {object} map[string]string "Invalid session ID"
+// @Failure 403 {object} map[string]string "You do not have permission to delete this workout session"
+// @Failure 404 {object} map[string]string "Workout session not found"
+// @Failure 500 {object} map[string]string "Failed to delete workout session"
+// @Router /workout/{id} [delete]
+func DeleteWorkoutSession(c *fiber.Ctx) error {
+	sessionID, err := getSessionIDFromParams(c)
+	if err != nil {
+		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid session ID", err.Error())
+	}
+
+	user, err := utils.GetUserFromContext(c)
+	if err != nil {
+		return err
+	}
+
+	var session models.WorkoutSession
+	if err := config.DB.Preload("Sets").First(&session, sessionID).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusNotFound, "Workout session not found", err.Error())
+	}
+
+	if session.UserID != user.ID {
+		return utils.HandleError(c, fiber.StatusForbidden, "You do not have permission to delete this workout session", "")
+	}
+
+	if err := config.DB.Delete(&models.Set{}, "workout_session_id = ?", sessionID).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to delete sets of the workout session", err.Error())
+	}
+
+	if err := config.DB.Delete(&session).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to delete workout session", err.Error())
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Workout session deleted successfully",
 	})
 }
 
