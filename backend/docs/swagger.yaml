@@ -144,7 +144,7 @@ definitions:
       created_at:
         type: string
       exercise:
-        $ref: '#/definitions/models.Exercise'
+        $ref: '#/definitions/models.ExerciseResponse'
       id:
         type: integer
       is_completed:
@@ -778,6 +778,52 @@ paths:
       tags:
       - User
   /workout/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This endpoint allows deleting a workout session by its ID.
+      parameters:
+      - description: Workout session ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Workout session deleted successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid session ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: You do not have permission to delete this workout session
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Workout session not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to delete workout session
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a workout session
+      tags:
+      - Workout
     get:
       consumes:
       - application/json
@@ -966,6 +1012,53 @@ paths:
             additionalProperties: true
             type: object
       summary: Get incomplete workout sessions
+      tags:
+      - Workout
+  /workout/set/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This endpoint allows deleting a set by its ID from a workout session.
+      parameters:
+      - description: Set ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Set deleted successfully
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Invalid set ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: You do not have permission to delete this set
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Set not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to delete set
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a set from a workout session
       tags:
       - Workout
   /workout/start:
