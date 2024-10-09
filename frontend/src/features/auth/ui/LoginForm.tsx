@@ -20,7 +20,7 @@ import { loginSchema } from '../model/schema'
 type LoginFormData = z.infer<typeof loginSchema>
 
 export const LoginForm = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const { push } = useRouter()
 
   const {

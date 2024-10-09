@@ -22,8 +22,18 @@ export const useUserStore = create<UserState>(set => {
     accessToken,
     refreshToken,
     setTokens: (accessToken: string, refreshToken: string) => {
-      Cookies.set(ACCESS_TOKEN_KEY, accessToken, { expires: 7 })
-      Cookies.set(REFRESH_TOKEN_KEY, refreshToken, { expires: 7 })
+      Cookies.set(ACCESS_TOKEN_KEY, accessToken, {
+        expires: 7,
+        secure: true,
+        path: '/',
+        sameSite: 'Lax',
+      })
+      Cookies.set(REFRESH_TOKEN_KEY, refreshToken, {
+        expires: 7,
+        secure: true,
+        path: '/',
+        sameSite: 'Lax',
+      })
       set({ isAuthenticated: true, accessToken, refreshToken })
     },
     logout: () => {

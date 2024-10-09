@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SetsTable: FC<Props> = ({ sets }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Card>

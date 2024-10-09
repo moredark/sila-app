@@ -8,7 +8,7 @@ interface Props {
 }
 
 const WorkoutNote: FC<Props> = ({ note }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Card>

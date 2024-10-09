@@ -9,7 +9,7 @@ interface WorkoutActionsProps {
 }
 
 const WorkoutActions: FC<WorkoutActionsProps> = ({ onAddSet, onEndWorkout }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <div className="flex w-full justify-between gap-4">

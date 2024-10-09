@@ -1,27 +1,33 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Cookies from 'js-cookie'
-import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/navigation'
 
-export const useLanguage = () => {
-  const { i18n } = useTranslation()
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language)
-
-  const changeLanguage = (lang: string) => {
-    Cookies.set('language', lang, { expires: 7, sameSite: 'strict', path: '/' })
-    i18n.changeLanguage(lang)
-    setCurrentLanguage(lang)
-  }
+export function useLanguage() {
+  const router = useRouter()
+  const [currentLanguage, setCurrentLanguage] = useState('en')
 
   useEffect(() => {
-    const savedLang = Cookies.get('language')
-    if (savedLang && savedLang !== currentLanguage) {
-      i18n.changeLanguage(savedLang)
-      setCurrentLanguage(savedLang)
+    const languageCookie = Cookies.get('language')
+    if (languageCookie) {
+      setCurrentLanguage(languageCookie)
     }
-  }, [i18n, currentLanguage])
+  }, [])
 
-  return { currentLanguage, changeLanguage }
+  const changeLanguage = (locale: string) => {
+    Cookies.set('language', locale, {
+      path: '/',
+      expires: 365,
+      secure: true,
+      sameSite: 'lax',
+    })
+
+    setCurrentLanguage(locale)
+
+    router.refresh()
+  }
+
+  return { changeLanguage, currentLanguage }
 }

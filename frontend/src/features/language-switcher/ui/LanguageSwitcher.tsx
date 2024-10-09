@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useLanguage } from '../model/useLanguage'
 
 export const LanguageSwitcher = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const { currentLanguage, changeLanguage } = useLanguage()
 
   return (

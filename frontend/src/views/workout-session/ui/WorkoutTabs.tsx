@@ -10,7 +10,7 @@ interface WorkoutTabsProps {
 }
 
 const WorkoutTabs: FC<WorkoutTabsProps> = ({ children, workoutId }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Tabs defaultValue="current" className="h-full">

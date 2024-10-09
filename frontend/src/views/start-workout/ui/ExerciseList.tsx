@@ -22,7 +22,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
   selectedExerciseId,
   onSelectExercise,
 }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   const [muscleGroupId, setMuscleGroupId] = useState<number | ''>('')
   const [searchQuery, setSearchQuery] = useState<string>('')

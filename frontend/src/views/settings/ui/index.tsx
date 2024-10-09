@@ -6,7 +6,7 @@ import { useTranslation } from '@/shared/lib'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
 
 const SettingsPage = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <div className="size-full p-4">

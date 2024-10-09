@@ -1,4 +1,3 @@
-import i18n from 'i18next'
 import Cookies from 'js-cookie'
 import createClient, { Middleware } from 'openapi-fetch'
 
@@ -12,9 +11,9 @@ import { paths } from './schema'
 
 const languageMiddleware: Middleware = {
   async onRequest({ request }) {
-    const currentLanguage = i18n.language || 'en'
+    const currentLanguage = Cookies.get('language') || 'en'
 
-    request.headers.set('accept-language', currentLanguage)
+    request.headers.set('Accept-Language', currentLanguage)
 
     return request
   },

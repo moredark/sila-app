@@ -27,7 +27,7 @@ interface AddSetDrawerProps {
 }
 
 const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, onSetAdded }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const {
     register,
     handleSubmit,

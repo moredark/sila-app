@@ -17,7 +17,7 @@ type NavItem = {
 export const NavigationMenu = () => {
   const router = useRouter()
   const pathname = usePathname()
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   const navItems: NavItem[] = [
     {

@@ -11,7 +11,7 @@ interface LastWorkoutContentProps {
 }
 
 const LastWorkoutContent: FC<LastWorkoutContentProps> = ({ data }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <TabsContent value="last">
