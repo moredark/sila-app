@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react'
 
+import { useQueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 export function useLanguage() {
   const router = useRouter()
   const [currentLanguage, setCurrentLanguage] = useState('en')
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     const languageCookie = Cookies.get('language')
@@ -25,6 +27,10 @@ export function useLanguage() {
     })
 
     setCurrentLanguage(locale)
+
+    queryClient.invalidateQueries({
+      queryKey: ['muscleGroups', 'incompleteWorkouts', 'exercises'],
+    })
 
     router.refresh()
   }
