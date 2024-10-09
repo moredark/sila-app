@@ -14,7 +14,7 @@ import { WorkoutPagination } from './WorkoutPagination'
 const BENCH_PRESS_ID = 16
 
 export const WorkoutHistoryPage = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   const [selectedExerciseId, setSelectedExerciseId] = useState<number>(BENCH_PRESS_ID)
   const [page, setPage] = useState(1)

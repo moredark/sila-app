@@ -1,12 +1,11 @@
 'use client'
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { useGetWorkoutById } from '@/entities/workout/model/workout.api'
-import { calculateAverageWeight, formatDate, useTranslation } from '@/shared/lib'
+import { formatDate, useTranslation } from '@/shared/lib'
 import { Badge } from '@/shared/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Skeleton } from '@/shared/ui/skeleton'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table'
 import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
 import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
 
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const WorkoutByIdPage: FC<Props> = ({ workoutId }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const { data, isLoading } = useGetWorkoutById({ workout_id: workoutId })
 
   const exerciseData = data?.data

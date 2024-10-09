@@ -1,17 +1,15 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 
 import { Set } from '@/entities/workout/model/workout.types'
 import { WorkoutSet } from '@/entities/workout/ui'
-import DeleteSetButton from '@/features/workout/ui/DeleteSetButton'
 import { useTranslation } from '@/shared/lib'
-import { Card } from '@/shared/ui/card'
 
 interface WorkoutSetsProps {
   sets?: Set[]
 }
 
 const WorkoutSets: FC<WorkoutSetsProps> = ({ sets }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <div className="flex flex-col gap-3">

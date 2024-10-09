@@ -1,13 +1,13 @@
 'use client'
 
-import { useTranslation as useTranslationOriginal } from 'react-i18next'
+import { useTranslations } from 'next-intl'
 
 import { TranslationKeys } from '@/shared/types/i18n'
 
 export function useTranslation() {
-  const { t, i18n } = useTranslationOriginal('translation')
+  const t = useTranslations()
 
   const typedT = (key: TranslationKeys) => t(key)
 
-  return { t: typedT, i18n }
+  return typedT
 }

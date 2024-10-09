@@ -6,7 +6,7 @@ import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 
 export const SettingsButton = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Link href={APP_ROUTES.SETTINGS}>

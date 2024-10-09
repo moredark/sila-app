@@ -1,11 +1,11 @@
 'use client'
 
-import React, { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { WorkoutSession } from '@/entities/workout/model/workout.types'
 import AddSetDrawer from '@/features/workout/ui/AddSetDrawer'
 import EndWorkoutDrawer from '@/features/workout/ui/EndWorkoutDrawer'
-import { TabsContent, Timer } from '@/shared/ui'
+import { TabsContent } from '@/shared/ui'
 
 import WorkoutActions from './WorkoutActions'
 import WorkoutHeader from './WorkoutHeader'

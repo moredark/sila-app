@@ -7,7 +7,7 @@ import { Button } from '@/shared/ui'
 interface Props {}
 
 export const LogoutButton: FC<Props> = ({}) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   const { logout } = useUserStore()
 

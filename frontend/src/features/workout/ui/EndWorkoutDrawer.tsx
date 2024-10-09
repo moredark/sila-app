@@ -25,7 +25,7 @@ interface EndWorkoutDrawerProps {
 }
 
 const EndWorkoutDrawer: FC<EndWorkoutDrawerProps> = ({ open, onOpenChange, workoutId }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const router = useRouter()
   const { register, handleSubmit } = useForm<{ feedback: string }>()
   const completeWorkoutMutation = useCompleteWorkout()

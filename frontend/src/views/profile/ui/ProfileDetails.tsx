@@ -10,7 +10,7 @@ interface ProfileDetailsProps {
 }
 
 export const ProfileDetails: FC<ProfileDetailsProps> = ({ fitnessLevel, joinedDate, bio }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <CardContent className="mt-4 space-y-4">

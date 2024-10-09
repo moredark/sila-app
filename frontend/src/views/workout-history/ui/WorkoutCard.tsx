@@ -9,7 +9,7 @@ type WorkoutCardProps = {
 }
 
 export const WorkoutCard = ({ workout, onClick }: WorkoutCardProps) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Card className="grid cursor-pointer gap-4 p-4" onClick={onClick}>

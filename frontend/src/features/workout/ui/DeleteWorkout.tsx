@@ -24,7 +24,7 @@ interface DeleteWorkoutProps {
 }
 
 const DeleteWorkout: FC<DeleteWorkoutProps> = ({ workoutId }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const deleteWorkoutMutation = useDeleteWorkout()

@@ -15,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 import { ExerciseList } from './ExerciseList'
 
 export const StartWorkoutPage: FC = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(null)
   const { mutateAsync: startWorkout } = useStartWorkout()
   const { push } = useRouter()

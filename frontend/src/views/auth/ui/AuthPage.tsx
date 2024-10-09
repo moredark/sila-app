@@ -7,7 +7,7 @@ import { useTranslation } from '@/shared/lib'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 
 export const AuthPage = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const router = useRouter()
   const pathname = usePathname()
 

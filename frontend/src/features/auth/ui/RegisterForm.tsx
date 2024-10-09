@@ -15,7 +15,7 @@ import { registerSchema } from '../model/schema'
 type RegisterFormData = z.infer<typeof registerSchema>
 
 export const RegisterForm = () => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const { push } = useRouter()
   const {
     register,

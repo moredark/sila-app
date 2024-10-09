@@ -11,7 +11,7 @@ interface ProfileHeaderProps {
 }
 
 export const ProfileHeader: FC<ProfileHeaderProps> = ({ username, email, avatarUrl }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <CardHeader className="flex items-center gap-4">

@@ -12,7 +12,7 @@ interface WorkoutSetProps {
 }
 
 export const WorkoutSet: React.FC<WorkoutSetProps> = ({ set }) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
   const [isSwiped, setIsSwiped] = useState(false)
 
   const handlers = useSwipeable({

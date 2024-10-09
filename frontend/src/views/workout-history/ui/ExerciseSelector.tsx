@@ -8,7 +8,7 @@ type ExerciseSelectorProps = {
 }
 
 export const ExerciseSelector = ({ exercises, defaultValue, onSelect }: ExerciseSelectorProps) => {
-  const { t } = useTranslation()
+  const t = useTranslation()
 
   return (
     <Combobox
