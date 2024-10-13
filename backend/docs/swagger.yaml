@@ -1,4 +1,4 @@
-basePath: /
+basePath: /api
 definitions:
   models.AddSetRequest:
     properties:
@@ -354,7 +354,7 @@ definitions:
           $ref: '#/definitions/models.Set'
         type: array
     type: object
-host: localhost:8080
+host: sila-danila.ru
 info:
   contact: {}
   title: Sila API

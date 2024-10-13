@@ -12,8 +12,8 @@ import (
 
 // @title Sila API
 // @version 1.0
-// @host localhost:8080
-// @BasePath /
+// @host sila-danila.ru
+// @BasePath /api
 // @schemes http, https
 // @openapi 3.0.0
 
