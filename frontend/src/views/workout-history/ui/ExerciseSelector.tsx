@@ -13,6 +13,7 @@ export const ExerciseSelector = ({ exercises, defaultValue, onSelect }: Exercise
   return (
     <Combobox
       placeholder={t('select-exercise')}
+      searchPlaceholder={t('search')}
       defaultValue={defaultValue}
       options={exercises}
       onSelect={onSelect}

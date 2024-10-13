@@ -76,3 +76,4 @@ export type TranslationKeys =
   | 'delete'
   | 'workout-deleted'
   | 'workout-delete-failed'
+  | 'search'
