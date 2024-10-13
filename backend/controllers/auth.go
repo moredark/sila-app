@@ -287,7 +287,6 @@ func GetUserProfile(c *fiber.Ctx) error {
 	fitnessLevelName := utils.GetFitnessLevelName(c, &user)
 	roleName := utils.GetRoleName(&user)
 
-	// Обработка возможных nil значений
 	avatarURL := ""
 	if user.AvatarURL != nil {
 		avatarURL = *user.AvatarURL

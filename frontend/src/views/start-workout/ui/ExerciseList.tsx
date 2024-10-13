@@ -76,6 +76,7 @@ export const ExerciseList: React.FC<ExerciseListProps> = ({
         <div className="grow">
           <Combobox
             placeholder={t('select-muscle-group')}
+            searchPlaceholder={t('search')}
             options={
               muscleGroups?.map(group => ({
                 label: group.name || '',

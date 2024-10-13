@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const localesPath = path.resolve(__dirname, '../public/locales')
+const messagesPath = path.resolve(__dirname, '../src/app/messages')
 
 const typesPath = path.resolve(__dirname, '../src/shared/types/i18n.d.ts')
 
@@ -21,11 +21,11 @@ const extractKeys = (obj, prefix = '') => {
 }
 
 const generateTypes = () => {
-  const locales = fs.readdirSync(localesPath)
+  const locales = fs.readdirSync(messagesPath)
   const keys = new Set()
 
-  locales.forEach(locale => {
-    const translations = require(path.join(localesPath, locale, 'translation.json'))
+  locales.forEach(localeFile => {
+    const translations = require(path.join(messagesPath, localeFile))
     const extractedKeys = extractKeys(translations)
     extractedKeys.forEach(key => keys.add(key))
   })
@@ -37,7 +37,7 @@ const generateTypes = () => {
   `
 
   fs.writeFileSync(typesPath, types.trim())
-  console.log('i18n generated successfully')
+  console.log('i18n types generated successfully')
 }
 
 generateTypes()

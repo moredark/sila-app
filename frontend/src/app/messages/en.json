@@ -75,7 +75,5 @@
   "delete": "Delete",
   "workout-deleted": "Workout deleted successfully",
   "workout-delete-failed": "Failed to delete workout",
-  "test": {
-    "bim": "bam"
-  }
+  "search": "Search..."
 }

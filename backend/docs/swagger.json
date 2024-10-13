@@ -9,8 +9,8 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8080",
-    "basePath": "/",
+    "host": "sila-danila.ru",
+    "basePath": "/api",
     "paths": {
         "/auth/google/token": {
             "post": {
