@@ -1,1 +1,1 @@
-export { StartWorkoutPage } from './ui'
+export { StartWorkoutPage } from './ui/StartWorkoutPage'
