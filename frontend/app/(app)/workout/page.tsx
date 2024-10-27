@@ -1,4 +1,4 @@
-import { StartWorkoutPage } from '@/views/start-workout/ui'
+import { StartWorkoutPage } from '@/views/start-workout/ui/StartWorkoutPage'
 import React, { FC } from 'react'
 
 interface Props {}
