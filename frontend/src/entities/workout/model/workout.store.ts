@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, devtools } from 'zustand/middleware'
+import { persist, devtools, createJSONStorage } from 'zustand/middleware'
 
 interface Set {
   reps: number
@@ -47,7 +47,7 @@ export const useWorkoutStore = create<WorkoutState>()(
       }),
       {
         name: 'workout-storage',
-        getStorage: () => sessionStorage,
+        storage: createJSONStorage(() => sessionStorage),
       },
     ),
   ),
