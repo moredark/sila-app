@@ -36,8 +36,8 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
     formState: { errors },
   } = useForm<{ reps: number; weight: number }>({
     defaultValues: {
-      reps: 0,
-      weight: 0,
+      reps: undefined,
+      weight: undefined,
     },
   })
 
@@ -56,10 +56,10 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
     onOpenChange(false)
   }
 
-  const increaseReps = () => setValue('reps', reps + REPS_STEP)
-  const decreaseReps = () => setValue('reps', Math.max(reps - REPS_STEP, 0))
-  const increaseWeight = () => setValue('weight', weight + WEIGHT_STEP)
-  const decreaseWeight = () => setValue('weight', Math.max(weight - WEIGHT_STEP, 0))
+  const increaseReps = () => setValue('reps', (Number(reps) || 0) + REPS_STEP)
+  const decreaseReps = () => setValue('reps', Math.max((Number(reps) || 0) - REPS_STEP, 0))
+  const increaseWeight = () => setValue('weight', (Number(weight) || 0) + WEIGHT_STEP)
+  const decreaseWeight = () => setValue('weight', Math.max((Number(weight) || 0) - WEIGHT_STEP, 0))
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
@@ -73,8 +73,9 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
             <Input
               type="number"
               {...register('reps', { required: t('reps-required') })}
-              className="w-full py-4 text-center text-4xl"
-              value={reps}
+              className="w-full py-4 text-center text-2xl"
+              placeholder={t('sets')}
+              value={reps || ''}
               onChange={e => setValue('reps', Number(e.target.value))}
             />
             <div className="flex items-center gap-2">
@@ -104,8 +105,9 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
             <Input
               type="number"
               {...register('weight', { required: t('weight-required') })}
-              className="w-full py-4 text-center text-4xl"
-              value={weight}
+              className="w-full py-4 text-center text-2xl"
+              placeholder={t('weight')}
+              value={weight || ''}
               onChange={e => setValue('weight', Number(e.target.value))}
             />
             <div className="flex gap-2">
