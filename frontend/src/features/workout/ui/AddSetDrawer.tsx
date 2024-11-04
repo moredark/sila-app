@@ -74,7 +74,7 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
               type="number"
               {...register('reps', { required: t('reps-required') })}
               className="w-full py-4 text-center text-2xl"
-              placeholder={t('sets')}
+              placeholder={t('reps')}
               value={reps || ''}
               onChange={e => setValue('reps', Number(e.target.value))}
             />
