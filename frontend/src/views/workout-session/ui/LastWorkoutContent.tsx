@@ -16,12 +16,14 @@ const LastWorkoutContent: FC<LastWorkoutContentProps> = ({ data }) => {
   return (
     <TabsContent value="last">
       <h2 className="mb-4 text-center text-lg">{t('last-session')}</h2>
-      {data?.last_session?.sets ? (
-        <SetsTable sets={data.last_session?.sets} />
-      ) : (
-        <p className="text-center">{t('last-session-not-found')}</p>
-      )}
-      {data?.last_session?.note && <WorkoutNote note={data.last_session.note} />}
+      <div className="flex flex-col gap-4">
+        {data?.last_session?.sets ? (
+          <SetsTable sets={data.last_session?.sets} />
+        ) : (
+          <p className="text-center">{t('last-session-not-found')}</p>
+        )}
+        {data?.last_session?.note && <WorkoutNote note={data.last_session.note} />}
+      </div>
     </TabsContent>
   )
 }
