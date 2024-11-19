@@ -1,12 +1,12 @@
 'use client'
 
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
 import { useGetExercises } from '@/entities/exercise'
 import { useGetMuscleGroups } from '@/entities/muscle-group/api/useGetMuscleGroups'
-import { useStartWorkout, useGetIncompleteWorkouts } from '@/entities/workout'
+import { useGetIncompleteWorkouts, useStartWorkout } from '@/entities/workout'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
@@ -24,7 +24,7 @@ export const StartWorkoutPage: FC = () => {
   const { data: muscleGroups } = useGetMuscleGroups()
 
   const [search, setSearch] = useState('')
-  const [muscleGroupId, setMuscleGroupId] = useState<number>()
+  const [muscleGroupId, setMuscleGroupId] = useState<number | undefined>()
   const {
     data: exercises,
     isLoading,
@@ -44,13 +44,16 @@ export const StartWorkoutPage: FC = () => {
     setSearch(query)
   }
 
-  const handleMuscleGroupsChange = (id: number | null) => {
-    if (id) setMuscleGroupId(id)
+  const handleMuscleGroupsChange = (id: number | undefined) => {
+    setMuscleGroupId(id)
   }
 
-  const handleReset = () => {
-    setSearch('')
-    setMuscleGroupId(undefined)
+  const onSelectExercise = (exerciseId: number | null) => {
+    if (exerciseId === selectedExerciseId) {
+      setSelectedExerciseId(null)
+    } else {
+      setSelectedExerciseId(exerciseId)
+    }
   }
 
   return (
@@ -70,7 +73,6 @@ export const StartWorkoutPage: FC = () => {
           <ExerciseSearch
             onSearch={handleSearchChange}
             onSelectMuscleGroup={handleMuscleGroupsChange}
-            onResetFilters={handleReset}
             muscleGroups={muscleGroups || []}
           />
 
@@ -79,7 +81,7 @@ export const StartWorkoutPage: FC = () => {
             isLoading={isLoading}
             exercisesError={exercisesError}
             selectedExerciseId={selectedExerciseId}
-            onSelectExercise={setSelectedExerciseId}
+            onSelectExercise={onSelectExercise}
           />
 
           <div

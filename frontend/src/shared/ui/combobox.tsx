@@ -19,7 +19,7 @@ import { cn } from '../lib'
 
 interface ComboboxProps<T> {
   options: { label: string; value: T }[]
-  onSelect: (value: T | null) => void
+  onSelect: (value: T | undefined) => void
   placeholder?: string
   searchPlaceholder?: string
   defaultValue?: T
@@ -35,11 +35,11 @@ export function Combobox<T extends string | number>({
   className,
 }: ComboboxProps<T>) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState<T | null>(defaultValue || null)
+  const [value, setValue] = React.useState<T | undefined>(defaultValue || undefined)
   const [search, setSearch] = React.useState('')
 
   React.useEffect(() => {
-    setValue(defaultValue || null)
+    setValue(defaultValue || undefined)
   }, [defaultValue])
 
   const filteredOptions = search
@@ -47,7 +47,7 @@ export function Combobox<T extends string | number>({
     : options
 
   const handleSelect = (selectedValue: T) => {
-    const newValue = selectedValue === value ? null : selectedValue
+    const newValue = selectedValue === value ? undefined : selectedValue
     setValue(newValue)
     onSelect(newValue)
     setOpen(false)
