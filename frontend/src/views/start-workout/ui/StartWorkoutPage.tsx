@@ -48,6 +48,14 @@ export const StartWorkoutPage: FC = () => {
     setMuscleGroupId(id)
   }
 
+  const onSelectExercise = (exerciseId: number | null) => {
+    if (exerciseId === selectedExerciseId) {
+      setSelectedExerciseId(null)
+    } else {
+      setSelectedExerciseId(exerciseId)
+    }
+  }
+
   return (
     <div className="p-4">
       <Tabs defaultValue="new">
@@ -73,7 +81,7 @@ export const StartWorkoutPage: FC = () => {
             isLoading={isLoading}
             exercisesError={exercisesError}
             selectedExerciseId={selectedExerciseId}
-            onSelectExercise={setSelectedExerciseId}
+            onSelectExercise={onSelectExercise}
           />
 
           <div
