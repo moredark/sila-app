@@ -4,7 +4,7 @@ import { Combobox } from '@/shared/ui/combobox'
 type ExerciseSelectorProps = {
   exercises: { label: string; value: number }[]
   defaultValue: number
-  onSelect: (value: number | null) => void
+  onSelect: (value: number | undefined) => void
 }
 
 export const ExerciseSelector = ({ exercises, defaultValue, onSelect }: ExerciseSelectorProps) => {

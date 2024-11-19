@@ -1,24 +1,21 @@
 import React, { FC, useState } from 'react'
 
-import { Search, XIcon } from 'lucide-react'
+import { Search } from 'lucide-react'
 
 import { components } from '@/shared/api/schema'
 import { useTranslation } from '@/shared/lib'
-import { Button } from '@/shared/ui/button'
 import { Combobox } from '@/shared/ui/combobox'
 import { Input } from '@/shared/ui/input'
 
 interface ExerciseSearchProps {
   onSearch: (query: string) => void
-  onSelectMuscleGroup: (id: number | null) => void
-  onResetFilters: () => void
+  onSelectMuscleGroup: (id: number | undefined) => void
   muscleGroups: components['schemas']['models.GetMuscleGroupsResponse'][]
 }
 
 export const ExerciseSearch: FC<ExerciseSearchProps> = ({
   onSearch,
   onSelectMuscleGroup,
-  onResetFilters,
   muscleGroups,
 }) => {
   const t = useTranslation()
@@ -42,21 +39,16 @@ export const ExerciseSearch: FC<ExerciseSearchProps> = ({
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="grow">
-          <Combobox
-            placeholder={t('select-muscle-group')}
-            options={
-              muscleGroups?.map(group => ({
-                label: group.name,
-                value: group.id,
-              })) || []
-            }
-            onSelect={onSelectMuscleGroup}
-          />
-        </div>
-        <Button variant="outline" onClick={onResetFilters} className="h-10">
-          <XIcon className="size-4" />
-        </Button>
+        <Combobox
+          placeholder={t('select-muscle-group')}
+          options={
+            muscleGroups?.map(group => ({
+              label: group.name,
+              value: group.id,
+            })) || []
+          }
+          onSelect={onSelectMuscleGroup}
+        />
       </div>
     </div>
   )

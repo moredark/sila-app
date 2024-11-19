@@ -30,8 +30,8 @@ export const WorkoutHistoryPage = () => {
     ? Math.ceil(workouts?.data?.total / WORKOUTS_BY_EXERCISES_LIMIT) || 1
     : 1
 
-  const handleExerciseSelect = (value: number | null) => {
-    if (value === null) return
+  const handleExerciseSelect = (value: number | undefined) => {
+    if (value === undefined) return
     setSelectedExerciseId(value)
     setPage(1)
   }
