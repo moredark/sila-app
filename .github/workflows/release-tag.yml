@@ -30,14 +30,9 @@ jobs:
         fi
       shell: bash
 
-    - name: Debug PR Labels
-      run: |
-        echo "Labels JSON: ${{ toJson(github.event.pull_request.labels) }}"
-
     - name: Determine version type
       id: determine_version
       run: |
-        # Читаем метки из события PR
         PR_LABELS=$(echo '${{ toJson(github.event.pull_request.labels) }}' | jq -r '.[].name')
         echo "PR_LABELS=$PR_LABELS"
 
@@ -71,8 +66,8 @@ jobs:
         echo "NEW_TAG=v$major.$minor.$patch" >> $GITHUB_ENV
 
     - name: Create and push new tag
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git tag $NEW_TAG
-        git push origin $NEW_TAG
-      env:
-        NEW_TAG: ${{ env.NEW_TAG }}
+        git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} $NEW_TAG
