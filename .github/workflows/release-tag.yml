@@ -1,0 +1,73 @@
+name: Auto Tag on Push
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  autotag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "actions@github.com"
+
+    - name: Get current version
+      id: get_version
+      run: |
+        if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+          echo "CURRENT_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+        else
+          echo "CURRENT_TAG=0.0.0" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Determine version type
+      id: determine_version
+      run: |
+        PR_LABELS=$(jq -r '.pull_request.labels[].name' <<< "${{ toJson(github.event.pull_request) }}")
+        echo "PR_LABELS=$PR_LABELS"
+
+        if [[ "$PR_LABELS" == *"major"* ]]; then
+          echo "VERSION_TYPE=major" >> $GITHUB_ENV
+        elif [[ "$PR_LABELS" == *"minor"* ]]; then
+          echo "VERSION_TYPE=minor" >> $GITHUB_ENV
+        else
+          echo "VERSION_TYPE=patch" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Calculate new version
+      id: calculate_version
+      run: |
+        IFS='.' read -r major minor patch <<< "${CURRENT_TAG#v}"
+        case $VERSION_TYPE in
+          major)
+            major=$((major+1))
+            minor=0
+            patch=0
+            ;;
+          minor)
+            minor=$((minor+1))
+            patch=0
+            ;;
+          patch)
+            patch=$((patch+1))
+            ;;
+        esac
+        echo "NEW_TAG=v$major.$minor.$patch" >> $GITHUB_ENV
+
+    - name: Create and push new tag
+      run: |
+        git tag $NEW_TAG
+        git push origin $NEW_TAG
+      env:
+        NEW_TAG: ${{ env.NEW_TAG }}
