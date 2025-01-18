@@ -1,10 +1,10 @@
-name: Auto Tag on Push
+name: Auto Tag on Pull Request Merge
 
 on:
   pull_request:
     types: [closed]
     branches:
-      - main
+       - main
 
 jobs:
   autotag:
@@ -33,7 +33,7 @@ jobs:
     - name: Determine version type
       id: determine_version
       run: |
-        PR_LABELS=$(jq -r '.pull_request.labels[].name' <<< "${{ toJson(github.event.pull_request) }}")
+        PR_LABELS=$(echo "${{ toJson(github.event.pull_request.labels) }}" | jq -r '.[].name')
         echo "PR_LABELS=$PR_LABELS"
 
         if [[ "$PR_LABELS" == *"major"* ]]; then
