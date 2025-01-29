@@ -3,8 +3,8 @@ package test
 import (
 	"Sila/auth"
 	"Sila/config"
-	"Sila/models"
-	"Sila/routes"
+	"Sila/internal/models"
+	"Sila/internal/routes"
 	"bytes"
 	"encoding/json"
 	"fmt"

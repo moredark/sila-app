@@ -1,9 +1,9 @@
-package controllers
+package handlers
 
 import (
 	"Sila/auth"
 	"Sila/config"
-	"Sila/models"
+	"Sila/internal/models"
 	"Sila/utils"
 	"errors"
 	"github.com/gofiber/fiber/v2"

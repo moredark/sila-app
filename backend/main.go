@@ -2,8 +2,8 @@ package main
 
 import (
 	"Sila/config"
-	"Sila/middleware"
-	"Sila/routes"
+	"Sila/internal/middleware"
+	"Sila/internal/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"

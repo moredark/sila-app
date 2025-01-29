@@ -1,9 +1,7 @@
 package auth
 
 import (
-	"Sila/models"
-	"crypto/rand"
-	"encoding/base64"
+	"Sila/internal/models"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
@@ -83,14 +81,6 @@ func RefreshTokens(refreshTokenStr string) (string, string, error) {
 	}
 
 	return accessToken, newRefreshToken, nil
-}
-
-func GenerateState() (string, error) {
-	b := make([]byte, 16)
-	if _, err := rand.Read(b); err != nil {
-		return "", err
-	}
-	return base64.URLEncoding.EncodeToString(b), nil
 }
 
 func ExtractTokenFromHeader(c *fiber.Ctx) string {
