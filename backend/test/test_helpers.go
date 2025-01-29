@@ -2,7 +2,7 @@ package test
 
 import (
 	"Sila/config"
-	"Sila/models"
+	"Sila/internal/models"
 	"golang.org/x/crypto/bcrypt"
 	"testing"
 )

@@ -2,7 +2,7 @@ package utils
 
 import (
 	"Sila/config"
-	"Sila/models"
+	"Sila/internal/models"
 	"github.com/gofiber/fiber/v2"
 )
 

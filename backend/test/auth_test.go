@@ -2,8 +2,8 @@ package test
 
 import (
 	"Sila/config"
-	"Sila/models"
-	"Sila/routes"
+	"Sila/internal/models"
+	"Sila/internal/routes"
 	"bytes"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"

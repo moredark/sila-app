@@ -1,7 +1,7 @@
 package config
 
 import (
-	"Sila/models"
+	"Sila/internal/models"
 	"gorm.io/gorm"
 	"log"
 )

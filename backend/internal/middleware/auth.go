@@ -3,7 +3,7 @@ package middleware
 import (
 	"Sila/auth"
 	"Sila/config"
-	"Sila/models"
+	"Sila/internal/models"
 	"github.com/gofiber/fiber/v2"
 )
 
