@@ -71,15 +71,14 @@ export function Combobox<T extends string | number>({
           <CommandInput
             placeholder={searchPlaceholder}
             value={search}
-            onInput={e => setSearch(e.currentTarget.value)}
-          />
+            onValueChange={setSearch} />
           <CommandList>
             <CommandEmpty>No options found.</CommandEmpty>
             <CommandGroup>
               {filteredOptions.map(option => (
                 <CommandItem
                   key={option.value}
-                  value={option.value.toString()}
+                  value={option.label.toLowerCase()}
                   onSelect={() => handleSelect(option.value)}
                 >
                   <Check
