@@ -79,6 +79,25 @@ definitions:
       name_ru:
         type: string
     type: object
+  models.ExerciseHistoryEntry:
+    properties:
+      created_at:
+        type: string
+      exercise:
+        $ref: '#/definitions/models.ExerciseResponse'
+      is_completed:
+        type: boolean
+      note:
+        type: string
+      session_id:
+        type: integer
+      sets:
+        items:
+          $ref: '#/definitions/models.Set'
+        type: array
+      user:
+        $ref: '#/definitions/models.UserBasicInfo'
+    type: object
   models.ExerciseResponse:
     properties:
       created_at:
@@ -194,6 +213,15 @@ definitions:
         type: string
       name_ru:
         type: string
+    type: object
+  models.PaginatedExerciseHistoryResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/models.ExerciseHistoryEntry'
+        type: array
+      total:
+        type: integer
     type: object
   models.PaginatedWorkoutResponse:
     properties:
@@ -1004,6 +1032,47 @@ paths:
               type: string
             type: object
       summary: Get workout sessions by exercise
+      tags:
+      - Workout
+  /workout/exercise/{exercise_id}/history:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated history of users who performed a specific exercise
+      parameters:
+      - description: Exercise ID
+        in: path
+        name: exercise_id
+        required: true
+        type: integer
+      - description: Limit the number of results
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Paginated list of users' exercise history
+          schema:
+            $ref: '#/definitions/models.PaginatedExerciseHistoryResponse'
+        "400":
+          description: Invalid exercise ID
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Failed to retrieve exercise history
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get exercise history by users
       tags:
       - Workout
   /workout/incomplete:

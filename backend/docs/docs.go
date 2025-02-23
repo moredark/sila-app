@@ -837,6 +837,68 @@ const docTemplate = `{
                 }
             }
         },
+        "/workout/exercise/{exercise_id}/history": {
+            "get": {
+                "description": "Retrieve paginated history of users who performed a specific exercise",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workout"
+                ],
+                "summary": "Get exercise history by users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Exercise ID",
+                        "name": "exercise_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit the number of results",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset for pagination",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated list of users' exercise history",
+                        "schema": {
+                            "$ref": "#/definitions/models.PaginatedExerciseHistoryResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid exercise ID",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to retrieve exercise history",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/workout/incomplete": {
             "get": {
                 "description": "Retrieve all incomplete workout sessions for the authenticated user, with support for different languages.",
@@ -1225,6 +1287,35 @@ const docTemplate = `{
                 }
             }
         },
+        "models.ExerciseHistoryEntry": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "exercise": {
+                    "$ref": "#/definitions/models.ExerciseResponse"
+                },
+                "is_completed": {
+                    "type": "boolean"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "session_id": {
+                    "type": "integer"
+                },
+                "sets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Set"
+                    }
+                },
+                "user": {
+                    "$ref": "#/definitions/models.UserBasicInfo"
+                }
+            }
+        },
         "models.ExerciseResponse": {
             "type": "object",
             "properties": {
@@ -1398,6 +1489,20 @@ const docTemplate = `{
                 },
                 "name_ru": {
                     "type": "string"
+                }
+            }
+        },
+        "models.PaginatedExerciseHistoryResponse": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ExerciseHistoryEntry"
+                    }
+                },
+                "total": {
+                    "type": "integer"
                 }
             }
         },

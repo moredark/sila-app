@@ -1,6 +1,7 @@
 package models
 
 import "time"
+import "Sila/pkg/types"
 
 type WorkoutSessionResponse struct {
 	ID          int                         `json:"id"`
@@ -34,3 +35,5 @@ type IncompleteWorkoutResponse struct {
 type ErrorResponse struct {
 	Error string `json:"error"`
 }
+
+type PaginatedExerciseHistoryResponse = types.Pagination[ExerciseHistoryEntry]

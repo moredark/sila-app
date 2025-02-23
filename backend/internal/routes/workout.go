@@ -15,6 +15,7 @@ func SetupWorkoutRoutes(api fiber.Router) {
 		workout.Get("/incomplete", handlers.GetIncompleteWorkouts)
 		workout.Get("/:id", handlers.GetWorkoutSession)
 		workout.Get("/exercise/:exercise_id", handlers.GetWorkoutsByExercise)
+		workout.Get("/exercise/:exercise_id/history", handlers.GetExerciseHistory)
 		workout.Delete("/set/:id", handlers.DeleteSet)
 		workout.Delete("/:id", handlers.DeleteWorkoutSession)
 	}

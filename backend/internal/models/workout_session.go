@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/google/uuid"
 	"time"
+	"Sila/pkg/types"
 )
 
 type WorkoutSession struct {
@@ -35,7 +36,15 @@ type StartWorkoutResponse struct {
 	CreatedAt   string                  `json:"created_at" validate:"required"`
 	LastSession *WorkoutSessionResponse `json:"last_session,omitempty"`
 }
-type PaginatedWorkoutResponse struct {
-	Items []IncompleteWorkoutResponse `json:"items"`
-	Total int64                       `json:"total"`
+
+type PaginatedWorkoutResponse = types.Pagination[IncompleteWorkoutResponse]
+
+type ExerciseHistoryEntry struct {
+    SessionID   int              `json:"session_id"`
+    CreatedAt   time.Time        `json:"created_at"`
+    Note        string           `json:"note,omitempty"`
+    IsCompleted bool             `json:"is_completed"`
+    Sets        []Set            `json:"sets"`
+    Exercise    ExerciseResponse `json:"exercise"`
+    User        UserBasicInfo    `json:"user"`
 }
