@@ -4,6 +4,7 @@ import (
 	"Sila/config"
 	"Sila/internal/models"
 	"Sila/utils"
+	"Sila/pkg/types"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
 	"time"
@@ -305,7 +306,10 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 	}
 
 	var session models.WorkoutSession
-	if err := config.DB.Preload("Sets").Preload("Exercise.MuscleGroup").First(&session, sessionID).Error; err != nil {
+	if err := config.DB.Preload("Sets").
+		Preload("Exercise.MuscleGroup").
+		Preload("User").
+		First(&session, sessionID).Error; err != nil {
 		return utils.HandleError(c, fiber.StatusNotFound, "Workout session not found", err.Error())
 	}
 
@@ -378,6 +382,12 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 			},
 		},
 		LastSession: lastSessionResponse,
+		User: models.UserBasicInfo{
+			ID:        session.User.ID,
+			Username:  session.User.Username,
+			Email:     session.User.Email,
+			AvatarURL: session.User.AvatarURL,
+		},
 	}
 
 	return c.JSON(response)
@@ -487,17 +497,25 @@ func GetWorkoutsByExercise(c *fiber.Ctx) error {
 		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid exercise ID", err.Error())
 	}
 
-	limit, _ := strconv.Atoi(c.Query("limit", "10"))
-	offset, _ := strconv.Atoi(c.Query("offset", "0"))
+	var query types.PaginationQuery
+	if err := c.QueryParser(&query); err != nil {
+		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid pagination parameters", err.Error())
+	}
+	query.SetDefaults()
 
 	var total int64
-	config.DB.Model(&models.WorkoutSession{}).Where("user_id = ? AND exercise_id = ?", user.ID, exerciseID).Count(&total)
+	config.DB.Model(&models.WorkoutSession{}).
+		Where("user_id = ? AND exercise_id = ?", user.ID, exerciseID).
+		Count(&total)
 
 	var sessions []models.WorkoutSession
 	if err := config.DB.Where("user_id = ? AND exercise_id = ?", user.ID, exerciseID).
 		Order("created_at DESC").
-		Offset(offset).Limit(limit).
-		Preload("Exercise.MuscleGroup").Preload("Sets").
+		Offset(query.Offset).
+		Limit(query.Limit).
+		Preload("Exercise.MuscleGroup").
+		Preload("Sets").
+		Preload("User").
 		Find(&sessions).Error; err != nil {
 		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to retrieve workout sessions", err.Error())
 	}
@@ -533,8 +551,95 @@ func GetWorkoutsByExercise(c *fiber.Ctx) error {
 		response = append(response, workoutResponse)
 	}
 
-	return c.JSON(fiber.Map{
-		"items": response,
-		"total": total,
+	return c.JSON(types.Pagination[models.IncompleteWorkoutResponse]{
+		Items: response,
+		Total: total,
+	})
+}
+
+// GetExerciseHistory godoc
+// @Summary Get exercise history by users
+// @Description Retrieve paginated history of users who performed a specific exercise
+// @Tags Workout
+// @Accept json
+// @Produce json
+// @Param exercise_id path int true "Exercise ID"
+// @Param limit query int false "Limit the number of results"
+// @Param offset query int false "Offset for pagination"
+// @Success 200 {object} models.PaginatedExerciseHistoryResponse "Paginated list of users' exercise history"
+// @Failure 400 {object} map[string]string "Invalid exercise ID"
+// @Failure 500 {object} map[string]string "Failed to retrieve exercise history"
+// @Router /workout/exercise/{exercise_id}/history [get]
+func GetExerciseHistory(c *fiber.Ctx) error {
+	exerciseID, err := strconv.Atoi(c.Params("exercise_id"))
+	if err != nil {
+		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid exercise ID", err.Error())
+	}
+
+	var query types.PaginationQuery
+	if err := c.QueryParser(&query); err != nil {
+		return utils.HandleError(c, fiber.StatusBadRequest, "Invalid pagination parameters", err.Error())
+	}
+	query.SetDefaults()
+
+	lang := utils.GetLanguage(c)
+
+	var total int64
+	if err := config.DB.Model(&models.WorkoutSession{}).
+		Where("exercise_id = ?", exerciseID).
+		Count(&total).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to count exercise history", err.Error())
+	}
+
+	var sessions []models.WorkoutSession
+	if err := config.DB.Where("exercise_id = ?", exerciseID).
+		Order("created_at DESC").
+		Offset(query.Offset).
+		Limit(query.Limit).
+		Preload("User").
+		Preload("Sets").
+		Preload("Exercise.MuscleGroup").
+		Find(&sessions).Error; err != nil {
+		return utils.HandleError(c, fiber.StatusInternalServerError, "Failed to retrieve exercise history", err.Error())
+	}
+
+	response := make([]models.ExerciseHistoryEntry, 0)
+	for _, session := range sessions {
+		exerciseName := session.Exercise.NameEng
+		muscleGroupName := session.Exercise.MuscleGroup.NameEng
+		if lang == "ru" {
+			exerciseName = session.Exercise.NameRu
+			muscleGroupName = session.Exercise.MuscleGroup.NameRu
+		}
+
+		historyEntry := models.ExerciseHistoryEntry{
+			SessionID:   session.ID,
+			CreatedAt:   session.CreatedAt,
+			Note:        session.Note,
+			IsCompleted: session.IsCompleted,
+			Sets:        session.Sets,
+			Exercise: models.ExerciseResponse{
+				ID:   session.Exercise.ID,
+				Name: exerciseName,
+				MuscleGroup: models.GetMuscleGroupsResponse{
+					ID:       session.Exercise.MuscleGroup.ID,
+					Name:     muscleGroupName,
+					ImageURL: session.Exercise.MuscleGroup.ImageURL,
+				},
+			},
+			User: models.UserBasicInfo{
+				ID:        session.User.ID,
+				Username:  session.User.Username,
+				Email:     session.User.Email,
+				AvatarURL: session.User.AvatarURL,
+			},
+		}
+
+		response = append(response, historyEntry)
+	}
+
+	return c.JSON(types.Pagination[models.ExerciseHistoryEntry]{
+		Items: response,
+		Total: total,
 	})
 }
