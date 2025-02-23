@@ -10,6 +10,7 @@ type WorkoutSessionResponse struct {
 	Sets        []Set                       `json:"sets"`
 	Exercise    ExerciseResponse            `json:"exercise"`
 	LastSession *LastWorkoutSessionResponse `json:"last_session,omitempty"`
+	User        UserBasicInfo               `json:"user"`
 }
 
 type LastWorkoutSessionResponse struct {

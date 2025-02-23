@@ -1611,6 +1611,23 @@ const docTemplate = `{
                 }
             }
         },
+        "models.UserBasicInfo": {
+            "type": "object",
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "models.WorkoutSessionResponse": {
             "type": "object",
             "properties": {
@@ -1637,6 +1654,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.Set"
                     }
+                },
+                "user": {
+                    "$ref": "#/definitions/models.UserBasicInfo"
                 }
             }
         }

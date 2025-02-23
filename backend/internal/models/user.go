@@ -37,3 +37,10 @@ type GetUserProfileResponse struct {
 	FitnessLevel string    `json:"fitness_level"`
 	Role         string    `json:"role"`
 }
+
+type UserBasicInfo struct {
+	ID        uuid.UUID `json:"id"`
+	Username  string    `json:"username"`
+	Email     string    `json:"email"`
+	AvatarURL *string   `json:"avatar_url,omitempty"`
+}

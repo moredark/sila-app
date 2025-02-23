@@ -305,7 +305,10 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 	}
 
 	var session models.WorkoutSession
-	if err := config.DB.Preload("Sets").Preload("Exercise.MuscleGroup").First(&session, sessionID).Error; err != nil {
+	if err := config.DB.Preload("Sets").
+		Preload("Exercise.MuscleGroup").
+		Preload("User").
+		First(&session, sessionID).Error; err != nil {
 		return utils.HandleError(c, fiber.StatusNotFound, "Workout session not found", err.Error())
 	}
 
@@ -378,6 +381,12 @@ func GetWorkoutSession(c *fiber.Ctx) error {
 			},
 		},
 		LastSession: lastSessionResponse,
+		User: models.UserBasicInfo{
+			ID:        session.User.ID,
+			Username:  session.User.Username,
+			Email:     session.User.Email,
+			AvatarURL: session.User.AvatarURL,
+		},
 	}
 
 	return c.JSON(response)

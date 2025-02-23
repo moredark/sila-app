@@ -335,6 +335,17 @@ definitions:
       username:
         type: string
     type: object
+  models.UserBasicInfo:
+    properties:
+      avatar_url:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+    type: object
   models.WorkoutSessionResponse:
     properties:
       created_at:
@@ -353,6 +364,8 @@ definitions:
         items:
           $ref: '#/definitions/models.Set'
         type: array
+      user:
+        $ref: '#/definitions/models.UserBasicInfo'
     type: object
 host: sila-danila.ru
 info:
