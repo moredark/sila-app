@@ -1,73 +1,83 @@
-name: Auto Tag on Pull Request Merge
+  name: Auto Tag on Pull Request Merge
 
-on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
+  on:
+    pull_request:
+      types: [closed]
+      branches:
+        - main
 
-jobs:
-  autotag:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+  jobs:
+    autotag:
+      if: github.event.pull_request.merged == true
+      runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Git
-      run: |
-        git config --global user.name "GitHub Action"
-        git config --global user.email "actions@github.com"
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
 
-    - name: Get current version
-      id: get_version
-      run: |
-        if git describe --tags --abbrev=0 >/dev/null 2>&1; then
-          echo "CURRENT_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-        else
-          echo "CURRENT_TAG=0.0.0" >> $GITHUB_ENV
-        fi
-      shell: bash
+      - name: Get current version
+        id: get_version
+        run: |
+          if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+            echo "CURRENT_TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          else
+            echo "CURRENT_TAG=0.0.0" >> $GITHUB_ENV
+          fi
+        shell: bash
 
-    - name: Determine version type
-      id: determine_version
-      run: |
-        PR_LABELS=$(echo '${{ toJson(github.event.pull_request.labels) }}' | jq -r '.[].name')
-        echo "PR_LABELS=$PR_LABELS"
+      - name: Determine version type
+        id: determine_version
+        run: |
+          PR_LABELS=$(echo '${{ toJson(github.event.pull_request.labels) }}' | jq -r '.[].name')
+          echo "PR_LABELS=$PR_LABELS"
 
-        if [[ "$PR_LABELS" == *"major"* ]]; then
-          echo "VERSION_TYPE=major" >> $GITHUB_ENV
-        elif [[ "$PR_LABELS" == *"minor"* ]]; then
-          echo "VERSION_TYPE=minor" >> $GITHUB_ENV
-        else
-          echo "VERSION_TYPE=patch" >> $GITHUB_ENV
-        fi
-      shell: bash
+          if [[ "$PR_LABELS" == *"major"* ]]; then
+            echo "VERSION_TYPE=major" >> $GITHUB_ENV
+          elif [[ "$PR_LABELS" == *"minor"* ]]; then
+            echo "VERSION_TYPE=minor" >> $GITHUB_ENV
+          else
+            echo "VERSION_TYPE=patch" >> $GITHUB_ENV
+          fi
+        shell: bash
 
-    - name: Calculate new version
-      id: calculate_version
-      run: |
-        IFS='.' read -r major minor patch <<< "${CURRENT_TAG#v}"
-        case $VERSION_TYPE in
-          major)
-            major=$((major+1))
-            minor=0
-            patch=0
-            ;;
-          minor)
-            minor=$((minor+1))
-            patch=0
-            ;;
-          patch)
+      - name: Calculate new version
+        id: calculate_version
+        run: |
+          IFS='.' read -r major minor patch <<< "${CURRENT_TAG#v}"
+          case $VERSION_TYPE in
+            major)
+              major=$((major+1))
+              minor=0
+              patch=0
+              ;;
+            minor)
+              minor=$((minor+1))
+              patch=0
+              ;;
+            patch)
+              patch=$((patch+1))
+              ;;
+          esac
+          NEW_TAG="v$major.$minor.$patch"
+          
+          # Check if tag exists
+          while git ls-remote --tags origin refs/tags/$NEW_TAG | grep -q $NEW_TAG; do
+            echo "Tag $NEW_TAG already exists, incrementing patch version"
             patch=$((patch+1))
-            ;;
-        esac
-        echo "NEW_TAG=v$major.$minor.$patch" >> $GITHUB_ENV
+            NEW_TAG="v$major.$minor.$patch"
+          done
+          
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+          echo "Will create tag: $NEW_TAG"
 
-    - name: Create and push new tag
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git tag $NEW_TAG
-        git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} $NEW_TAG
+      - name: Create and push new tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git tag $NEW_TAG
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} $NEW_TAG
