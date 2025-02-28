@@ -9,7 +9,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "i18n:generate-types": "node ./scripts/generate-i18n-types.js",
-    "generate-api-types": "node ./scripts/generate-api-types.js"
+    "generate-api-types": "node --no-deprecation ./scripts/generate-api-types.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -63,11 +63,13 @@
     "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-tailwindcss": "^3.17.4",
+    "node-fetch": "^3.3.2",
     "openapi-typescript": "^7.4.1",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "steiger": "^0.4.0",
+    "swagger2openapi": "^7.0.0",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }
