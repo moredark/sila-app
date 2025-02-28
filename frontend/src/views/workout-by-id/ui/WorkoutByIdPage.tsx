@@ -5,9 +5,11 @@ import { useGetWorkoutById } from '@/entities/workout/model/workout.api'
 import { formatDate, useTranslation } from '@/shared/lib'
 import { Badge } from '@/shared/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
-import { Skeleton } from '@/shared/ui/skeleton'
 import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
 import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
+import { UserInfo } from '@/widgets/UserInfo/ui/UserInfo'
+
+import { WorkoutByIdSkeleton } from './WorkoutByIdSkeleton'
 
 interface Props {
   workoutId: number
@@ -20,21 +22,17 @@ const WorkoutByIdPage: FC<Props> = ({ workoutId }) => {
   const exerciseData = data?.data
 
   if (isLoading) {
-    return (
-      <div className="space-y-6 p-4">
-        <Skeleton className="h-24 w-full" />
-        <Skeleton className="h-48 w-full" />
-      </div>
-    )
+    return <WorkoutByIdSkeleton />
   }
 
   return (
     <div className="space-y-6 p-4">
+      {exerciseData?.user && <UserInfo user={exerciseData.user} />}
       <Card>
         <CardHeader>
-          <CardTitle>{exerciseData?.exercise && exerciseData?.exercise.name}</CardTitle>
+          <CardTitle>{exerciseData?.exercise?.name}</CardTitle>
           <CardDescription>
-            {exerciseData?.exercise?.muscle_group && exerciseData?.exercise.muscle_group.name}
+            {exerciseData?.exercise?.muscle_group?.name}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -44,9 +42,7 @@ const WorkoutByIdPage: FC<Props> = ({ workoutId }) => {
           </div>
         </CardContent>
       </Card>
-
       {exerciseData?.sets && <SetsTable sets={exerciseData.sets} />}
-
       {exerciseData?.note && <WorkoutNote note={exerciseData.note} />}
     </div>
   )
