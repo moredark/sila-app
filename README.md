@@ -162,9 +162,3 @@ Contributions are welcome! Please follow the `CONTRIBUTING.md` to get started.
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-## Contact
-
-Daniil Sakmarkin - sakmarkin01@gmail.com
-
-Telegram - [@moredarkie](https://t.me/moredarkie)
-
