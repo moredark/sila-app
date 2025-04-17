@@ -12,7 +12,6 @@ import WorkoutHeader from './WorkoutHeader'
 import WorkoutSets from './WorkoutSets'
 
 interface CurrentWorkoutContentProps {
-  data: WorkoutSession | undefined
   workoutData: WorkoutSession
   isAddSetDrawerOpen: boolean
   setAddSetDrawerOpen: (open: boolean) => void
@@ -22,7 +21,6 @@ interface CurrentWorkoutContentProps {
 }
 
 const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
-  data,
   workoutData,
   isAddSetDrawerOpen,
   setAddSetDrawerOpen,
@@ -33,12 +31,12 @@ const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
   return (
     <TabsContent value="current">
       <div className="flex flex-col gap-6">
-        <WorkoutHeader exerciseName={data?.exercise?.name} />
+        <WorkoutHeader exerciseName={workoutData?.exercise?.name} />
         <WorkoutActions
           onAddSet={() => setAddSetDrawerOpen(true)}
           onEndWorkout={() => setEndWorkoutDrawerOpen(true)}
         />
-        <WorkoutSets sets={data?.sets} />
+        <WorkoutSets sets={workoutData?.sets} />
         <AddSetDrawer
           open={isAddSetDrawerOpen}
           onOpenChange={setAddSetDrawerOpen}

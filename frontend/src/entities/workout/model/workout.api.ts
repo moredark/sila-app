@@ -85,11 +85,10 @@ export const useCompleteWorkout = () => {
   })
 }
 
-export const getWorkout = async (workoutId: string, accessToken?: string) => {
+export const getWorkout = async (workoutId: string) => {
   try {
     const response = await GET(`/workout/{id}`, {
       params: { path: { id: Number(workoutId) } },
-      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
     })
     return response.data
   } catch (error) {
@@ -98,25 +97,16 @@ export const getWorkout = async (workoutId: string, accessToken?: string) => {
   }
 }
 
-export const useGetWorkout = ({
-  workoutId,
-  initialData,
-}: {
-  workoutId: number
-  initialData: WorkoutSession
-}) => {
+export const useGetWorkout = ({ workoutId }: { workoutId: number }) => {
   return useQuery({
     queryKey: ['workout', workoutId],
     queryFn: () => getWorkout(workoutId.toString()),
-    initialData,
   })
 }
 
-export const getIncompleteWorkouts = async (accessToken?: string) => {
+export const getIncompleteWorkouts = async () => {
   try {
-    const response = await GET(`/workout/incomplete`, {
-      headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
-    })
+    const response = await GET(`/workout/incomplete`)
     return response.data
   } catch (error) {
     console.error('Failed to fetch workout:', error)

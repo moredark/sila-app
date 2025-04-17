@@ -1,10 +1,8 @@
 import { GET } from '@/shared/api'
 
-export const getUserProfile = async (accessToken?: string) => {
+export const getUserProfile = async () => {
   try {
-    const response = await GET('/user/profile', {
-      headers: accessToken ? { Authorization: accessToken } : {},
-    })
+    const response = await GET('/user/profile')
     return response.data
   } catch (error) {
     console.error('Failed to fetch user profile:', error)
