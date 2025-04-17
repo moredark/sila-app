@@ -3,27 +3,54 @@
 import { FC, useState } from 'react'
 
 import { useGetWorkout } from '@/entities/workout/model/workout.api'
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
 import { Timer } from '@/shared/ui'
+import { Card } from '@/shared/ui/card'
+import { ErrorCard } from '@/shared/ui/error-card'
+import { Skeleton } from '@/shared/ui/skeleton'
 
 import CurrentWorkoutContent from './CurrentWorkoutContent'
 import LastWorkoutContent from './LastWorkoutContent'
 import WorkoutTabs from './WorkoutTabs'
 
 interface Props {
-  workoutData: WorkoutSession
+  workoutId: number
 }
 
-export const WorkoutSessionPage: FC<Props> = ({ workoutData }) => {
-  const { data } = useGetWorkout({
-    workoutId: workoutData.id!,
-    initialData: workoutData,
+export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
+  const { data: workoutData, isLoading, error } = useGetWorkout({
+    workoutId: workoutId,
   })
   const [isAddSetDrawerOpen, setAddSetDrawerOpen] = useState(false)
   const [isEndWorkoutDrawerOpen, setEndWorkoutDrawerOpen] = useState(false)
 
   const [isTimerRunning, setIsTimerRunning] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
+
+  if (isLoading) {
+    return (
+      <div className="h-full p-4 pb-[85px]">
+        <Card className="p-6">
+          <div className="space-y-4">
+            <Skeleton className="h-8 w-1/3" />
+            <Skeleton className="h-32" />
+            <Skeleton className="h-32" />
+          </div>
+        </Card>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="h-full p-4 pb-[85px]">
+        <ErrorCard message={error.message} />
+      </div>
+    )
+  }
+
+  if (!workoutData) {
+    return null
+  }
 
   const handleSetAdded = () => {
     setIsTimerRunning(false)
@@ -49,9 +76,8 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutData }) => {
 
   return (
     <div className="h-full p-4 pb-[85px]">
-      <WorkoutTabs workoutId={workoutData.id}>
+      <WorkoutTabs workoutId={workoutId}>
         <CurrentWorkoutContent
-          data={data}
           workoutData={workoutData}
           isAddSetDrawerOpen={isAddSetDrawerOpen}
           setAddSetDrawerOpen={setAddSetDrawerOpen}
@@ -59,7 +85,7 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutData }) => {
           setEndWorkoutDrawerOpen={setEndWorkoutDrawerOpen}
           handleSetAdded={handleSetAdded}
         />
-        <LastWorkoutContent data={data} />
+        <LastWorkoutContent data={workoutData} />
       </WorkoutTabs>
       <Timer
         isRunning={isTimerRunning}

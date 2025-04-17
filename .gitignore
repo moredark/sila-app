@@ -3,3 +3,4 @@ certbot/
 *.pem
 *.key
 node_modules
+frontend/.vscode/
