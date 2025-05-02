@@ -1,1 +1,1 @@
-export { GET, POST, PUT, DELETE } from './client'
+export * from './client'
