@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
@@ -28,14 +29,14 @@ func (*User) TableName() string {
 }
 
 type GetUserProfileResponse struct {
-	Email        string    `json:"email"`
-	Username     string    `json:"username"`
+	Email        string    `json:"email" binding:"required" validate:"required"`
+	Username     string    `json:"username" binding:"required" validate:"required"`
 	AvatarURL    string    `json:"avatar_url,omitempty"`
 	Bio          string    `json:"bio,omitempty"`
-	CreatedAt    time.Time `json:"created_at"`
+	CreatedAt    time.Time `json:"created_at" binding:"required" validate:"required"`
 	LastLogin    time.Time `json:"last_login,omitempty"`
-	FitnessLevel string    `json:"fitness_level"`
-	Role         string    `json:"role"`
+	FitnessLevel string    `json:"fitness_level" binding:"required" validate:"required"`
+	Role         string    `json:"role" binding:"required" validate:"required"`
 }
 
 type UserBasicInfo struct {

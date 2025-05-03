@@ -1388,6 +1388,13 @@
         },
         "models.GetUserProfileResponse": {
             "type": "object",
+            "required": [
+                "created_at",
+                "email",
+                "fitness_level",
+                "role",
+                "username"
+            ],
             "properties": {
                 "avatar_url": {
                     "type": "string"
@@ -1537,6 +1544,10 @@
         },
         "models.PaginatedExerciseHistoryResponse": {
             "type": "object",
+            "required": [
+                "items",
+                "total"
+            ],
             "properties": {
                 "items": {
                     "type": "array",
@@ -1551,6 +1562,10 @@
         },
         "models.PaginatedWorkoutResponse": {
             "type": "object",
+            "required": [
+                "items",
+                "total"
+            ],
             "properties": {
                 "items": {
                     "type": "array",
@@ -1630,6 +1645,13 @@
         },
         "models.Set": {
             "type": "object",
+            "required": [
+                "created_at",
+                "id",
+                "reps",
+                "weight",
+                "workout_session_id"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"

@@ -166,6 +166,12 @@ definitions:
         type: string
       username:
         type: string
+    required:
+    - created_at
+    - email
+    - fitness_level
+    - role
+    - username
     type: object
   models.GoogleTokenRequest:
     properties:
@@ -259,6 +265,9 @@ definitions:
         type: array
       total:
         type: integer
+    required:
+    - items
+    - total
     type: object
   models.PaginatedWorkoutResponse:
     properties:
@@ -268,6 +277,9 @@ definitions:
         type: array
       total:
         type: integer
+    required:
+    - items
+    - total
     type: object
   models.Permission:
     properties:
@@ -323,6 +335,12 @@ definitions:
         type: number
       workout_session_id:
         type: integer
+    required:
+    - created_at
+    - id
+    - reps
+    - weight
+    - workout_session_id
     type: object
   models.StartWorkoutRequest:
     properties:
