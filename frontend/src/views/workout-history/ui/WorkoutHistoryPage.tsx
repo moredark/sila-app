@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { useGetExercises } from '@/entities/exercise'
 import { useGetWorkoutsByExercises, WORKOUTS_BY_EXERCISES_LIMIT } from '@/entities/workout'
+import { WorkoutSession } from '@/entities/workout/model/workout.types'
 import { useTranslation } from '@/shared/lib'
 import { Skeleton } from '@/shared/ui/skeleton'
 
@@ -60,8 +61,8 @@ export const WorkoutHistoryPage = () => {
         onSelect={handleExerciseSelect}
       />
 
-      {workouts?.data?.items && workouts?.data?.items.length > 0 ? (
-        <WorkoutList workouts={workouts?.data?.items || []} />
+      {workouts?.data?.items && workouts.data.items.length > 0 ? (
+        <WorkoutList workouts={workouts.data.items as WorkoutSession[] || []} />
       ) : (
         <p className="w-full text-center">{t('nothing-found')}</p>
       )}

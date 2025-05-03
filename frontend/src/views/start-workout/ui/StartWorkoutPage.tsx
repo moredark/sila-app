@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useGetExercises } from '@/entities/exercise'
 import { useGetMuscleGroups } from '@/entities/muscle-group/api/useGetMuscleGroups'
 import { useGetIncompleteWorkouts, useStartWorkout } from '@/entities/workout'
+import { WorkoutSession } from '@/entities/workout/model/workout.types'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/tabs'
@@ -98,7 +99,7 @@ export const StartWorkoutPage: FC = () => {
         </TabsContent>
 
         <TabsContent value="incomplete">
-          <IncompleteWorkoutsList workouts={incompleteWorkouts?.data || []} />
+          <IncompleteWorkoutsList workouts={incompleteWorkouts?.data as WorkoutSession[] || []} />
         </TabsContent>
       </Tabs>
     </div>
