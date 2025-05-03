@@ -5,7 +5,6 @@ import { GET, POST, PUT } from '@/shared/api/client'
 import { WORKOUTS_BY_EXERCISES_LIMIT } from '../config/consts.workout'
 
 import { useWorkoutStore } from './workout.store'
-import { WorkoutSession } from './workout.types'
 
 export const useStartWorkout = () => {
   const startWorkout = useWorkoutStore(state => state.startWorkout)

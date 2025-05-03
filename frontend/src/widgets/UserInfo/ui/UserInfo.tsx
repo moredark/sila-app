@@ -19,7 +19,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
     return (
         <Card>
             <CardContent className="flex items-center gap-4 p-4">
-                <Avatar className="h-12 w-12">
+                <Avatar className="size-12">
                     <AvatarImage src={avatar_url} />
                     <AvatarFallback>{username?.[0]?.toUpperCase()}</AvatarFallback>
                 </Avatar>

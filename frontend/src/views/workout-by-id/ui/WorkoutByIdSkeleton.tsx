@@ -7,7 +7,7 @@ export const WorkoutByIdSkeleton = () => {
     <div className="space-y-6 p-4">
       <Card>
         <CardContent className="flex items-center gap-4 p-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
+          <Skeleton className="size-12 rounded-full" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-3 w-32" />
@@ -45,7 +45,7 @@ export const WorkoutByIdSkeleton = () => {
             <TableBody>
               {[1, 2, 3].map((i) => (
                 <TableRow key={i}>
-                  <TableCell><Skeleton className="h-4 w-4" /></TableCell>
+                  <TableCell><Skeleton className="size-4" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-12" /></TableCell>
                   <TableCell><Skeleton className="h-4 w-8" /></TableCell>
                 </TableRow>
