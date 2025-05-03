@@ -3,12 +3,12 @@ package models
 import "time"
 
 type Set struct {
-	ID               int            `gorm:"primaryKey" json:"id"`
-	WorkoutSessionID int            `json:"workout_session_id"`
+	ID               int            `gorm:"primaryKey" json:"id" binding:"required" validate:"required"`
+	WorkoutSessionID int            `json:"workout_session_id" binding:"required" validate:"required"`
 	WorkoutSession   WorkoutSession `gorm:"foreignKey:WorkoutSessionID" json:"-"`
-	Weight           float64        `gorm:"type:decimal(5,2)" json:"weight"`
-	Reps             int            `json:"reps"`
-	CreatedAt        time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	Weight           float64        `gorm:"type:decimal(5,2)" json:"weight" binding:"required" validate:"required"`
+	Reps             int            `json:"reps" binding:"required" validate:"required"`
+	CreatedAt        time.Time      `gorm:"default:CURRENT_TIMESTAMP" json:"created_at" binding:"required" validate:"required"`
 }
 
 func (Set) TableName() string {

@@ -1,8 +1,8 @@
 package types
 
 type Pagination[T any] struct {
-	Items []T   `json:"items"`
-	Total int64 `json:"total"`
+	Items []T   `json:"items" binding:"required" validate:"required"`
+	Total int64 `json:"total" binding:"required" validate:"required"`
 }
 
 type PaginationQuery struct {
