@@ -1,6 +1,8 @@
 import { Middleware } from 'openapi-fetch'
+
 import { useUserStore } from '@/entities/user'
 import { AUTHORIZATION_HEADER } from '@/shared/config'
+
 import { cloneRequest, getAuthorizationHeader, handleTokenRefresh } from '../utils'
 
 export const authMiddleware: Middleware = {

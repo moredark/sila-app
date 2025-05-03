@@ -1,5 +1,7 @@
 import { Middleware } from 'openapi-fetch'
+
 import { ACCEPT_LANGUAGE_HEADER } from '@/shared/config'
+
 import { getLanguageHeader } from '../utils'
 
 export const languageMiddleware: Middleware = {
