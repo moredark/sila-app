@@ -2,7 +2,7 @@ package models
 
 type Provider struct {
 	ID    int    `gorm:"primaryKey" json:"id"`
-	Name  string `gorm:"type:varchar(255);not null;unique" json:"name"`
+	Name  string `gorm:"type:varchar(255);not null;unique" json:"name" binding:"required" validate:"required"`
 	Users []User `gorm:"foreignKey:ProviderID" json:"users"`
 }
 

@@ -1597,8 +1597,8 @@ export interface components {
       session_id: number
     }
     'models.TokensResponse': {
-      access_token?: string
-      refresh_token?: string
+      access_token: string
+      refresh_token: string
     }
     'models.UpdateExerciseRequest': {
       /** @example A basic chest exercise. */

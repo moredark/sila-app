@@ -16,6 +16,6 @@ func (Set) TableName() string {
 }
 
 type AddSetRequest struct {
-	Weight float64 `json:"weight" example:"50.5"`
-	Reps   int     `json:"reps" example:"10"`
+	Weight float64 `json:"weight" example:"50.5" binding:"required" validate:"required"`
+	Reps   int     `json:"reps" example:"10" binding:"required" validate:"required"`
 }

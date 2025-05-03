@@ -6,12 +6,12 @@ import (
 
 type Exercise struct {
 	ID             int         `gorm:"primaryKey" json:"id"`
-	NameEng        string      `gorm:"type:varchar(255);not null" json:"name_eng"`
-	NameRu         string      `gorm:"type:varchar(255);not null" json:"name_ru"`
+	NameEng        string      `gorm:"type:varchar(255);not null" json:"name_eng" binding:"required" validate:"required"`
+	NameRu         string      `gorm:"type:varchar(255);not null" json:"name_ru" binding:"required" validate:"required"`
 	DescriptionEng string      `gorm:"type:text" json:"description_eng,omitempty"`
 	DescriptionRu  string      `gorm:"type:text" json:"description_ru,omitempty"`
 	ImageURL       string      `gorm:"type:varchar(255)" json:"image_url,omitempty"`
-	MuscleGroupID  int         `gorm:"not null" json:"-"`
+	MuscleGroupID  int         `gorm:"not null" json:"-" binding:"required" validate:"required"`
 	MuscleGroup    MuscleGroup `gorm:"foreignKey:MuscleGroupID;references:ID" json:"muscle_group"`
 	CreatedAt      time.Time   `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 }
@@ -39,11 +39,11 @@ type UpdateExerciseRequest struct {
 }
 
 type ExerciseResponse struct {
-	ID          int                     `json:"id"`
-	Name        string                  `json:"name"`
+	ID          int                     `json:"id" binding:"required" validate:"required"`
+	Name        string                  `json:"name" binding:"required" validate:"required"`
 	Description string                  `json:"description,omitempty"`
-	MuscleGroup GetMuscleGroupsResponse `json:"muscle_group"`
-	CreatedAt   time.Time               `json:"created_at"`
+	MuscleGroup GetMuscleGroupsResponse `json:"muscle_group" binding:"required" validate:"required"`
+	CreatedAt   time.Time               `json:"created_at" binding:"required" validate:"required"`
 }
 
 type MuscleGroupDTO struct {

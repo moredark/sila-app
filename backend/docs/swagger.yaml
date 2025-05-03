@@ -8,6 +8,9 @@ definitions:
       weight:
         example: 50.5
         type: number
+    required:
+    - reps
+    - weight
     type: object
   models.CompleteWorkoutRequest:
     properties:
@@ -59,6 +62,8 @@ definitions:
     properties:
       error:
         type: string
+    required:
+    - error
     type: object
   models.Exercise:
     properties:
@@ -78,6 +83,9 @@ definitions:
         type: string
       name_ru:
         type: string
+    required:
+    - name_eng
+    - name_ru
     type: object
   models.ExerciseHistoryEntry:
     properties:
@@ -110,6 +118,11 @@ definitions:
         $ref: '#/definitions/models.GetMuscleGroupsResponse'
       name:
         type: string
+    required:
+    - created_at
+    - id
+    - muscle_group
+    - name
     type: object
   models.FitnessLevel:
     properties:
@@ -119,6 +132,9 @@ definitions:
         type: string
       name_ru:
         type: string
+    required:
+    - name_eng
+    - name_ru
     type: object
   models.GetMuscleGroupsResponse:
     properties:
@@ -174,6 +190,12 @@ definitions:
         items:
           $ref: '#/definitions/models.Set'
         type: array
+    required:
+    - created_at
+    - exercise
+    - id
+    - is_completed
+    - sets
     type: object
   models.LastWorkoutSessionResponse:
     properties:
@@ -195,6 +217,12 @@ definitions:
         items:
           $ref: '#/definitions/models.Set'
         type: array
+    required:
+    - created_at
+    - exercise
+    - id
+    - is_completed
+    - sets
     type: object
   models.LoginRequest:
     properties:
@@ -202,17 +230,26 @@ definitions:
         type: string
       password:
         type: string
+    required:
+    - email
+    - password
     type: object
   models.MuscleGroup:
     properties:
       id:
         type: integer
       image_url:
+        example: http://example.com/chest.jpg
         type: string
       name_eng:
+        example: Chest
         type: string
       name_ru:
+        example: Грудь
         type: string
+    required:
+    - name_eng
+    - name_ru
     type: object
   models.PaginatedExerciseHistoryResponse:
     properties:
@@ -238,6 +275,8 @@ definitions:
         type: integer
       name:
         type: string
+    required:
+    - name
     type: object
   models.Provider:
     properties:
@@ -249,11 +288,15 @@ definitions:
         items:
           $ref: '#/definitions/models.User'
         type: array
+    required:
+    - name
     type: object
   models.RefreshTokenRequest:
     properties:
       refresh_token:
         type: string
+    required:
+    - refresh_token
     type: object
   models.Role:
     properties:
@@ -265,6 +308,8 @@ definitions:
         items:
           $ref: '#/definitions/models.Permission'
         type: array
+    required:
+    - name
     type: object
   models.Set:
     properties:
@@ -284,6 +329,8 @@ definitions:
       exercise_id:
         example: 1
         type: integer
+    required:
+    - exercise_id
     type: object
   models.StartWorkoutResponse:
     properties:
@@ -306,6 +353,9 @@ definitions:
         type: string
       refresh_token:
         type: string
+    required:
+    - access_token
+    - refresh_token
     type: object
   models.UpdateExerciseRequest:
     properties:
@@ -394,6 +444,13 @@ definitions:
         type: array
       user:
         $ref: '#/definitions/models.UserBasicInfo'
+    required:
+    - created_at
+    - exercise
+    - id
+    - is_completed
+    - sets
+    - user
     type: object
 host: sila-danila.ru
 info:

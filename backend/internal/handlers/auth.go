@@ -6,13 +6,14 @@ import (
 	"Sila/internal/models"
 	"Sila/utils"
 	"errors"
+	"log"
+	"net/http"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"log"
-	"net/http"
-	"time"
 )
 
 func timePtr(t time.Time) *time.Time {
@@ -32,9 +33,9 @@ func timePtr(t time.Time) *time.Time {
 // @Router /auth/register [post]
 func Register(c *fiber.Ctx) error {
 	var req struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-		Username string `json:"username"`
+		Email    string `json:"email" binding:"required" validate:"required"`
+		Password string `json:"password" binding:"required" validate:"required"`
+		Username string `json:"username" binding:"required" validate:"required"`
 	}
 
 	if err := c.BodyParser(&req); err != nil {

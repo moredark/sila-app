@@ -1175,6 +1175,10 @@ const docTemplate = `{
     "definitions": {
         "models.AddSetRequest": {
             "type": "object",
+            "required": [
+                "reps",
+                "weight"
+            ],
             "properties": {
                 "reps": {
                     "type": "integer",
@@ -1252,6 +1256,9 @@ const docTemplate = `{
         },
         "models.ErrorResponse": {
             "type": "object",
+            "required": [
+                "error"
+            ],
             "properties": {
                 "error": {
                     "type": "string"
@@ -1260,6 +1267,10 @@ const docTemplate = `{
         },
         "models.Exercise": {
             "type": "object",
+            "required": [
+                "name_eng",
+                "name_ru"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -1318,6 +1329,12 @@ const docTemplate = `{
         },
         "models.ExerciseResponse": {
             "type": "object",
+            "required": [
+                "created_at",
+                "id",
+                "muscle_group",
+                "name"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -1338,6 +1355,10 @@ const docTemplate = `{
         },
         "models.FitnessLevel": {
             "type": "object",
+            "required": [
+                "name_eng",
+                "name_ru"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -1410,6 +1431,13 @@ const docTemplate = `{
         },
         "models.IncompleteWorkoutResponse": {
             "type": "object",
+            "required": [
+                "created_at",
+                "exercise",
+                "id",
+                "is_completed",
+                "sets"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
@@ -1436,6 +1464,13 @@ const docTemplate = `{
         },
         "models.LastWorkoutSessionResponse": {
             "type": "object",
+            "required": [
+                "created_at",
+                "exercise",
+                "id",
+                "is_completed",
+                "sets"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string",
@@ -1466,6 +1501,10 @@ const docTemplate = `{
         },
         "models.LoginRequest": {
             "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -1477,18 +1516,25 @@ const docTemplate = `{
         },
         "models.MuscleGroup": {
             "type": "object",
+            "required": [
+                "name_eng",
+                "name_ru"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
                 "image_url": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "http://example.com/chest.jpg"
                 },
                 "name_eng": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Chest"
                 },
                 "name_ru": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Грудь"
                 }
             }
         },
@@ -1522,6 +1568,9 @@ const docTemplate = `{
         },
         "models.Permission": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -1533,6 +1582,9 @@ const docTemplate = `{
         },
         "models.Provider": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -1550,6 +1602,9 @@ const docTemplate = `{
         },
         "models.RefreshTokenRequest": {
             "type": "object",
+            "required": [
+                "refresh_token"
+            ],
             "properties": {
                 "refresh_token": {
                     "type": "string"
@@ -1558,6 +1613,9 @@ const docTemplate = `{
         },
         "models.Role": {
             "type": "object",
+            "required": [
+                "name"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
@@ -1595,6 +1653,9 @@ const docTemplate = `{
         },
         "models.StartWorkoutRequest": {
             "type": "object",
+            "required": [
+                "exercise_id"
+            ],
             "properties": {
                 "exercise_id": {
                     "type": "integer",
@@ -1626,6 +1687,10 @@ const docTemplate = `{
         },
         "models.TokensResponse": {
             "type": "object",
+            "required": [
+                "access_token",
+                "refresh_token"
+            ],
             "properties": {
                 "access_token": {
                     "type": "string"
@@ -1735,6 +1800,14 @@ const docTemplate = `{
         },
         "models.WorkoutSessionResponse": {
             "type": "object",
+            "required": [
+                "created_at",
+                "exercise",
+                "id",
+                "is_completed",
+                "sets",
+                "user"
+            ],
             "properties": {
                 "created_at": {
                     "type": "string"
