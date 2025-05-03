@@ -1,9 +1,10 @@
 package models
 
 import (
-	"github.com/google/uuid"
-	"time"
 	"Sila/pkg/types"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 type WorkoutSession struct {
@@ -23,7 +24,7 @@ func (WorkoutSession) TableName() string {
 }
 
 type StartWorkoutRequest struct {
-	ExerciseID int `json:"exercise_id" example:"1"`
+	ExerciseID int `json:"exercise_id" example:"1" binding:"required" validate:"required"`
 }
 
 type CompleteWorkoutRequest struct {
@@ -31,20 +32,20 @@ type CompleteWorkoutRequest struct {
 }
 
 type StartWorkoutResponse struct {
-	SessionID   int                     `json:"session_id" validate:"required"`
-	IsCompleted bool                    `json:"is_completed" validate:"required"`
-	CreatedAt   string                  `json:"created_at" validate:"required"`
+	SessionID   int                     `json:"session_id" binding:"required" validate:"required"`
+	IsCompleted bool                    `json:"is_completed" binding:"required" validate:"required"`
+	CreatedAt   string                  `json:"created_at" binding:"required" validate:"required"`
 	LastSession *WorkoutSessionResponse `json:"last_session,omitempty"`
 }
 
 type PaginatedWorkoutResponse = types.Pagination[IncompleteWorkoutResponse]
 
 type ExerciseHistoryEntry struct {
-    SessionID   int              `json:"session_id"`
-    CreatedAt   time.Time        `json:"created_at"`
-    Note        string           `json:"note,omitempty"`
-    IsCompleted bool             `json:"is_completed"`
-    Sets        []Set            `json:"sets"`
-    Exercise    ExerciseResponse `json:"exercise"`
-    User        UserBasicInfo    `json:"user"`
+	SessionID   int              `json:"session_id"`
+	CreatedAt   time.Time        `json:"created_at"`
+	Note        string           `json:"note,omitempty"`
+	IsCompleted bool             `json:"is_completed"`
+	Sets        []Set            `json:"sets"`
+	Exercise    ExerciseResponse `json:"exercise"`
+	User        UserBasicInfo    `json:"user"`
 }

@@ -2,9 +2,9 @@ package models
 
 type MuscleGroup struct {
 	ID       int    `gorm:"primaryKey" json:"id"`
-	NameEng  string `gorm:"type:varchar(100);not null" json:"name_eng"`
-	NameRu   string `gorm:"type:varchar(100);not null" json:"name_ru"`
-	ImageURL string `gorm:"type:varchar(255)" json:"image_url,omitempty"`
+	NameEng  string `gorm:"type:varchar(100);not null" json:"name_eng" binding:"required" example:"Chest" validate:"required"`
+	NameRu   string `gorm:"type:varchar(100);not null" json:"name_ru" binding:"required" example:"Грудь" validate:"required"`
+	ImageURL string `gorm:"type:varchar(255)" json:"image_url,omitempty" example:"http://example.com/chest.jpg"`
 }
 
 func (MuscleGroup) TableName() string {
