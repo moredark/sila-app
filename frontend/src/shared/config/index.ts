@@ -1,3 +1,6 @@
 export { backendBaseUrl } from './backend'
 export { APP_ROUTES } from './routes'
 export { ACCEPT_LANGUAGE_HEADER, AUTHORIZATION_HEADER, BEARER_PREFIX } from './client'
+export { geistMono, geistSans } from './fonts'
+export { metadata } from './metadata'
+export { viewport } from './viewport'
