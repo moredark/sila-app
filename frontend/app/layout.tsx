@@ -1,8 +1,7 @@
 import Providers from '@/app/providers/Providers'
 import { Toaster } from '@/shared/ui'
 import type { Metadata, Viewport } from 'next'
-import { NextIntlClientProvider } from 'next-intl'
-import { getLocale, getMessages } from 'next-intl/server'
+import { getLocale } from 'next-intl/server'
 import localFont from 'next/font/local'
 import '../src/app/styles/globals.css'
 
@@ -49,15 +48,12 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const locale = await getLocale()
-  const messages = await getMessages()
 
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <NextIntlClientProvider messages={messages}>
             <main className="h-full">{children}</main>
-          </NextIntlClientProvider>
           <Toaster position="top-right" richColors />
         </Providers>
       </body>
