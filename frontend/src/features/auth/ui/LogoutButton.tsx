@@ -1,15 +1,16 @@
 import React, { FC } from 'react'
 
-import { useUserStore } from '@/entities/user'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui'
+
+import { useAuthActions } from '../model/useAuthActions'
 
 interface Props {}
 
 export const LogoutButton: FC<Props> = ({}) => {
   const t = useTranslation()
 
-  const { logout } = useUserStore()
+  const { logout } = useAuthActions()
 
   const handleLogout = () => {
     logout()

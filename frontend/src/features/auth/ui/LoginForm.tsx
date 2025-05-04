@@ -1,27 +1,23 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useGoogleLogin } from '@react-oauth/google'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { POST } from '@/shared/api'
-import GoogleLogo from '@/shared/assets/GoogleLogo'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 
-import { TokensResponse } from '../api/types'
-import { handleSuccessfulLogin, useLogin } from '../api/useLogin'
+
 import { loginSchema } from '../model/schema'
+import { useAuthActions } from '../model/useAuthActions'
+
+import { AuthAlternatives } from './AuthAlternatives'
 
 type LoginFormData = z.infer<typeof loginSchema>
 
 export const LoginForm = () => {
   const t = useTranslation()
-  const { push } = useRouter()
 
   const {
     register,
@@ -31,30 +27,13 @@ export const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   })
 
-  const { mutateAsync, isPending } = useLogin()
+  const { login, isLoggingIn: isPending } = useAuthActions()
 
   const onSubmit = async (data: LoginFormData) => {
-    const loginResponse = await mutateAsync(data)
-    handleSuccessfulLogin(loginResponse, push)
+    await login(data)
   }
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: async tokenResponse => {
-      try {
-        const { data } = await POST('/auth/google/token', {
-          body: { access_token: tokenResponse.access_token },
-        })
-        handleSuccessfulLogin(data as TokensResponse, push)
-      } catch (error) {
-        toast.error(t('login-failed'))
-        console.error(error)
-      }
-    },
-    onError: error => {
-      console.error(error)
-      toast.error(t('login-failed'))
-    },
-  })
+
 
   return (
     <div className="space-y-4">
@@ -94,19 +73,7 @@ export const LoginForm = () => {
         </Button>
       </form>
 
-      <div className="flex items-center">
-        <div className="grow border-t border-zinc-800"></div>
-        <p className="mx-4 text-center">{t('or')}</p>
-        <div className="grow border-t border-zinc-800"></div>
-      </div>
-
-      <Button
-        onClick={() => googleLogin()}
-        variant="secondary"
-        className="flex w-full items-center gap-3"
-      >
-        <GoogleLogo /> {t('google-sign-in')}
-      </Button>
+      <AuthAlternatives />
     </div>
   )
 }

@@ -75,5 +75,13 @@
   "delete": "Удалить",
   "workout-deleted": "Тренировка успешно удалена",
   "workout-delete-failed": "Не удалось удалить тренировку",
-  "search":"Поиск..."
+  "search":"Поиск...",
+  "logout-successful": "Вы успешно вышли из системы",
+  "auth-error": "Произошла ошибка при аутентификации",
+  "login-successful": "Вы успешно вошли в систему",
+  "register-successful": "Регистрация успешно завершена",
+  "register-failed": "Ошибка при регистрации",
+  "auth-required": "Требуется авторизация",
+  "session-expired": "Сессия истекла, пожалуйста, войдите снова",
+  "email-already-registered": "Пользователь с таким email уже зарегистрирован"
 }

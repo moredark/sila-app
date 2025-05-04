@@ -16,10 +16,10 @@ const WorkoutTabs: FC<WorkoutTabsProps> = ({ children, workoutId }) => {
     <Tabs defaultValue="current" className="h-full">
       <div className="mb-4 flex items-center gap-2">
         <TabsList className="flex w-full gap-2">
-          <TabsTrigger className="w-full" value="current">
+          <TabsTrigger className="tabs-trigger w-full" value="current">
             {t('current-workout')}
           </TabsTrigger>
-          <TabsTrigger className="w-full" value="last">
+          <TabsTrigger className="tabs-trigger w-full" value="last">
             {t('last-workout')}
           </TabsTrigger>
         </TabsList>

@@ -1,45 +1,53 @@
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { useUserStore } from '@/entities/user'
 import { POST } from '@/shared/api/client'
+import { useTranslation } from '@/shared/lib'
 
-import { RegisterError, RegisterResponse } from './types'
-
-interface RegisterData {
-  email: string
-  password: string
-  username: string
-}
+import { useAuth } from '../model/auth.provider'
+import { RegisterError, RegisterResponse , RegisterCredentials } from '../model/auth.types'
 
 export const useRegister = () => {
+  const { login } = useAuth()
+  const t = useTranslation()
+
   return useMutation({
-    mutationFn: async (data: RegisterData) => {
+    mutationFn: async (data: RegisterCredentials) => {      
       const result = await POST('/auth/register', { body: data })
       if (result.response.status !== 200) {
-        throw result
+        const status = result.response.status
+        
+        if (status === 409) {
+          throw new Error('email-already-registered')
+        } else if (status === 400) {
+          throw new Error('invalid-input')
+        } else {
+          throw new Error('registration-failed')
+        }
       }
       return result.data as RegisterResponse
     },
     onSuccess: (data: RegisterResponse) => {
-      const { access_token: accessToken, refresh_token: refreshToken } = data
-
-      if (accessToken && refreshToken) {
-        useUserStore.getState().setTokens(accessToken, refreshToken)
-        toast.success('Registration successful!')
+      if (data.access_token && data.refresh_token) {
+        login(data)
+        toast.success(t('register-successful'))
       } else {
-        toast.error('Failed to retrieve tokens.')
+        toast.error(t('register-failed'))
       }
     },
-    onError: (error: { response?: { status: number; data?: RegisterError } }) => {
-      const response = error?.response
-
-      if (response?.status === 409) {
-        toast.error(response.data?.error || 'This email is already registered.')
-      } else if (response?.status === 400) {
-        toast.error('Invalid input. Please check your data.')
+    onError: (error: Error | { response?: { status: number; data?: RegisterError } }) => {
+      if (error instanceof Error) {
+        toast.error(error.message)
       } else {
-        toast.error('Registration failed. Try again.')
+        const response = error?.response
+        
+        if (response?.status === 409) {
+          toast.error(t('email-already-registered'))
+        } else if (response?.status === 400) {
+          toast.error(t('auth-error'))
+        } else {
+          toast.error(t('register-failed'))
+        }
       }
     },
   })
