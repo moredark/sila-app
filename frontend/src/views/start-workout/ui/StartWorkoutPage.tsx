@@ -61,10 +61,10 @@ export const StartWorkoutPage: FC = () => {
     <div className="p-4">
       <Tabs defaultValue="new">
         <TabsList className="mb-4 flex gap-2">
-          <TabsTrigger className="w-full" value="new">
+          <TabsTrigger className="tabs-trigger w-full" value="new">
             {t('new-workout')}
           </TabsTrigger>
-          <TabsTrigger className="w-full" value="incomplete">
+          <TabsTrigger className="tabs-trigger w-full" value="incomplete">
             {t('incomplete-workouts')}
           </TabsTrigger>
         </TabsList>

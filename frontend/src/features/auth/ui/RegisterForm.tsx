@@ -1,22 +1,22 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { APP_ROUTES } from '@/shared/config'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 
-import { useRegister } from '../api/useRegister'
 import { registerSchema } from '../model/schema'
+import { useAuthActions } from '../model/useAuthActions'
+
+import { AuthAlternatives } from './AuthAlternatives'
+
 
 type RegisterFormData = z.infer<typeof registerSchema>
 
 export const RegisterForm = () => {
   const t = useTranslation()
-  const { push } = useRouter()
   const {
     register,
     handleSubmit,
@@ -25,14 +25,14 @@ export const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
   })
 
-  const { mutateAsync, isPending } = useRegister()
+  const { register: registerUser, isRegistering: isPending } = useAuthActions()
 
   const onSubmit = async (data: RegisterFormData) => {
-    await mutateAsync(data)
-    push(APP_ROUTES.HOME)
+    await registerUser(data)
   }
 
   return (
+    <div className="space-y-4">
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <Input
@@ -96,5 +96,8 @@ export const RegisterForm = () => {
         {isPending ? t('registering') : t('register')}
       </Button>
     </form>
+    
+    <AuthAlternatives />    
+    </div>
   )
 }

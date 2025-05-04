@@ -75,5 +75,13 @@
   "delete": "Delete",
   "workout-deleted": "Workout deleted successfully",
   "workout-delete-failed": "Failed to delete workout",
-  "search": "Search..."
+  "search": "Search...",
+  "logout-successful": "You have successfully logged out",
+  "auth-error": "Authentication error occurred",
+  "login-successful": "You have successfully logged in",
+  "register-successful": "Registration completed successfully",
+  "register-failed": "Registration failed",
+  "auth-required": "Authentication required",
+  "session-expired": "Session expired, please login again",
+  "email-already-registered": "A user with this email is already registered"
 }
