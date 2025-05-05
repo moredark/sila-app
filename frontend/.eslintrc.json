@@ -13,12 +13,11 @@
     "es6": true,
     "node": true
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "import", "tailwindcss"],
+  "plugins": ["@typescript-eslint", "react", "import", "tailwindcss"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:tailwindcss/recommended",
