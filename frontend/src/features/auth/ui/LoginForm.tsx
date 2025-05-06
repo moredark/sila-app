@@ -11,8 +11,6 @@ import { Input } from '@/shared/ui/input'
 import { loginSchema } from '../model/schema'
 import { useAuthActions } from '../model/useAuthActions'
 
-import { AuthAlternatives } from './AuthAlternatives'
-
 type LoginFormData = z.infer<typeof loginSchema>
 
 export const LoginForm = () => {
@@ -69,8 +67,6 @@ export const LoginForm = () => {
           {isPending ? t('logging-in') : t('login')}
         </Button>
       </form>
-
-      <AuthAlternatives />
     </div>
   )
 }

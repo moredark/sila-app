@@ -1,11 +1,17 @@
 'use client'
 
-import { AuthTabs } from '@/features/auth'
+import { AuthAlternatives, AuthTabs } from '@/features/auth'
 
 export const AuthPage = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center p-6">
-      <AuthTabs />
+      <div className="w-full">
+        <AuthTabs />
+
+        <div className="mt-4 w-full">
+          <AuthAlternatives />
+        </div>
+      </div>
     </div>
   )
 }

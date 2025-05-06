@@ -10,8 +10,6 @@ import { Input } from '@/shared/ui/input'
 import { registerSchema } from '../model/schema'
 import { useAuthActions } from '../model/useAuthActions'
 
-import { AuthAlternatives } from './AuthAlternatives'
-
 type RegisterFormData = z.infer<typeof registerSchema>
 
 export const RegisterForm = () => {
@@ -95,8 +93,6 @@ export const RegisterForm = () => {
           {isPending ? t('registering') : t('register')}
         </Button>
       </form>
-
-      <AuthAlternatives />
     </div>
   )
 }
