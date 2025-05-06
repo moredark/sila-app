@@ -1,4 +1,4 @@
-import ProfilePage from '@/views/profile/ui'
+import { ProfilePage } from '@/views/profile'
 import { FC } from 'react'
 
 const Profile: FC = async () => {

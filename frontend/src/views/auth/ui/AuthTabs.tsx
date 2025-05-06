@@ -10,7 +10,7 @@ import { RegisterForm } from './RegisterForm'
 
 const routes = {
   login: APP_ROUTES.AUTH.LOGIN,
-  register: APP_ROUTES.AUTH.REGISTER
+  register: APP_ROUTES.AUTH.REGISTER,
 }
 
 export const AuthTabs = () => {
@@ -19,7 +19,7 @@ export const AuthTabs = () => {
   const pathname = usePathname()
 
   const currentTab = pathname === APP_ROUTES.AUTH.LOGIN ? 'login' : 'register'
-  
+
   const handleTabChange = (value: string) => {
     if (routes[value as keyof typeof routes]) {
       router.push(routes[value as keyof typeof routes])
@@ -27,22 +27,16 @@ export const AuthTabs = () => {
   }
 
   return (
-    <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full max-w-md">
+    <Tabs value={currentTab} onValueChange={handleTabChange}>
       <TabsList
         role="tablist"
         aria-orientation="horizontal"
         className="grid w-full grid-cols-2 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground"
       >
-        <TabsTrigger
-          value="login"
-          className="tabs-trigger"
-        >
+        <TabsTrigger value="login" className="tabs-trigger">
           {t('sign-in')}
         </TabsTrigger>
-        <TabsTrigger
-          value="register"
-          className="tabs-trigger"
-        >
+        <TabsTrigger value="register" className="tabs-trigger">
           {t('sign-up')}
         </TabsTrigger>
       </TabsList>
