@@ -1,2 +1,2 @@
-export { useUserStore } from './model/user.state'
+export { useUserStore } from './model/user.store'
 export { getUserProfile } from './model/user.api'
