@@ -1,31 +1,31 @@
 'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { loginSchema, useAuthActions } from '@/features/auth'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 
-import { registerSchema } from '../model/schema'
-import { useAuthActions } from '../model/useAuthActions'
+type LoginFormData = z.infer<typeof loginSchema>
 
-type RegisterFormData = z.infer<typeof registerSchema>
-
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const t = useTranslation()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   })
 
-  const { register: registerUser, isRegistering: isPending } = useAuthActions()
+  const { login, isLoggingIn: isPending } = useAuthActions()
 
-  const onSubmit = async (data: RegisterFormData) => {
-    await registerUser(data)
+  const onSubmit = async (data: LoginFormData) => {
+    await login(data)
   }
 
   return (
@@ -47,20 +47,6 @@ export const RegisterForm = () => {
         </div>
         <div>
           <Input
-            id="username"
-            {...register('username')}
-            placeholder={t('username')}
-            aria-invalid={!!errors.username}
-            aria-describedby="username-error"
-          />
-          {errors.username && (
-            <p id="username-error" className="text-sm text-red-500">
-              {t('username-invalid')}
-            </p>
-          )}
-        </div>
-        <div>
-          <Input
             id="password"
             type="password"
             {...register('password')}
@@ -74,23 +60,9 @@ export const RegisterForm = () => {
             </p>
           )}
         </div>
-        <div>
-          <Input
-            id="confirmPassword"
-            type="password"
-            {...register('confirmPassword')}
-            placeholder={t('confirm-password')}
-            aria-invalid={!!errors.confirmPassword}
-            aria-describedby="confirmPassword-error"
-          />
-          {errors.confirmPassword && (
-            <p id="confirmPassword-error" className="text-sm text-red-500">
-              {t('passwords-no-match')}
-            </p>
-          )}
-        </div>
+
         <Button type="submit" disabled={isPending} className="w-full">
-          {isPending ? t('registering') : t('register')}
+          {isPending ? t('logging-in') : t('login')}
         </Button>
       </form>
     </div>

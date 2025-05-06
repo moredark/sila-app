@@ -10,8 +10,4 @@ export { useAuthActions } from './model/useAuthActions'
 export * from './model/auth.types'
 
 // UI
-export { LoginForm } from './ui/LoginForm'
-export { RegisterForm } from './ui/RegisterForm'
 export { LogoutButton } from './ui/LogoutButton'
-export { AuthTabs } from './ui/AuthTabs'
-export { AuthAlternatives } from './ui/AuthAlternatives'
