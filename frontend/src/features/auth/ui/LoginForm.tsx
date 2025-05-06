@@ -8,7 +8,6 @@ import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 
-
 import { loginSchema } from '../model/schema'
 import { useAuthActions } from '../model/useAuthActions'
 
@@ -32,8 +31,6 @@ export const LoginForm = () => {
   const onSubmit = async (data: LoginFormData) => {
     await login(data)
   }
-
-
 
   return (
     <div className="space-y-4">
