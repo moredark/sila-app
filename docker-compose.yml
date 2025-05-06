@@ -77,6 +77,16 @@ services:
     command: certonly --webroot --webroot-path=/var/www/certbot --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d sila-danila.ru -d www.sila-danila.ru
     networks:
       - app_network
+  docs:
+    build:
+      context: ./docs
+      dockerfile: Dockerfile
+    container_name: docs
+    networks:
+      - app_network
+    depends_on:
+      - backend
+      - frontend
 
 volumes:
   postgres_data:

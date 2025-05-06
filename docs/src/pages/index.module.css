@@ -1,0 +1,144 @@
+/**
+ * CSS файлы с суффиксом .module.css обрабатываются как CSS-модули
+ * и ограничены локальной областью видимости.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding-top: 4rem;
+  width: 100%;
+}
+
+.feature {
+  text-align: center;
+  margin: 1.5rem;
+  padding: 2rem;
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: var(--ifm-global-shadow-md);
+  background-color: var(--ifm-card-background-color);
+  transition: all 0.3s ease;
+  height: calc(100% - 3rem);
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--ifm-global-shadow-lg);
+}
+
+.featureIcon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.featureList {
+  text-align: left;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.featureList li {
+  margin-bottom: 0.8rem;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 1.05rem;
+}
+
+.featureList li:before {
+  content: "✅";
+  position: absolute;
+  left: 0;
+}
+
+.quickLinks {
+  padding: 5rem 0;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.2rem;
+  color: var(--ifm-color-primary-darker);
+}
+
+.quickCard {
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: var(--ifm-card-border-radius);
+  background-color: var(--ifm-card-background-color);
+  height: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: var(--ifm-global-shadow-lw);
+}
+
+.quickCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--ifm-global-shadow-md);
+  border-color: var(--ifm-color-primary-light);
+}
+
+.quickCard h3 {
+  margin-bottom: 1rem;
+  color: var(--ifm-color-primary);
+  font-size: 1.4rem;
+}
+
+.quickCard p {
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  font-size: 1.05rem;
+}
+
+.quickCard a {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ifm-color-primary);
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.quickCard a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--ifm-color-primary);
+  transform-origin: bottom right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.quickCard a:hover:after {
+  transform-origin: bottom left;
+  transform: scaleX(1);
+} 
