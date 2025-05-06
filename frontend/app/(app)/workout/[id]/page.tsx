@@ -1,8 +1,10 @@
 import { WorkoutSessionPage } from '@/views/workout-session/ui'
 import { FC } from 'react'
 
-const WorkoutSession: FC<{ params: { id: string } }> = async ({ params }) => {
-  return <WorkoutSessionPage workoutId={Number(params.id)} />
+const WorkoutSession: FC<{ params: Promise<{ id: string }> }> = async ({ params }) => {
+  const { id } = await params
+
+  return <WorkoutSessionPage workoutId={Number(id)} />
 }
 
 export default WorkoutSession
