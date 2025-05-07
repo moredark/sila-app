@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Sila',
   tagline:"Финтнес-трекер для всех",
-  favicon: 'img/favicon.ico',
+  favicon: '/docs/img/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://sila-danila.ru',
@@ -59,7 +59,7 @@ const config = {
       navbar: {
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: '/docs/img/logo.svg',
         },
         items: [
           {
