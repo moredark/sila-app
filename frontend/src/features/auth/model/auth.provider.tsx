@@ -35,12 +35,12 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  
-  const { 
-    accessToken, 
-    refreshToken, 
-    setTokens: setStoreTokens, 
-    logout: logoutStore 
+
+  const {
+    accessToken,
+    refreshToken,
+    setTokens: setStoreTokens,
+    logout: logoutStore,
   } = useUserStore()
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = (tokens: TokensResponse) => {
     if (tokens.access_token && tokens.refresh_token) {
       setStoreTokens(tokens.access_token, tokens.refresh_token)
-      router.push(APP_ROUTES.WORKOUT)
+      router.push(APP_ROUTES.WORKOUT.LIST)
     }
   }
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     login,
     logout,
     getAccessToken,
-    getRefreshToken
+    getRefreshToken,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

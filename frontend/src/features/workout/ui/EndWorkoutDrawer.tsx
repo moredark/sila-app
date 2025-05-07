@@ -37,7 +37,7 @@ const EndWorkoutDrawer: FC<EndWorkoutDrawerProps> = ({ open, onOpenChange, worko
         feedback: data.feedback,
       })
       .then(() => {
-        router.push(APP_ROUTES.WORKOUT)
+        router.push(APP_ROUTES.WORKOUT.LIST)
       })
     onOpenChange(false)
   }

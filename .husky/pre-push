@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Building frontend to check for errors..."
+cd frontend && pnpm build
+
+# If the build fails, the script will exit with non-zero status
+# and Git will prevent the push 
