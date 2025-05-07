@@ -25,6 +25,7 @@ Sila App — это современное веб-приложение для ф
 - Работа с состоянием
 - UI/UX гайдлайны
 - Процесс разработки
+- [Админ-панель](frontend/admin-panel) и ее ленивая загрузка
 
 ## Технологический стек
 
@@ -38,7 +39,9 @@ Sila App — это современное веб-приложение для ф
 - React
 - TypeScript
 - Feature-Sliced Design
-- Styled Components
+- Next.js App Router
+- Code Splitting и ленивая загрузка
+- Shadcn UI и Tailwind CSS
 
 ## Начало работы
 
