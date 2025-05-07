@@ -1,4 +1,4 @@
-import SettingsPage from '@/views/settings/ui'
+import { SettingsPage } from '@/views/settings'
 import React, { FC } from 'react'
 
 interface Props {}
