@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react'
 
+import { MuscleGroup } from '@/entities/muscle-group/model'
 import { useTranslation } from '@/shared/lib'
-import { MuscleGroup } from '@/shared/types/entities'
 
 import { MuscleGroupSelect } from './MuscleGroupSelect'
 import { SearchInput } from './SearchInput'
