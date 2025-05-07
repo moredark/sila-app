@@ -5,11 +5,12 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useCreateMuscleGroup } from '@/features/admin/api/muscle_group.api'
 import { Button, Input } from '@/shared/ui'
-import React, { FC } from 'react'
+import React from 'react'
 import { toast } from 'sonner'
 import { Card, CardContent, CardHeader } from '@/shared/ui/card'
 import { APP_ROUTES } from '@/shared/config'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 
 const muscleGroupSchema = z.object({
   name_ru: z.string().min(1, { message: 'Required' }),
@@ -18,7 +19,7 @@ const muscleGroupSchema = z.object({
 
 type MuscleGroupFormData = z.infer<typeof muscleGroupSchema>
 
-const AdminMuscleGroup: FC = () => {
+const MuscleGroupContent = () => {
   const { mutateAsync, isPending } = useCreateMuscleGroup()
 
   const {
@@ -79,6 +80,15 @@ const AdminMuscleGroup: FC = () => {
       </Card>
     </div>
   )
+}
+
+const DynamicMuscleGroupContent = dynamic(() => Promise.resolve(MuscleGroupContent), {
+  loading: () => <div className="flex justify-center p-4">Loading...</div>,
+  ssr: false,
+})
+
+const AdminMuscleGroup = () => {
+  return <DynamicMuscleGroupContent />
 }
 
 export default AdminMuscleGroup
