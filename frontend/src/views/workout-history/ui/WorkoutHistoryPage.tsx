@@ -48,7 +48,7 @@ export const WorkoutHistoryPage = () => {
   }
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4">
       <h2 className="mb-3 text-center text-lg">{t('history')}</h2>
       <ExerciseSelector
         exercises={
@@ -62,7 +62,7 @@ export const WorkoutHistoryPage = () => {
       />
 
       {workouts?.data?.items && workouts.data.items.length > 0 ? (
-        <WorkoutList workouts={workouts.data.items as WorkoutSession[] || []} />
+        <WorkoutList workouts={(workouts.data.items as WorkoutSession[]) || []} />
       ) : (
         <p className="w-full text-center">{t('nothing-found')}</p>
       )}

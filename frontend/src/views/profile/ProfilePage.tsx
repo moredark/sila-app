@@ -9,7 +9,7 @@ export const ProfilePage: FC = () => {
   const { data: userProfile, error, isLoading } = useGetUserProfile()
 
   return (
-    <div className="relative p-4">
+    <div className="relative">
       <ProfileCard userProfile={userProfile} error={error} isLoading={isLoading} />
     </div>
   )
