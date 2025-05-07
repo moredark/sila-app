@@ -1,8 +1,10 @@
 import WorkoutByIdPage from '@/views/workout-by-id/ui/WorkoutByIdPage'
+import { FC } from 'react'
 
-// @ts-ignore: Ignore params typing issue with Next.js 15
-export default async function WorkoutById({ params }: any) {
+const WorkoutById: FC<{ params: Promise<{ id: string }> }> = async ({ params }) => {
   const { id } = await params
 
   return <WorkoutByIdPage workoutId={Number(id)} />
 }
+
+export default WorkoutById
