@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import Link from 'next/link'
 
-import { UserProfile } from '@/entities/user/model/user.type'
+import { UserData } from '@/entities/user/model/user.type'
 import { Button } from '@/shared/ui'
 import { Card } from '@/shared/ui/card'
 import { ErrorCard } from '@/shared/ui/error-card'
@@ -13,7 +13,7 @@ import { ProfileHeader } from './ProfileHeader'
 import { SettingsButton } from './SettingsButton'
 
 interface ProfileCardProps {
-  userProfile: UserProfile | undefined
+  userProfile: UserData | undefined
   error: Error | null
   isLoading: boolean
 }

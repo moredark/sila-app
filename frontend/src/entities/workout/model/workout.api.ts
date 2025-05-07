@@ -157,5 +157,8 @@ export const useGetWorkoutById = ({ workout_id }: { workout_id: number }) => {
           },
         },
       }),
+    select(data) {
+      return data.data
+    },
   })
 }

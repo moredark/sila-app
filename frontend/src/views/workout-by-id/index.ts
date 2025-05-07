@@ -1,0 +1,1 @@
+export { WorkoutByIdPage } from './WorkoutByIdPage'
