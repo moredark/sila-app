@@ -95,7 +95,7 @@ export default function Home() {
     {
       title: 'Начало работы',
       description: 'Быстрый старт с проектом и основные сведения',
-      link: '/intro'
+      link: '/installation'
     },
     {
       title: 'FSD Архитектура',

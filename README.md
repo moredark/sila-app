@@ -2,163 +2,93 @@
   <img src="https://github.com/user-attachments/assets/6e402a46-1e74-47c1-9fdf-d673b890bd34" alt="logo" width="30%" style=""/>
 </p>
 
-Sila is a mobile web application designed to simplify tracking and analyzing workout progress. It helps users log their strength metrics and analyze growth dynamics. The app is ideal for both beginners and experienced athletes aiming to efficiently manage their training and achieve new heights.
+Sila — это мобильное веб-приложение, созданное для упрощения отслеживания и анализа прогресса в тренировках. Оно помогает пользователям фиксировать силовые показатели и анализировать динамику роста. Приложение идеально подходит как для новичков, так и для опытных спортсменов, стремящихся эффективно управлять своими тренировками и достигать новых высот.
 
-## Table of Contents
+## Содержание
 
-- [About the Project](#about-the-project)
-- [Technologies](#technologies)
-  - [Frontend](#frontend-technologies)
-  - [Backend](#backend-technologies)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Installing as a PWA](#installing-as-a-pwa)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [О проекте](#о-проекте)
+- [Технологии](#технологии)
+- [Использование](#использование)
+- [Вклад](#вклад)
+- [Лицензия](#лицензия)
+- [Документация](#документация)
 
-## About the Project
+## О проекте
 
-Sila-App is a comprehensive solution for athletes and trainers to manage and optimize their workout routines. Key features include:
+Sila — это комплексное решение для спортсменов и тренеров по управлению и оптимизации тренировочного процесса. Основные возможности:
 
-- **Google OAuth2 Authentication**: Secure and easy login using Google accounts.
-- **Workout Management**: Create, edit, and track workouts and exercises.
-- **Progress Tracking**: Monitor strength metrics and visualize growth over time.
-- **Role-Based Access**: Different access levels for administrators, trainers, and regular users.
-- **API Documentation**: Interactive API docs available via Swagger.
-- **Dockerized Deployment**: Simplified setup and deployment using Docker and Docker Compose.
-- **Progressive Web App (PWA)**: Installable on mobile devices for a native app-like experience.
+- **Аутентификация через Google OAuth2**: безопасный и удобный вход с помощью Google-аккаунта.
+- **Управление тренировками**: создание, редактирование и отслеживание тренировок и упражнений.
+- **Отслеживание прогресса**: мониторинг силовых показателей и визуализация динамики роста.
+- **Ролевая модель доступа**: разные уровни доступа для администраторов, тренеров и обычных пользователей.
+- **API-документация**: интерактивная документация API через Swagger.
+- **Docker-деплой**: простая установка и запуск с помощью Docker и Docker Compose.
+- **PWA**: возможность установки приложения на мобильное устройство для нативного опыта.
 
-## Technologies
+## Технологии
 
-### Frontend Technologies
+### Фронтенд-технологии
 
-- **React**: A JavaScript library for building user interfaces.
-- **Next.js**: A React framework for production.
-- **TypeScript**: A strongly typed programming language that builds on JavaScript.
-- **OpenAPI Fetch**: A type-safe fetch client that pulls in your OpenAPI schema.
-- **React Query**: Data-fetching library for React.
-- **Zustand**: A small, fast, and scalable bearbones state-management solution.
-- **Shad UI**: A modern UI component library for React.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-- **React Hook Form**: Build forms in React, without the tears.
-- **i18next**: Internationalization framework.
+- **React** — библиотека для построения пользовательских интерфейсов.
+- **Next.js** — фреймворк для React-приложений.
+- **TypeScript** — язык с поддержкой строгой типизации на базе JavaScript.
+- **OpenAPI Fetch** — типобезопасный клиент для работы с OpenAPI схемой.
+- **React Query** — библиотека для работы с асинхронными данными.
+- **Zustand** — легковесное и масштабируемое решение для управления состоянием.
+- **Shad UI** — современная библиотека UI-компонентов для React.
+- **Tailwind CSS** — утилитарный CSS-фреймворк для быстрой разработки интерфейсов.
+- **React Hook Form** — удобная работа с формами в React.
+- **i18next** — фреймворк для интернационализации.
 
-### Backend Technologies
+### Бэкенд-технологии
 
-- **Go (Golang)**: A statically typed, compiled programming language designed at Google.
-- **Fiber**: An Express-inspired web framework for Go.
-- **GORM**: An ORM library for Golang.
-- **PostgreSQL**: A powerful, open-source object-relational database system.
-- **OAuth2**: Protocol for authorization.
-- **JWT**: JSON Web Tokens for secure authentication.
-- **Swagger**: API documentation and testing tool.
+- **Go (Golang)** — компилируемый язык программирования от Google.
+- **Fiber** — веб-фреймворк для Go, вдохновлённый Express.
+- **GORM** — ORM-библиотека для Go.
+- **PostgreSQL** — мощная объектно-реляционная СУБД.
+- **OAuth2** — протокол авторизации.
+- **JWT** — безопасная аутентификация через JSON Web Tokens.
+- **Swagger** — инструмент для документирования и тестирования API.
 
-## Installation
+## Использование
 
-### Prerequisites
+1. **Откройте приложение**
 
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- [Git](https://git-scm.com/)
+   Перейдите в браузере по адресу [https://sila-danila.ru](https://sila-danila.ru).
 
-### Steps
+2. **Вход через Google**
 
-1. **Clone the Repository**
+   Нажмите кнопку "Login with Google" для аутентификации через Google-аккаунт.
 
-   ```
-   git clone https://github.com/your_username/sila-app.git
-   cd sila-app
-   ```
-2. Create Environment Variables
+3. **Управление тренировками**
 
-Copy the example environment variables and fill in your own values.
+   - **Создать тренировку**: перейдите в раздел "Create Workout" для создания новой тренировки.
+   - **Отслеживать прогресс**: просматривайте свои тренировки и анализируйте динамику.
+   - **История тренировок**: анализируйте историю своих занятий.
 
-```
-cp .env.example .env
-```
+4. **API-документация**
 
-Edit the .env file and set the required variables:
+   Интерактивная документация API доступна по адресу [https://sila-danila.ru/api/swagger/index.html](https://sila-danila.ru/api/swagger/index.html).
 
-```
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_NAME=your_db_name
-JWT_SECRET_KEY=your_jwt_secret_key
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-REDIRECT_URL=https://yourdomain.com/api/auth/google/callback
-```
+> Подробная информация по установке, деплою и использованию PWA доступна в [документации](#документация).
 
-Build and Run Docker Containers
+## Вклад
 
-```
-docker-compose up -d
-```
+Вклад приветствуется! Пожалуйста, ознакомьтесь с `CONTRIBUTING.md` для начала работы.
 
-## Usage
+## Лицензия
 
-1. **Access the Application**
+Распространяется по лицензии MIT. Подробнее см. в файле `LICENSE`.
 
-   Open your browser and navigate to [https://sila-danila.ru](https://sila-danila.ru).
+## Документация
 
-2. **Login with Google**
+Полная документация по проекту доступна по адресу: [https://sila-danila.ru/docs/](https://sila-danila.ru/docs/)
 
-   Click on the "Login with Google" button to authenticate using your Google account.
+Документация проекта разделена на несколько секций:
 
-3. **Manage Workouts**
+- [Установка](https://sila-danila.ru/docs/installation) — инструкции по установке и настройке приложения
+- [Деплой](https://sila-danila.ru/docs/deployment) — руководство по развертыванию приложения на сервере
+- [Установка PWA](https://sila-danila.ru/docs/pwa-installation) — как установить приложение на мобильное устройство
 
-   - **Create Workout**: Navigate to the "Create Workout" section to set up a new workout routine.
-   - **Track Progress**: View your logged workouts and track your progress over time.
-   - **Workout History**: Look and analyze your training history.
-
-4. **API Documentation**
-
-   Access the interactive API documentation via Swagger at [https://sila-danila.ru/api/swagger/index.html](https://sila-danila.ru/api/swagger/index.html) to explore available endpoints and test API calls.
-
-### Installing as a PWA
-
-Sila-App is a Progressive Web App (PWA), which means you can install it on your device for a more native app-like experience. Here's how to install it:
-
-#### On Mobile Devices (iOS and Android)
-
-1. **Open the Application in Your Browser**
-
-Navigate to [https://sila-danila.ru](https://sila-danila.ru) using your mobile browser (Safari for iOS or Chrome for Android).
-
-2. **Access the Browser Menu**
-
-- iOS (Safari): 
-  - Tap the Share button at the bottom of the screen.
-- Android (Chrome):
-  - Tap the Menu (three dots) button in the top-right corner.
-
-3. **Add to Home Screen**
-
-- iOS (Safari):
-  - Scroll down and tap Add to Home Screen.
-
-- Android (Chrome):
-  - Tap Install **Sila** or Add to Home Screen.
-
-4. **Confirm Installation**
-
-- Enter a name for the app if prompted and confirm the addition.
-
-5. **Launch the App**
-
-- An icon for **Sila** will appear on your home screen. Tap it to launch the app in a standalone window, similar to a native application.
-
-## Deployment
-
-Сertbot is essential for securing your application with SSL certificates from Let's Encrypt. It automates the process of obtaining, renewing, and managing these certificates, ensuring that your application remains secure without manual intervention.
-
-## Contributing
-
-Contributions are welcome! Please follow the `CONTRIBUTING.md` to get started.
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+Также в разделе **Документация** вы найдёте подробную информацию по архитектуре фронтенда (структура, подходы, FSD, UI, best practices), а также описание основных технологий, паттернов и принципов, используемых в проекте.
 
