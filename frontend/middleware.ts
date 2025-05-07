@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith('/auth')) {
     if (accessToken) {
-      return NextResponse.redirect(new URL(APP_ROUTES.WORKOUT, request.url))
+      return NextResponse.redirect(new URL(APP_ROUTES.WORKOUT.LIST, request.url))
     } else {
       return NextResponse.next()
     }
