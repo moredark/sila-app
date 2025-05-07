@@ -3,8 +3,9 @@
 import { useState } from 'react'
 
 import { useGetExercises } from '@/entities/exercise'
-import { useGetWorkoutsByExercises, WORKOUTS_BY_EXERCISES_LIMIT } from '@/entities/workout'
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { useGetWorkoutsByExercises } from '@/entities/workout/api'
+import { WORKOUTS_BY_EXERCISES_LIMIT } from '@/entities/workout/config'
+import { WorkoutSession } from '@/entities/workout/model'
 import { useTranslation } from '@/shared/lib'
 
 import { DEFAULT_EXERCISE_ID, mapExercisesToOptions } from './lib'

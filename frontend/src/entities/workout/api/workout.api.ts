@@ -2,9 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { GET, POST, PUT } from '@/shared/api/client'
 
-import { WORKOUTS_BY_EXERCISES_LIMIT } from '../config/consts.workout'
-
-import { useWorkoutStore } from './workout.store'
+import { WORKOUTS_BY_EXERCISES_LIMIT } from '../config/workout.consts'
+import { useWorkoutStore } from '../model/workout.store'
 
 export const useStartWorkout = () => {
   const startWorkout = useWorkoutStore(state => state.startWorkout)

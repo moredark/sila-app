@@ -1,8 +1,7 @@
 'use client'
 import { FC } from 'react'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
-import { formatDate, useTranslation } from '@/shared/lib'
+import { WorkoutSession } from '@/entities/workout/model'
 import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
 import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
 
@@ -12,8 +11,6 @@ interface WorkoutDetailsProps {
 }
 
 export const WorkoutDetails: FC<WorkoutDetailsProps> = ({ exerciseData }) => {
-  const t = useTranslation()
-
   return (
     <>
       <WorkoutInfoCard exerciseData={exerciseData} />

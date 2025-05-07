@@ -1,4 +1,4 @@
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { calculateAverageWeight, useTranslation } from '@/shared/lib'
 import { formatDate } from '@/shared/lib/formatDate'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'

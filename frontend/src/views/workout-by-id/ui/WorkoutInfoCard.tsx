@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { APP_ROUTES } from '@/shared/config'
 import { formatDate, useTranslation } from '@/shared/lib'
 import { Badge } from '@/shared/ui/badge'

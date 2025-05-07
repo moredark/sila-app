@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { APP_ROUTES } from '@/shared/config/routes'
 import { useTranslation } from '@/shared/lib'
 

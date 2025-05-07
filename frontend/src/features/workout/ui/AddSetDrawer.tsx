@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import { MinusCircle, PlusCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
-import { useAddSet } from '@/entities/workout/model/workout.api'
+import { useAddSet } from '@/entities/workout/api'
 import { useTranslation } from '@/shared/lib'
 import {
   Button,

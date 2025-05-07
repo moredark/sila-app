@@ -5,7 +5,7 @@ import React, { FC } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
-import { useCompleteWorkout } from '@/entities/workout/model/workout.api'
+import { useCompleteWorkout } from '@/entities/workout/api'
 import { APP_ROUTES } from '@/shared/config'
 import { useTranslation } from '@/shared/lib'
 import {

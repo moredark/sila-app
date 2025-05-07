@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 
 import { startWorkoutApi } from '../api'
 

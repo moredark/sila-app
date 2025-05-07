@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { APP_ROUTES } from '@/shared/config'
 
 import { WorkoutCard } from './WorkoutCard'

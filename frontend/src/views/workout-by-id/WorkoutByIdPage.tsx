@@ -1,7 +1,7 @@
 'use client'
 import { FC } from 'react'
 
-import { useGetWorkoutById } from '@/entities/workout/model/workout.api'
+import { useGetWorkoutById } from '@/entities/workout/api'
 import { ErrorCard } from '@/shared/ui'
 import { UserInfo } from '@/widgets/UserInfo/ui/UserInfo'
 

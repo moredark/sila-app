@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react'
 
-import { useGetWorkout } from '@/entities/workout/model/workout.api'
+import { useGetWorkout } from '@/entities/workout/api'
 import { Timer } from '@/shared/ui'
 import { Card } from '@/shared/ui/card'
 import { ErrorCard } from '@/shared/ui/error-card'

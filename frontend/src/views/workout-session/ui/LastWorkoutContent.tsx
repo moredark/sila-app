@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { useTranslation } from '@/shared/lib'
 import { TabsContent } from '@/shared/ui'
 import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
