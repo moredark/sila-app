@@ -35,7 +35,7 @@ const DeleteWorkout: FC<DeleteWorkoutProps> = ({ workoutId }) => {
       {
         onSuccess: () => {
           toast.success(t('workout-deleted'))
-          router.push(APP_ROUTES.WORKOUT)
+          router.push(APP_ROUTES.WORKOUT.LIST)
           setOpen(false)
         },
         onError: () => {
