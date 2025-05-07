@@ -40,7 +40,7 @@ export const StartWorkoutPage: FC = () => {
   }
 
   return (
-    <div className="p-4">
+    <div>
       <Tabs defaultValue="new">
         <TabsList className="mb-4 flex gap-2">
           <TabsTrigger className="tabs-trigger w-full" value="new">

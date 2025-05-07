@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { MuscleGroup } from '@/shared/types/entities'
+import { MuscleGroup } from '@/entities/muscle-group/model'
 import { Combobox } from '@/shared/ui/combobox'
 
 interface MuscleGroupSelectProps {

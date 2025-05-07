@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import { useTranslation } from '@/shared/lib'
 import { Card } from '@/shared/ui/card'
 

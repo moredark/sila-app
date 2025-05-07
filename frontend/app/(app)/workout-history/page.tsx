@@ -1,9 +1,7 @@
-import WorkoutHistoryPage from '@/views/workout-history/ui/WorkoutHistoryPage'
+import { WorkoutHistoryPage } from '@/views/workout-history'
 import React, { FC } from 'react'
 
-interface Props {}
-
-const WorkoutHistory: FC<Props> = ({}) => {
+const WorkoutHistory: FC = () => {
   return <WorkoutHistoryPage />
 }
 

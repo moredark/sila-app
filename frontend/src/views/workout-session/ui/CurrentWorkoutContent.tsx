@@ -2,7 +2,7 @@
 
 import { FC } from 'react'
 
-import { WorkoutSession } from '@/entities/workout/model/workout.types'
+import { WorkoutSession } from '@/entities/workout/model'
 import AddSetDrawer from '@/features/workout/ui/AddSetDrawer'
 import EndWorkoutDrawer from '@/features/workout/ui/EndWorkoutDrawer'
 import { TabsContent } from '@/shared/ui'

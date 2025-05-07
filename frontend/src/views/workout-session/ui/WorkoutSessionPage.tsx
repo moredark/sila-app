@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react'
 
-import { useGetWorkout } from '@/entities/workout/model/workout.api'
+import { useGetWorkout } from '@/entities/workout/api'
 import { Timer } from '@/shared/ui'
 import { Card } from '@/shared/ui/card'
 import { ErrorCard } from '@/shared/ui/error-card'
@@ -17,7 +17,11 @@ interface Props {
 }
 
 export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
-  const { data: workoutData, isLoading, error } = useGetWorkout({
+  const {
+    data: workoutData,
+    isLoading,
+    error,
+  } = useGetWorkout({
     workoutId: workoutId,
   })
   const [isAddSetDrawerOpen, setAddSetDrawerOpen] = useState(false)
@@ -75,7 +79,7 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
   }
 
   return (
-    <div className="h-full p-4 pb-[85px]">
+    <div className="h-full pb-[85px]">
       <WorkoutTabs workoutId={workoutId}>
         <CurrentWorkoutContent
           workoutData={workoutData}
