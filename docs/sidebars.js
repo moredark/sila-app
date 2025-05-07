@@ -19,6 +19,15 @@ const sidebars = {
     'intro',
     {
       type: 'category',
+      label: 'Начало работы',
+      items: [
+        'installation',
+        'deployment',
+        'pwa-installation',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Backend',
       items: [
         'backend/intro',
