@@ -23,7 +23,7 @@ export const NavigationMenu = () => {
     {
       label: t('history'),
       icon: <HistoryIcon />,
-      route: APP_ROUTES.WORKOUT_HISTORY,
+      route: APP_ROUTES.WORKOUT_HISTORY.LIST,
     },
     {
       label: t('nav-workout'),

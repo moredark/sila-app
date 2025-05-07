@@ -11,7 +11,12 @@ export const APP_ROUTES = {
     /** Маршрут конкретной тренировки по ID */
     DETAIL: (id: number | string): string => `/workout/${id}`,
   },
-  WORKOUT_HISTORY: '/workout-history',
+  WORKOUT_HISTORY: {
+    /** Маршрут списка истории тренировок */
+    LIST: '/workout-history',
+    /** Маршрут конкретной истории тренировки по ID */
+    DETAIL: (id: number | string): string => `/workout-history/${id}`,
+  },
   AUTH: {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',

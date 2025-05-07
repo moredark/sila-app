@@ -15,12 +15,12 @@ export const WorkoutCard = ({ workout, onClick }: WorkoutCardProps) => {
     <Card className="grid cursor-pointer gap-4 p-4" onClick={onClick}>
       <CardHeader className="p-0">
         <CardTitle className="text-lg">
-          {t('sets')}: {workout?.sets?.length}
+          {t('sets')}: {workout.sets.length}
         </CardTitle>
         <CardTitle className="text-base">
-          {t('avg-weight')}: {workout.sets ? calculateAverageWeight(workout?.sets) : 0}
+          {t('avg-weight')}: {workout.sets ? calculateAverageWeight(workout.sets) : 0}
         </CardTitle>
-        <CardDescription>{formatDate(workout?.created_at)}</CardDescription>
+        <CardDescription>{formatDate(workout.created_at)}</CardDescription>
       </CardHeader>
     </Card>
   )

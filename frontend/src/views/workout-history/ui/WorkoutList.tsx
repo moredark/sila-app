@@ -11,13 +11,14 @@ type WorkoutListProps = {
 
 export const WorkoutList = ({ workouts }: WorkoutListProps) => {
   const router = useRouter()
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {workouts.map(workout => (
         <WorkoutCard
           key={workout.id}
           workout={workout}
-          onClick={() => router.push(`${APP_ROUTES.WORKOUT_HISTORY}/${workout.id}`)}
+          onClick={() => router.push(APP_ROUTES.WORKOUT_HISTORY.DETAIL(workout.id))}
         />
       ))}
     </div>
