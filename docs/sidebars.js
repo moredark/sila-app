@@ -16,31 +16,25 @@
  */
 const sidebars = {
   docs: [
-    'intro',
+    "intro",
     {
-      type: 'category',
-      label: 'Начало работы',
-      items: [
-        'installation',
-        'deployment',
-        'pwa-installation',
-      ],
+      type: "category",
+      label: "Начало работы",
+      items: ["installation", "deployment", "pwa-installation"],
     },
     {
-      type: 'category',
-      label: 'Backend',
-      items: [
-        'backend/intro',
-        'backend/architecture',
-      ],
+      type: "category",
+      label: "Backend",
+      items: ["backend/intro", "backend/architecture"],
     },
     {
-      type: 'category',
-      label: 'Frontend',
+      type: "category",
+      label: "Frontend",
       items: [
-        'frontend/intro',
-        'frontend/fsd',
-        'frontend/admin-panel',
+        "frontend/intro",
+        "frontend/fsd",
+        "frontend/admin-panel",
+        "frontend/git-hooks",
       ],
     },
   ],
