@@ -40,6 +40,7 @@ const sidebars = {
       items: [
         'frontend/intro',
         'frontend/fsd',
+        'frontend/admin-panel',
       ],
     },
   ],

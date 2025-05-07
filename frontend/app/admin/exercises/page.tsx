@@ -13,6 +13,7 @@ import { Textarea } from '@/shared/ui/textarea'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { APP_ROUTES } from '@/shared/config'
+import dynamic from 'next/dynamic'
 
 const createExerciseSchema = z.object({
   name_ru: z.string().nonempty('Please enter the exercise name in Russian'),
@@ -24,7 +25,7 @@ const createExerciseSchema = z.object({
 
 type CreateExerciseFormData = z.infer<typeof createExerciseSchema>
 
-const AdminCreateExercisePage = () => {
+const ExercisePageContent = () => {
   const { data: muscleGroups, isLoading: isLoadingMuscleGroups } = useGetMuscleGroups()
   const { mutateAsync: createExercise } = useCreateExercise()
 
@@ -120,6 +121,15 @@ const AdminCreateExercisePage = () => {
       </Card>
     </div>
   )
+}
+
+const DynamicExercisePageContent = dynamic(() => Promise.resolve(ExercisePageContent), {
+  loading: () => <div className="flex justify-center p-4">Loading...</div>,
+  ssr: false,
+})
+
+const AdminCreateExercisePage = () => {
+  return <DynamicExercisePageContent />
 }
 
 export default AdminCreateExercisePage

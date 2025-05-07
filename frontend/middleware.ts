@@ -6,6 +6,15 @@ import { ACCESS_TOKEN_KEY } from '@/shared/config/auth'
 
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get(ACCESS_TOKEN_KEY)?.value
+
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (!accessToken) {
+      return NextResponse.redirect(new URL(APP_ROUTES.AUTH.LOGIN, request.url))
+    }
+
+    return NextResponse.next()
+  }
+
   if (request.nextUrl.pathname.startsWith('/auth')) {
     if (accessToken) {
       return NextResponse.redirect(new URL(APP_ROUTES.WORKOUT, request.url))
@@ -30,5 +39,6 @@ export const config = {
     '/workout/:path*',
     '/settings',
     '/profile',
+    '/admin/:path*',
   ],
 }

@@ -1,7 +1,6 @@
 'use client'
 
-import { AuthAlternatives } from './ui/AuthAlternatives'
-import { AuthTabs } from './ui/AuthTabs'
+import { AuthAlternatives, AuthTabs } from './ui'
 
 export const AuthPage = () => {
   return (

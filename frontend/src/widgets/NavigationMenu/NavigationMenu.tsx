@@ -28,7 +28,7 @@ export const NavigationMenu = () => {
     {
       label: t('nav-workout'),
       icon: <BicepsFlexed />,
-      route: APP_ROUTES.WORKOUT,
+      route: APP_ROUTES.WORKOUT.LIST,
     },
     { label: t('nav-profile'), icon: <User />, route: APP_ROUTES.PROFILE },
   ]
