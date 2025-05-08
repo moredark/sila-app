@@ -34,6 +34,7 @@ const sidebars = {
         "frontend/intro",
         "frontend/fsd",
         "frontend/admin-panel",
+        "frontend/api-i18n-types",
         "frontend/git-hooks",
       ],
     },
