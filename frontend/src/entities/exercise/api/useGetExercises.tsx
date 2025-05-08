@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { useLanguage } from '@/features/language-switcher/model'
+import { useLanguage } from '@/features/locale-selector/model'
 import { GET } from '@/shared/api/client'
 
 export const useGetExercises = ({
