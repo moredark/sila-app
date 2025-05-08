@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { useCreateMuscleGroup } from '@/features/admin/api/muscle_group.api'
+import { useCreateMuscleGroup } from '@/features/admin/api'
 import { Button, Input } from '@/shared/ui'
 import React from 'react'
 import { toast } from 'sonner'

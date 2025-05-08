@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { registerSchema, useAuthActions } from '@/features/auth'
+import { registerSchema, useAuthActions } from '@/features/auth/model'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'

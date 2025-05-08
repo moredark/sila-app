@@ -3,7 +3,7 @@
 import { useGoogleLogin } from '@react-oauth/google'
 import { toast } from 'sonner'
 
-import { useAuthActions } from '@/features/auth'
+import { useAuthActions } from '@/features/auth/model'
 import { POST } from '@/shared/api'
 import GoogleLogo from '@/shared/assets/GoogleLogo'
 import { useTranslation } from '@/shared/lib'

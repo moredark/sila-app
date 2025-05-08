@@ -1,5 +1,6 @@
 import { useUserStore } from '@/entities/user/model'
-import { refreshTokens, TokensResponse } from '@/features/auth'
+import { refreshTokens } from '@/features/auth/api'
+import { TokensResponse } from '@/features/auth/model'
 
 export async function handleTokenRefresh(refreshToken: string): Promise<TokensResponse> {
   const tokens = await refreshTokens(refreshToken)
