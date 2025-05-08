@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Exercise } from '@/entities/exercise/model/exercise.types'
+import { Exercise } from '@/entities/exercise/model'
 import { ErrorCard } from '@/shared/ui'
 
 import { ExerciseCard } from './ExerciseCard'
