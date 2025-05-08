@@ -2,8 +2,8 @@
 import { FC } from 'react'
 
 import { WorkoutSession } from '@/entities/workout/model'
-import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
-import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
+import { SetsTable } from '@/widgets/SetsTable'
+import { WorkoutNote } from '@/widgets/WorkoutNote'
 
 import { WorkoutInfoCard } from './WorkoutInfoCard'
 interface WorkoutDetailsProps {

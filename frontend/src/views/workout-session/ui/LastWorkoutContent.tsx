@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 import { WorkoutSession } from '@/entities/workout/model'
 import { useTranslation } from '@/shared/lib'
 import { TabsContent } from '@/shared/ui'
-import SetsTable from '@/widgets/SetsTable/ui/SetsTable'
-import WorkoutNote from '@/widgets/SetsTable/ui/WorkoutNote'
+import { SetsTable } from '@/widgets/SetsTable'
+import { WorkoutNote } from '@/widgets/WorkoutNote'
 
 interface LastWorkoutContentProps {
   data: WorkoutSession | undefined

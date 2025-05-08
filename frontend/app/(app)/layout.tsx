@@ -1,4 +1,4 @@
-import { NavigationMenu } from '@/widgets/NavigationMenu/NavigationMenu'
+import { NavigationMenu } from '@/widgets/NavigationMenu'
 import { ReactElement } from 'react'
 
 export default function Layout({ children }: { children: ReactElement }) {

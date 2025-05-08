@@ -1,0 +1,1 @@
+export { WorkoutNote } from './WorkoutNote'
