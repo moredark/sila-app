@@ -13,8 +13,8 @@ type User struct {
 	ProviderID     *int          `json:"provider_id,omitempty"`
 	Provider       Provider      `gorm:"foreignKey:ProviderID;references:ID"`
 	ProviderUserID *string       `json:"provider_user_id,omitempty"`
-	CreatedAt      time.Time     `json:"created_at" json:"created_at"`
-	LastLogin      *time.Time    `json:"last_login,omitempty" json:"last_login"`
+	CreatedAt      time.Time     `json:"created_at"`
+	LastLogin      *time.Time    `json:"last_login,omitempty"`
 	FitnessLevelID *int          `json:"fitness_level_id,omitempty"`
 	FitnessLevel   *FitnessLevel `gorm:"foreignKey:FitnessLevelID;references:ID" json:"fitness_level,omitempty"`
 	Username       string        `json:"username"`
@@ -40,8 +40,8 @@ type GetUserProfileResponse struct {
 }
 
 type UserBasicInfo struct {
-	ID        uuid.UUID `json:"id"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email"`
+	ID        uuid.UUID `json:"id" binding:"required" validate:"required"`
+	Username  string    `json:"username" binding:"required" validate:"required"`
+	Email     string    `json:"email" binding:"required" validate:"required"`
 	AvatarURL *string   `json:"avatar_url,omitempty"`
 }

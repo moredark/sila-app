@@ -441,6 +441,10 @@ definitions:
         type: string
       username:
         type: string
+    required:
+    - email
+    - id
+    - username
     type: object
   models.WorkoutSessionResponse:
     properties:
