@@ -1,4 +1,4 @@
-import { Exercise } from '@/entities/exercise/model/exercise.types'
+import { Exercise } from '@/entities/exercise/model'
 
 /**
  * Преобразует данные упражнений в формат для селектора

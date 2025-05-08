@@ -1,1 +1,1 @@
-export { startWorkoutApi } from './api'
+export { startWorkoutApi } from './start-workout.api'

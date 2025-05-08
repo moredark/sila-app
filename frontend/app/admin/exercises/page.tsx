@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useGetMuscleGroups } from '@/entities/muscle-group/api/useGetMuscleGroups'
-import { useCreateExercise } from '@/entities/exercise/api/useCreateExercise'
+import { useGetMuscleGroups } from '@/entities/muscle-group/api'
+import { useCreateExercise } from '@/entities/exercise/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Button, Input } from '@/shared/ui'
 import { Combobox } from '@/shared/ui/combobox'
@@ -16,9 +16,9 @@ import { APP_ROUTES } from '@/shared/config'
 import dynamic from 'next/dynamic'
 
 const createExerciseSchema = z.object({
-  name_ru: z.string().nonempty('Please enter the exercise name in Russian'),
-  name_eng: z.string().nonempty('Please enter the exercise name in English'),
-  muscle_group_id: z.string().optional(),
+  name_ru: z.string().min(1, 'Exercise name in Russian is required'),
+  name_eng: z.string().min(1, 'Exercise name in English is required'),
+  muscle_group_id: z.string().min(1, 'Muscle group is required'),
   description_eng: z.string().optional(),
   description_ru: z.string().optional(),
 })

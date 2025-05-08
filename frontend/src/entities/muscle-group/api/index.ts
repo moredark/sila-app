@@ -1,0 +1,1 @@
+export { useGetMuscleGroups } from './useGetMuscleGroups'

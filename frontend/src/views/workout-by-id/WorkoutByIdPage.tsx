@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { useGetWorkoutById } from '@/entities/workout/api'
 import { ErrorCard } from '@/shared/ui'
-import { UserInfo } from '@/widgets/UserInfo/ui/UserInfo'
+import { UserInfo } from '@/widgets/UserInfo'
 
 import { WorkoutByIdSkeleton } from './ui/WorkoutByIdSkeleton'
 import { WorkoutDetails } from './ui/WorkoutDetails'

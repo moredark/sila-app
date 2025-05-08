@@ -7,7 +7,7 @@ interface Props {
   note: string
 }
 
-const WorkoutNote: FC<Props> = ({ note }) => {
+export const WorkoutNote: FC<Props> = ({ note }) => {
   const t = useTranslation()
 
   return (
@@ -21,5 +21,3 @@ const WorkoutNote: FC<Props> = ({ note }) => {
     </Card>
   )
 }
-
-export default WorkoutNote

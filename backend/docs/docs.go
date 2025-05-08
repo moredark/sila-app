@@ -1805,6 +1805,11 @@ const docTemplate = `{
         },
         "models.UserBasicInfo": {
             "type": "object",
+            "required": [
+                "email",
+                "id",
+                "username"
+            ],
             "properties": {
                 "avatar_url": {
                     "type": "string"

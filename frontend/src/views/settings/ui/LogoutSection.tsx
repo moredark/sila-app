@@ -1,4 +1,4 @@
-import { LogoutButton } from '@/features/auth'
+import { LogoutButton } from '@/features/auth/ui'
 
 export const LogoutSection = () => {
   return (

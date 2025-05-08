@@ -4,7 +4,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from 'react
 
 import { useRouter } from 'next/navigation'
 
-import { useUserStore } from '@/entities/user'
+import { useUserStore } from '@/entities/user/model'
 import { APP_ROUTES } from '@/shared/config'
 
 import { TokensResponse } from './auth.types'

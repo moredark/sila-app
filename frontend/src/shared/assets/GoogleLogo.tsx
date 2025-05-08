@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-const GoogleLogo: FC = ({}) => {
+export const GoogleLogo: FC = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,5 +39,3 @@ const GoogleLogo: FC = ({}) => {
     </svg>
   )
 }
-
-export default GoogleLogo

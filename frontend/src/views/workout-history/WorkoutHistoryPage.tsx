@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { useGetExercises } from '@/entities/exercise'
+import { useGetExercises } from '@/entities/exercise/api'
 import { useGetWorkoutsByExercises } from '@/entities/workout/api'
 import { WORKOUTS_BY_EXERCISES_LIMIT } from '@/entities/workout/config'
 import { WorkoutSession } from '@/entities/workout/model'

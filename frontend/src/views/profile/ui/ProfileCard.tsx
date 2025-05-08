@@ -1,9 +1,8 @@
-'use client'
 import { FC } from 'react'
 
 import Link from 'next/link'
 
-import { UserData } from '@/entities/user/model/user.type'
+import { UserData } from '@/entities/user/model'
 import { Button } from '@/shared/ui'
 import { Card } from '@/shared/ui/card'
 import { ErrorCard } from '@/shared/ui/error-card'

@@ -1,7 +1,7 @@
 'use client'
 import { FC } from 'react'
 
-import { useGetUserProfile } from '@/entities/user/hooks/useProfile'
+import { useGetUserProfile } from '@/entities/user/api'
 
 import { ProfileCard } from './ui/ProfileCard'
 

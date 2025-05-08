@@ -1,4 +1,4 @@
-import { LanguageSwitcher } from '@/features/language-switcher/ui/LanguageSwitcher'
+import { LanguageSwitcher } from '@/features/locale-selector/ui'
 import { useTranslation } from '@/shared/lib'
 
 export const LanguageSection = () => {

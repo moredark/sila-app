@@ -9,7 +9,7 @@ interface Props {
   sets: Set[]
 }
 
-const SetsTable: FC<Props> = ({ sets }) => {
+export const SetsTable: FC<Props> = ({ sets }) => {
   const t = useTranslation()
 
   return (
@@ -43,5 +43,3 @@ const SetsTable: FC<Props> = ({ sets }) => {
     </Card>
   )
 }
-
-export default SetsTable
