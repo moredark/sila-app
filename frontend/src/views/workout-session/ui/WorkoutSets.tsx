@@ -8,13 +8,14 @@ interface WorkoutSetsProps {
   sets?: Set[]
 }
 
-const WorkoutSets: FC<WorkoutSetsProps> = ({ sets }) => {
+const WorkoutSets: FC<WorkoutSetsProps> = ({ sets = [] }) => {
   const t = useTranslation()
+  const hasSets = sets.length > 0
 
   return (
     <div className="flex flex-col gap-3">
-      {!!sets?.length ? (
-        sets?.map(set => <WorkoutSet key={set.id} set={set} />)
+      {hasSets ? (
+        sets.map(set => <WorkoutSet key={set.id} set={set} />)
       ) : (
         <h2 className="text-center text-xl text-zinc-500">{t('set-is-empty')}</h2>
       )}

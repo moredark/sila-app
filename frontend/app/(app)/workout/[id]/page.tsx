@@ -1,4 +1,4 @@
-import { WorkoutSessionPage } from '@/views/workout-session/ui'
+import { WorkoutSessionPage } from '@/views/workout-session'
 import { FC } from 'react'
 
 const WorkoutSession: FC<{ params: Promise<{ id: string }> }> = async ({ params }) => {

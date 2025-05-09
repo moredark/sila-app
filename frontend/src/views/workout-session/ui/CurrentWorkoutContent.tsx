@@ -10,9 +10,11 @@ import { TabsContent } from '@/shared/ui'
 import WorkoutActions from './WorkoutActions'
 import WorkoutHeader from './WorkoutHeader'
 import WorkoutSets from './WorkoutSets'
+import WorkoutSetsSkeleton from './WorkoutSetsSkeleton'
 
 interface CurrentWorkoutContentProps {
-  workoutData: WorkoutSession
+  workoutData?: WorkoutSession
+  isLoading: boolean
   isAddSetDrawerOpen: boolean
   setAddSetDrawerOpen: (open: boolean) => void
   isEndWorkoutDrawerOpen: boolean
@@ -22,12 +24,15 @@ interface CurrentWorkoutContentProps {
 
 const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
   workoutData,
+  isLoading,
   isAddSetDrawerOpen,
   setAddSetDrawerOpen,
   isEndWorkoutDrawerOpen,
   setEndWorkoutDrawerOpen,
   handleSetAdded,
 }) => {
+  if (!workoutData && !isLoading) return null
+
   return (
     <TabsContent value="current">
       <div className="flex flex-col gap-6">
@@ -35,19 +40,26 @@ const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({
         <WorkoutActions
           onAddSet={() => setAddSetDrawerOpen(true)}
           onEndWorkout={() => setEndWorkoutDrawerOpen(true)}
+          disabled={isLoading || !workoutData}
         />
-        <WorkoutSets sets={workoutData?.sets} />
-        <AddSetDrawer
-          open={isAddSetDrawerOpen}
-          onOpenChange={setAddSetDrawerOpen}
-          workoutId={workoutData.id!}
-          onSetAdded={handleSetAdded}
-        />
-        <EndWorkoutDrawer
-          open={isEndWorkoutDrawerOpen}
-          onOpenChange={setEndWorkoutDrawerOpen}
-          workoutId={workoutData.id!}
-        />
+
+        {isLoading ? <WorkoutSetsSkeleton /> : <WorkoutSets sets={workoutData?.sets} />}
+
+        {workoutData && (
+          <>
+            <AddSetDrawer
+              open={isAddSetDrawerOpen}
+              onOpenChange={setAddSetDrawerOpen}
+              workoutId={workoutData.id}
+              onSetAdded={handleSetAdded}
+            />
+            <EndWorkoutDrawer
+              open={isEndWorkoutDrawerOpen}
+              onOpenChange={setEndWorkoutDrawerOpen}
+              workoutId={workoutData.id}
+            />
+          </>
+        )}
       </div>
     </TabsContent>
   )

@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/tabs'
 
 interface WorkoutTabsProps {
   children: ReactNode
-  workoutId: number | undefined
+  workoutId: number
 }
 
 const WorkoutTabs: FC<WorkoutTabsProps> = ({ children, workoutId }) => {
@@ -23,7 +23,7 @@ const WorkoutTabs: FC<WorkoutTabsProps> = ({ children, workoutId }) => {
             {t('last-workout')}
           </TabsTrigger>
         </TabsList>
-        {workoutId && <DeleteWorkout workoutId={workoutId} />}
+        <DeleteWorkout workoutId={workoutId} />
       </div>
       {children}
     </Tabs>
