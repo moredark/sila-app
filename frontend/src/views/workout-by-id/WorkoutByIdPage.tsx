@@ -25,7 +25,7 @@ export const WorkoutByIdPage: FC<WorkoutByIdPageProps> = ({ workoutId }) => {
 
   return (
     <div className="space-y-6">
-      {exerciseData.user && <UserInfo user={exerciseData.user} />}
+      <UserInfo user={exerciseData.user} />
       <WorkoutDetails exerciseData={exerciseData} />
     </div>
   )
