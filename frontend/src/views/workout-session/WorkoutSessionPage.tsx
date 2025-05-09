@@ -3,8 +3,8 @@
 import { FC, useState } from 'react'
 
 import { useGetWorkout } from '@/entities/workout/api'
-import { Timer } from '@/shared/ui'
 import { ErrorCard } from '@/shared/ui/error-card'
+import { Timer, useWorkoutTimer } from '@/widgets/Timer'
 
 import CurrentWorkoutContent from './ui/CurrentWorkoutContent'
 import LastWorkoutContent from './ui/LastWorkoutContent'
@@ -22,11 +22,11 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
   } = useGetWorkout({
     workoutId: workoutId,
   })
+
+  const { time, isRunning, resetTimer, togglePause, handleSetAdded } = useWorkoutTimer()
+
   const [isAddSetDrawerOpen, setAddSetDrawerOpen] = useState(false)
   const [isEndWorkoutDrawerOpen, setEndWorkoutDrawerOpen] = useState(false)
-
-  const [isTimerRunning, setIsTimerRunning] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
 
   if (error) {
     return (
@@ -36,30 +36,8 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
     )
   }
 
-  const handleSetAdded = () => {
-    setIsTimerRunning(false)
-    setTimeout(() => {
-      setIsPaused(false)
-      setIsTimerRunning(true)
-    }, 0)
-  }
-
-  const handleTimerReset = () => {
-    setIsTimerRunning(false)
-    setIsPaused(false)
-  }
-
-  const handlePauseToggle = () => {
-    if (isTimerRunning) {
-      setIsPaused(!isPaused)
-      setIsTimerRunning(!isPaused)
-    } else {
-      setIsTimerRunning(true)
-    }
-  }
-
   return (
-    <div className="h-full pb-[85px]">
+    <div className="relative h-full">
       <WorkoutTabs workoutId={workoutId}>
         <CurrentWorkoutContent
           workoutData={workoutData}
@@ -72,11 +50,10 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
         />
         <LastWorkoutContent data={workoutData} isLoading={isLoading} />
       </WorkoutTabs>
-      <Timer
-        isRunning={isTimerRunning}
-        onPauseToggle={handlePauseToggle}
-        onReset={handleTimerReset}
-      />
+
+      <div className="absolute bottom-2 w-full">
+        <Timer time={time} isRunning={isRunning} onPauseToggle={togglePause} onReset={resetTimer} />
+      </div>
     </div>
   )
 }
