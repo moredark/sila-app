@@ -24,4 +24,5 @@ jobs:
           script: |
             cd sila-app/
             git pull origin main
-            docker-compose up -d --build
+            docker-compose pull
+            docker-compose up -d
