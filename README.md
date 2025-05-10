@@ -7,7 +7,7 @@ Sila — это мобильное веб-приложение, созданно
 <p align="center">
   <img src="https://github.com/user-attachments/assets/69689407-700c-4600-afd4-cd0ea508e2ec" alt="Screenshot 1" width="30%" style="margin: 0 10px;" />
   <img src="https://github.com/user-attachments/assets/63d53bd4-1fd6-45dc-abd3-3deb4b122f94" alt="Screenshot 2" width="30%" style="margin: 0 10px;" />
-  <img src="https://github.com/user-attachments/assets/76a01317-7157-4d95-93ac-3556c1af81b0" alt="Screenshot 3" width="30%" style="margin: 0 10px;" />
+  <img src="https://github.com/user-attachments/assets/fdda04e9-4c7b-4b65-9054-225cdb9234fc" alt="Screenshot 3" width="30%" style="margin: 0 10px;" />
 </p>
 
 ## Содержание
