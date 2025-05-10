@@ -25,13 +25,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
+      - name: Check Docker and Compose versions
+        run: |
+          docker --version
+          docker compose version
+
       - name: Build Images
         run: |
           echo "DB_USER=testuser" > .env
           echo "DB_PASSWORD=testpassword" > .env
           echo "DB_NAME=testdb" > .env
 
-          docker-compose -f docker-compose.ci.yml build
+          docker compose -f docker-compose.ci.yml build
 
       - name: Deploy to Development
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
