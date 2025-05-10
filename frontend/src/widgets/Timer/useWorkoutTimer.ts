@@ -77,7 +77,9 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
       }
 
       setTime(initialTime)
-    } catch (e) {}
+    } catch (e) {
+      console.error('Error initializing timer:', e)
+    }
 
     isMountedRef.current = true
 
