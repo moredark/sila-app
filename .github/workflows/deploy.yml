@@ -24,5 +24,19 @@ jobs:
           script: |
             cd sila-app/
             git pull origin main
+            CHANGED_FILES=$(git diff --name-only HEAD HEAD~1)
+
+            if echo "$CHANGED_FILES" | grep -q "^frontend/"; then
+              docker-compose build frontend
+            fi
+
+            if echo "$CHANGED_FILES" | grep -q "^backend/"; then
+              docker-compose build backend
+            fi
+
+            if echo "$CHANGED_FILES" | grep -q "^docs/"; then
+              docker-compose build docs
+            fi
+
             docker-compose pull
             docker-compose up -d

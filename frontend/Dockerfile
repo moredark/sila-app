@@ -1,5 +1,7 @@
 FROM node:20-alpine AS builder
 
+RUN npm install -g pnpm
+
 WORKDIR /app
 
 ARG GOOGLE_CLIENT_ID
@@ -12,6 +14,8 @@ COPY . .
 RUN pnpm run build
 
 FROM node:20-alpine
+
+RUN npm install -g pnpm
 
 WORKDIR /app
 
