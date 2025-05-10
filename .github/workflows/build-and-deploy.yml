@@ -1,0 +1,44 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build Images
+        run: |
+          echo "DB_USER=testuser" > .env
+          echo "DB_PASSWORD=testpassword" > .env
+          echo "DB_NAME=testdb" > .env
+
+          docker-compose -f docker-compose.ci.yml build
+
+      - name: Deploy to Development
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        run: |
+          echo "Deploying to development environment..."
+
+      - name: Deploy to Production
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        run: |
+          echo "Deploying to production environment..."

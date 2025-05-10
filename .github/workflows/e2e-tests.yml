@@ -1,14 +1,17 @@
 name: E2E Tests
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build and Deploy"]
+    types:
+      - completed
     branches: [main, master, develop]
-  pull_request:
-    branches: [main, master, develop]
+
   workflow_dispatch:
 
 jobs:
   e2e-tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +42,7 @@ jobs:
           docker-compose -f docker-compose.ci.yml up --build --exit-code-from e2e-tests e2e-tests
 
       - name: Archive test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
