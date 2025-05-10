@@ -11,50 +11,161 @@ interface UseWorkoutTimerReturn {
   handleSetAdded: () => void
 }
 
+const STORAGE_KEYS = {
+  START_TIME: 'workout_timer_start_time',
+  ELAPSED_TIME: 'workout_timer_elapsed_time',
+  IS_RUNNING: 'workout_timer_is_running',
+  IS_PAUSED: 'workout_timer_is_paused',
+  LAST_ACTIVE: 'workout_timer_last_active',
+}
+
 export function useWorkoutTimer(): UseWorkoutTimerReturn {
-  const [time, setTime] = useState(0)
-  const [isRunning, setIsRunning] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
+  const [time, setTime] = useState(() => {
+    const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+    return storedElapsedTime ? parseInt(storedElapsedTime, 10) : 0
+  })
 
-  const startTimeRef = useRef<number | null>(null)
-  const elapsedTimeRef = useRef<number>(0)
-  const animationFrameRef = useRef<number | null>(null)
-  const lastUpdateTimeRef = useRef<number | null>(null)
+  const [isRunning, setIsRunning] = useState(() => {
+    return localStorage.getItem(STORAGE_KEYS.IS_RUNNING) === 'true'
+  })
 
-  const updateTimer = useCallback(() => {
-    if (!isRunning || !startTimeRef.current) return
+  const [isPaused, setIsPaused] = useState(() => {
+    return localStorage.getItem(STORAGE_KEYS.IS_PAUSED) === 'true'
+  })
 
-    const now = performance.now()
-    const delta = Math.floor((now - startTimeRef.current) / 1000)
-    const newTime = elapsedTimeRef.current + delta
+  const elapsedTimeRef = useRef<number>(time)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-    setTime(newTime)
+  useEffect(() => {
+    const handleInitialLoad = () => {
+      const storedIsRunning = localStorage.getItem(STORAGE_KEYS.IS_RUNNING) === 'true'
+      const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+      const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+      const storedLastActive = localStorage.getItem(STORAGE_KEYS.LAST_ACTIVE)
 
-    lastUpdateTimeRef.current = now
+      if (storedIsRunning && storedStartTime && storedElapsedTime && storedLastActive) {
+        const elapsedTime = parseInt(storedElapsedTime, 10)
+        const lastActive = parseInt(storedLastActive, 10)
+        const now = Date.now()
 
-    animationFrameRef.current = requestAnimationFrame(updateTimer)
+        const missedTime = Math.floor((now - lastActive) / 1000)
+        const newElapsedTime = elapsedTime + missedTime
+
+        elapsedTimeRef.current = newElapsedTime
+        setTime(newElapsedTime)
+
+        localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newElapsedTime.toString())
+        localStorage.setItem(STORAGE_KEYS.START_TIME, now.toString())
+        localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, now.toString())
+      }
+    }
+
+    handleInitialLoad()
+    window.addEventListener('focus', handleInitialLoad)
+
+    return () => {
+      window.removeEventListener('focus', handleInitialLoad)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isRunning) {
+      const now = Date.now()
+      localStorage.setItem(STORAGE_KEYS.START_TIME, now.toString())
+      localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, now.toString())
+
+      const updateAndSaveTime = () => {
+        const currentTime = Date.now()
+        const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+        const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+
+        if (storedStartTime && storedElapsedTime) {
+          const startTime = parseInt(storedStartTime, 10)
+          const baseElapsedTime = parseInt(storedElapsedTime, 10)
+          const delta = Math.floor((currentTime - startTime) / 1000)
+          const newTime = baseElapsedTime + delta
+
+          setTime(newTime)
+          localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, currentTime.toString())
+        }
+      }
+
+      intervalRef.current = setInterval(updateAndSaveTime, 1000)
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
   }, [isRunning])
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        if (isRunning && startTimeRef.current) {
-          const now = performance.now()
-          const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
-          elapsedTimeRef.current += additionalTime
+      const now = Date.now()
+      localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, now.toString())
 
-          if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current)
-            animationFrameRef.current = null
+      if (document.visibilityState === 'hidden') {
+        if (isRunning) {
+          const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+          const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+
+          if (storedStartTime && storedElapsedTime) {
+            const startTime = parseInt(storedStartTime, 10)
+            const baseElapsedTime = parseInt(storedElapsedTime, 10)
+            const delta = Math.floor((now - startTime) / 1000)
+            const newElapsedTime = baseElapsedTime + delta
+
+            localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newElapsedTime.toString())
+            elapsedTimeRef.current = newElapsedTime
+          }
+
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+            intervalRef.current = null
           }
         }
-      } else if (document.visibilityState === 'visible') {
-        if (isRunning) {
-          startTimeRef.current = performance.now()
+      } else if (document.visibilityState === 'visible' && isRunning) {
+        const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+        const storedLastActive = localStorage.getItem(STORAGE_KEYS.LAST_ACTIVE)
 
-          if (!animationFrameRef.current) {
-            animationFrameRef.current = requestAnimationFrame(updateTimer)
+        if (storedElapsedTime && storedLastActive) {
+          const elapsedTime = parseInt(storedElapsedTime, 10)
+          const lastActive = parseInt(storedLastActive, 10)
+          const missedTime = Math.floor((now - lastActive) / 1000)
+          const newElapsedTime = elapsedTime + missedTime
+
+          setTime(newElapsedTime)
+          elapsedTimeRef.current = newElapsedTime
+          localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newElapsedTime.toString())
+        }
+
+        localStorage.setItem(STORAGE_KEYS.START_TIME, now.toString())
+
+        if (!intervalRef.current) {
+          const updateTime = () => {
+            const currentTime = Date.now()
+            const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+            const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+
+            if (storedStartTime && storedElapsedTime) {
+              const startTime = parseInt(storedStartTime, 10)
+              const baseElapsedTime = parseInt(storedElapsedTime, 10)
+              const delta = Math.floor((currentTime - startTime) / 1000)
+              const newTime = baseElapsedTime + delta
+
+              setTime(newTime)
+              localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, currentTime.toString())
+            }
           }
+
+          intervalRef.current = setInterval(updateTime, 1000)
         }
       }
     }
@@ -63,63 +174,56 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [isRunning, updateTimer])
-
-  useEffect(() => {
-    if (isRunning) {
-      startTimeRef.current = performance.now()
-      lastUpdateTimeRef.current = performance.now()
-
-      animationFrameRef.current = requestAnimationFrame(updateTimer)
-    } else {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
-      }
-
-      if (startTimeRef.current) {
-        const now = performance.now()
-        const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
-        elapsedTimeRef.current += additionalTime
-        startTimeRef.current = null
-      }
-    }
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-        animationFrameRef.current = null
-      }
-    }
-  }, [isRunning, updateTimer])
+  }, [isRunning])
 
   const startTimer = useCallback(() => {
-    startTimeRef.current = performance.now()
-    lastUpdateTimeRef.current = performance.now()
+    const now = Date.now()
+
+    localStorage.setItem(STORAGE_KEYS.START_TIME, now.toString())
+    localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, now.toString())
+    localStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'true')
+    localStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'false')
+
     setIsRunning(true)
     setIsPaused(false)
   }, [])
 
   const pauseTimer = useCallback(() => {
-    if (startTimeRef.current) {
-      const now = performance.now()
-      const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
-      elapsedTimeRef.current += additionalTime
-      startTimeRef.current = null
+    if (isRunning) {
+      const now = Date.now()
+      const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+      const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+
+      if (storedStartTime && storedElapsedTime) {
+        const startTime = parseInt(storedStartTime, 10)
+        const baseElapsedTime = parseInt(storedElapsedTime, 10)
+        const delta = Math.floor((now - startTime) / 1000)
+        const newElapsedTime = baseElapsedTime + delta
+
+        elapsedTimeRef.current = newElapsedTime
+        localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newElapsedTime.toString())
+      }
     }
+
+    localStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'false')
+    localStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'true')
 
     setIsRunning(false)
     setIsPaused(true)
-  }, [])
+  }, [isRunning])
 
   const resetTimer = useCallback(() => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current)
-      animationFrameRef.current = null
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
     }
 
-    startTimeRef.current = null
-    lastUpdateTimeRef.current = null
+    localStorage.setItem(STORAGE_KEYS.START_TIME, '0')
+    localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, '0')
+    localStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'false')
+    localStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'false')
+    localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, '0')
+
     elapsedTimeRef.current = 0
     setTime(0)
     setIsRunning(false)
@@ -135,17 +239,32 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
   }, [isRunning, pauseTimer, startTimer])
 
   const handleSetAdded = useCallback(() => {
-    if (isRunning && startTimeRef.current) {
-      const now = performance.now()
-      const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
-      elapsedTimeRef.current += additionalTime
+    if (isRunning) {
+      const now = Date.now()
+      const storedStartTime = localStorage.getItem(STORAGE_KEYS.START_TIME)
+      const storedElapsedTime = localStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+
+      if (storedStartTime && storedElapsedTime) {
+        const startTime = parseInt(storedStartTime, 10)
+        const baseElapsedTime = parseInt(storedElapsedTime, 10)
+        const delta = Math.floor((now - startTime) / 1000)
+        const newElapsedTime = baseElapsedTime + delta
+
+        elapsedTimeRef.current = newElapsedTime
+        localStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newElapsedTime.toString())
+      }
     }
 
+    localStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'false')
     setIsRunning(false)
 
     setTimeout(() => {
-      startTimeRef.current = performance.now()
-      lastUpdateTimeRef.current = performance.now()
+      const now = Date.now()
+      localStorage.setItem(STORAGE_KEYS.START_TIME, now.toString())
+      localStorage.setItem(STORAGE_KEYS.LAST_ACTIVE, now.toString())
+      localStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'true')
+      localStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'false')
+
       setIsPaused(false)
       setIsRunning(true)
     }, 0)
