@@ -36,6 +36,7 @@ const sidebars = {
         "frontend/admin-panel",
         "frontend/api-i18n-types",
         "frontend/git-hooks",
+        "frontend/workout-timer",
       ],
     },
   ],

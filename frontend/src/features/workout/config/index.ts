@@ -1,1 +1,1 @@
-export * from './consts.workout'
+export * from './workout.consts'
