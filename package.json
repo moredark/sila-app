@@ -2,7 +2,10 @@
   "name": "sila-app",
   "version": "1.0.0",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "e2e:install": "pnpm --dir e2e-tests install",
+    "e2e:test": "pnpm --dir e2e-tests test",
+    "e2e:ui": "pnpm --dir e2e-tests test:ui"
   },
   "lint-staged": {
     "frontend/**/*.{js,jsx,ts,tsx}": [
@@ -15,6 +18,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.15.17",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10"
   }

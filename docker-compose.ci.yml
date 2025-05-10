@@ -1,0 +1,67 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${DB_USER:-testuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-testpassword}
+      POSTGRES_DB: ${DB_NAME:-testdb}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-testuser}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ci_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-testuser}
+      DB_PASSWORD: ${DB_PASSWORD:-testpassword}
+      DB_NAME: ${DB_NAME:-testdb}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-test_secret_key}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-test_client_id}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-test_client_secret}
+      REDIRECT_URL: ${REDIRECT_URL:-http://localhost:3000/auth/callback}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ci_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-test_client_id}
+    environment:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-test_client_id}
+    depends_on:
+      - backend
+    networks:
+      - ci_network
+
+  e2e-tests:
+    build:
+      context: ./e2e-tests
+      dockerfile: Dockerfile
+    environment:
+      BASE_URL: http://frontend:3000
+    volumes:
+      - ./e2e-tests/playwright-report:/app/playwright-report
+      - ./e2e-tests/test-results:/app/test-results
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - ci_network
+
+networks:
+  ci_network:

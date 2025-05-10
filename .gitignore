@@ -4,3 +4,7 @@ certbot/
 *.key
 node_modules
 frontend/.vscode/
+
+
+e2e-tests/playwright-report/*
+e2e-tests/test-results/*

@@ -88,6 +88,24 @@ services:
       - backend
       - frontend
 
+  e2e-tests:
+    build:
+      context: ./e2e-tests
+      dockerfile: Dockerfile
+    container_name: e2e_tests
+    environment:
+      BASE_URL: http://frontend:3000
+    volumes:
+      - ./e2e-tests/playwright-report:/app/playwright-report
+      - ./e2e-tests/test-results:/app/test-results
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app_network
+    profiles:
+      - testing
+
 volumes:
   postgres_data:
 
