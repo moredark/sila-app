@@ -18,34 +18,42 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
 
   const startTimeRef = useRef<number | null>(null)
   const elapsedTimeRef = useRef<number>(0)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const animationFrameRef = useRef<number | null>(null)
+  const lastUpdateTimeRef = useRef<number | null>(null)
+
+  const updateTimer = useCallback(() => {
+    if (!isRunning || !startTimeRef.current) return
+
+    const now = performance.now()
+    const delta = Math.floor((now - startTimeRef.current) / 1000)
+    const newTime = elapsedTimeRef.current + delta
+
+    setTime(newTime)
+
+    lastUpdateTimeRef.current = now
+
+    animationFrameRef.current = requestAnimationFrame(updateTimer)
+  }, [isRunning])
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         if (isRunning && startTimeRef.current) {
-          const now = Date.now()
+          const now = performance.now()
           const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
           elapsedTimeRef.current += additionalTime
 
-          if (timerRef.current) {
-            clearInterval(timerRef.current)
-            timerRef.current = null
+          if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current)
+            animationFrameRef.current = null
           }
         }
       } else if (document.visibilityState === 'visible') {
         if (isRunning) {
-          startTimeRef.current = Date.now()
+          startTimeRef.current = performance.now()
 
-          if (!timerRef.current) {
-            timerRef.current = setInterval(() => {
-              const now = Date.now()
-              if (!startTimeRef.current) return
-
-              const newTime =
-                elapsedTimeRef.current + Math.floor((now - startTimeRef.current) / 1000)
-              setTime(newTime)
-            }, 1000)
+          if (!animationFrameRef.current) {
+            animationFrameRef.current = requestAnimationFrame(updateTimer)
           }
         }
       }
@@ -55,27 +63,22 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
-  }, [isRunning])
+  }, [isRunning, updateTimer])
 
   useEffect(() => {
     if (isRunning) {
-      startTimeRef.current = Date.now()
+      startTimeRef.current = performance.now()
+      lastUpdateTimeRef.current = performance.now()
 
-      timerRef.current = setInterval(() => {
-        const now = Date.now()
-        if (!startTimeRef.current) return
-
-        const newTime = elapsedTimeRef.current + Math.floor((now - startTimeRef.current) / 1000)
-        setTime(newTime)
-      }, 1000)
+      animationFrameRef.current = requestAnimationFrame(updateTimer)
     } else {
-      if (timerRef.current) {
-        clearInterval(timerRef.current)
-        timerRef.current = null
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
       }
 
       if (startTimeRef.current) {
-        const now = Date.now()
+        const now = performance.now()
         const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
         elapsedTimeRef.current += additionalTime
         startTimeRef.current = null
@@ -83,22 +86,23 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
     }
 
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current)
-        timerRef.current = null
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
       }
     }
-  }, [isRunning])
+  }, [isRunning, updateTimer])
 
   const startTimer = useCallback(() => {
-    startTimeRef.current = Date.now()
+    startTimeRef.current = performance.now()
+    lastUpdateTimeRef.current = performance.now()
     setIsRunning(true)
     setIsPaused(false)
   }, [])
 
   const pauseTimer = useCallback(() => {
     if (startTimeRef.current) {
-      const now = Date.now()
+      const now = performance.now()
       const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
       elapsedTimeRef.current += additionalTime
       startTimeRef.current = null
@@ -109,12 +113,13 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
   }, [])
 
   const resetTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current)
-      timerRef.current = null
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
     }
 
     startTimeRef.current = null
+    lastUpdateTimeRef.current = null
     elapsedTimeRef.current = 0
     setTime(0)
     setIsRunning(false)
@@ -131,7 +136,7 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
 
   const handleSetAdded = useCallback(() => {
     if (isRunning && startTimeRef.current) {
-      const now = Date.now()
+      const now = performance.now()
       const additionalTime = Math.floor((now - startTimeRef.current) / 1000)
       elapsedTimeRef.current += additionalTime
     }
@@ -139,7 +144,8 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
     setIsRunning(false)
 
     setTimeout(() => {
-      startTimeRef.current = Date.now()
+      startTimeRef.current = performance.now()
+      lastUpdateTimeRef.current = performance.now()
       setIsPaused(false)
       setIsRunning(true)
     }, 0)
