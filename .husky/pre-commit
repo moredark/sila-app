@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+echo "Running lint-staged..."
 pnpm exec lint-staged
 
 echo "Running tests..."
