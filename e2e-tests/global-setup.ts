@@ -75,24 +75,6 @@ async function globalSetup(config: FullConfig) {
   console.log(`📧 TEST_EMAIL установлен: ${email ? "Да" : "НЕТ"}`);
   console.log(`🔑 TEST_PASSWORD установлен: ${password ? "Да" : "НЕТ"}`);
 
-  // Показываем все переменные окружения в CI (без значений)
-  if (isCI) {
-    console.log("🔍 Доступные переменные окружения в CI:");
-    Object.keys(process.env).forEach((key) => {
-      if (
-        !key.includes("PASSWORD") &&
-        !key.includes("TOKEN") &&
-        !key.includes("SECRET")
-      ) {
-        console.log(
-          `   - ${key}: ${key.includes("EMAIL") ? "***" : process.env[key]}`
-        );
-      } else {
-        console.log(`   - ${key}: ***`);
-      }
-    });
-  }
-
   if (!email || !password) {
     console.error("❌ TEST_EMAIL или TEST_PASSWORD не установлены в .env");
     if (isCI) {
