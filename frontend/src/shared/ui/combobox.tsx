@@ -24,6 +24,7 @@ interface ComboboxProps<T> {
   searchPlaceholder?: string
   defaultValue?: T
   className?: string
+  dataTestId?: string
 }
 
 export function Combobox<T extends string | number>({
@@ -33,6 +34,7 @@ export function Combobox<T extends string | number>({
   searchPlaceholder = 'Search...',
   defaultValue,
   className,
+  dataTestId,
 }: ComboboxProps<T>) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState<T | undefined>(defaultValue || undefined)
@@ -61,6 +63,7 @@ export function Combobox<T extends string | number>({
           role="combobox"
           aria-expanded={open}
           className={cn('w-full justify-between', className)}
+          data-testid={dataTestId}
         >
           {value ? options.find(option => option.value === value)?.label : placeholder}
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
@@ -68,10 +71,7 @@ export function Combobox<T extends string | number>({
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput
-            placeholder={searchPlaceholder}
-            value={search}
-            onValueChange={setSearch} />
+          <CommandInput placeholder={searchPlaceholder} value={search} onValueChange={setSearch} />
           <CommandList>
             <CommandEmpty>No options found.</CommandEmpty>
             <CommandGroup>
@@ -80,6 +80,7 @@ export function Combobox<T extends string | number>({
                   key={option.value}
                   value={option.label.toLowerCase()}
                   onSelect={() => handleSelect(option.value)}
+                  data-testid={`${dataTestId}-option-${option.value}`}
                 >
                   <Check
                     className={cn(
