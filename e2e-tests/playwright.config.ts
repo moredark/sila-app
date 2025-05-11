@@ -46,7 +46,7 @@ export default defineConfig({
       name: "chromium-mobile",
       testIgnore: /auth-setup\.spec\.ts/,
       use: {
-        ...devices["Pixel 5"],
+        ...devices["Pixel 7"],
       },
       dependencies: ["setup"],
     },
@@ -66,7 +66,7 @@ export default defineConfig({
       name: "public",
       testDir: "./tests/public",
       use: {
-        ...devices["Pixel 5"],
+        ...devices["Pixel 7"],
         storageState: undefined,
       },
     },

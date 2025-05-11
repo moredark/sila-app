@@ -87,10 +87,6 @@ jobs:
           BASE_URL=${{ inputs.base_url }}
           EOF
 
-          echo "Created .env with BASE_URL=${{ inputs.base_url }}"
-          echo "TEST_EMAIL is set: $([ ! -z "${{ secrets.TEST_EMAIL }}" ] && echo 'YES' || echo 'NO')"
-          echo "TEST_PASSWORD is set: $([ ! -z "${{ secrets.TEST_PASSWORD }}" ] && echo 'YES' || echo 'NO')"
-
           mkdir -p e2e-tests/playwright/.auth
           chmod -R 777 e2e-tests/playwright
 

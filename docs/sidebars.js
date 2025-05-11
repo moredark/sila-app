@@ -22,6 +22,7 @@ const sidebars = {
       label: "Начало работы",
       items: ["installation", "deployment", "pwa-installation"],
     },
+    "e2e-testing",
     {
       type: "category",
       label: "Backend",
