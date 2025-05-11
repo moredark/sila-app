@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      run_e2e_tests:
+        description: "Запустить E2E тесты после деплоя"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   deploy:
@@ -40,3 +47,46 @@ jobs:
 
             docker-compose pull
             docker-compose up -d
+
+  e2e-tests:
+    name: Run E2E Tests
+    if: github.event.inputs.run_e2e_tests == 'true'
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: |
+          cd e2e-tests
+          npm install
+          npx playwright install --with-deps chromium webkit
+
+      - name: Create .env file with login credentials
+        run: |
+          cd e2e-tests
+          cat > .env << EOF
+          TEST_USERNAME=${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}
+          BASE_URL=https://sila-danila.ru
+          EOF
+
+      - name: Run E2E tests
+        run: |
+          cd e2e-tests
+          npm test
+
+      - name: Archive test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: e2e-tests/playwright-report/
+          retention-days: 30
