@@ -1,6 +1,6 @@
-# E2E Tests for Sila App
+# E2E Tests для Sila App
 
-Этот каталог содержит end-to-end тесты для Sila App с использованием Playwright, настроенные для мобильных устройств.
+Этот каталог содержит end-to-end тесты для Sila App с использованием Playwright на мобильных устройствах.
 
 ## Настройка
 
@@ -10,6 +10,16 @@ pnpm install
 
 # Установка браузеров Playwright
 pnpm run install
+```
+
+## Настройка переменных окружения
+
+Создайте файл `.env` в директории e2e-tests со следующими переменными:
+
+```
+TEST_USERNAME=your_test_username
+TEST_PASSWORD=your_test_password
+BASE_URL=https://sila-danila.ru
 ```
 
 ## Запуск тестов
@@ -31,21 +41,12 @@ pnpm test:debug
 pnpm report
 ```
 
-## Запуск тестов в Docker
+## Запуск тестов через GitHub Actions
 
-Тесты можно запускать в Docker контейнере как часть CI/CD процесса:
+Тесты можно запустить вручную из GitHub Actions. При этом:
 
-```bash
-# Запуск только контейнера с тестами
-docker build -t e2e-tests .
-docker run -it e2e-tests
-
-# Запуск через docker-compose (для локального тестирования)
-docker-compose -f ../docker-compose.yml up e2e-tests
-
-# Запуск через docker-compose.ci.yml (для CI/CD)
-docker-compose -f ../docker-compose.ci.yml up --build --exit-code-from e2e-tests e2e-tests
-```
+1. Вы можете указать URL для тестирования (по умолчанию https://sila-danila.ru)
+2. Креды для авторизации хранятся в GitHub Secrets (TEST_USERNAME, TEST_PASSWORD)
 
 ## Структура тестов
 

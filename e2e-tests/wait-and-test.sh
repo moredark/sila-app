@@ -1,8 +1,8 @@
 #!/bin/sh
 
-FRONTEND_URL=${BASE_URL:-http://frontend:3000}
+FRONTEND_URL=${BASE_URL:-https://sila-danila.ru}
 
-echo "Waiting for frontend to be ready at $FRONTEND_URL..."
+echo "Тестирование сайта: $FRONTEND_URL"
 
 check_frontend() {
   curl -s -o /dev/null -w "%{http_code}" $FRONTEND_URL || echo "000"
@@ -21,44 +21,23 @@ check_frontend_content() {
   return 1
 }
 
-MAX_WAIT=120
-WAIT_COUNT=0
+if [ "$(check_frontend)" -lt "200" ]; then
+  echo "Ошибка: Сайт $FRONTEND_URL недоступен"
+  exit 1
+fi
 
-until [ "$(check_frontend)" -ge "200" ]; do
-  WAIT_COUNT=$((WAIT_COUNT+1))
-  
-  if [ "$WAIT_COUNT" -ge "$MAX_WAIT" ]; then
-    echo "Frontend did not become available within $MAX_WAIT seconds. Exiting."
-    exit 1
-  fi
-  
-  echo "Waiting for frontend to be available... ($WAIT_COUNT/$MAX_WAIT)"
-  sleep 1
-done
+if ! check_frontend_content; then
+  echo "Внимание: Сайт $FRONTEND_URL вернул неожиданный контент"
+fi
 
-echo "Frontend is responding. Checking if page is fully loaded..."
-
-WAIT_COUNT=0
-until check_frontend_content; do
-  WAIT_COUNT=$((WAIT_COUNT+1))
-  
-  if [ "$WAIT_COUNT" -ge "30" ]; then
-    echo "Frontend page did not fully load within 30 seconds. Continuing anyway..."
-    break
-  fi
-  
-  echo "Waiting for frontend page to fully load... ($WAIT_COUNT/30)"
-  sleep 1
-done
-
-echo "Frontend is available. Starting tests..."
+echo "Сайт доступен. Запускаем тесты..."
 
 npm test
 
 TEST_EXIT_CODE=$?
 
 if [ -d "./playwright-report" ]; then
-  echo "Tests completed. Report generated in /app/playwright-report"
+  echo "Тесты завершены. Отчет создан в директории playwright-report"
 fi
 
 exit $TEST_EXIT_CODE 
