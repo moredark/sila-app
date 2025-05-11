@@ -11,6 +11,7 @@ console.log(`Using BASE_URL: ${process.env.BASE_URL}`);
 const authFile = path.join(__dirname, "playwright/.auth/user.json");
 
 const mobileDevice = devices["iPhone 14"];
+const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: "./tests",
@@ -20,9 +21,9 @@ export default defineConfig({
   },
   globalSetup: require.resolve("./global-setup"),
   fullyParallel: false,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 1 : undefined,
   reporter: "html",
   use: {
     baseURL: process.env.BASE_URL || "http://localhost:3000",
@@ -49,14 +50,18 @@ export default defineConfig({
       },
       dependencies: ["setup"],
     },
-    {
-      name: "webkit-mobile",
-      testIgnore: /auth-setup\.spec\.ts/,
-      use: {
-        ...devices["iPhone 14"],
-      },
-      dependencies: ["setup"],
-    },
+    ...(!isCI
+      ? [
+          {
+            name: "webkit-mobile",
+            testIgnore: /auth-setup\.spec\.ts/,
+            use: {
+              ...devices["iPhone 14"],
+            },
+            dependencies: ["setup"],
+          },
+        ]
+      : []),
     {
       name: "public",
       testDir: "./tests/public",

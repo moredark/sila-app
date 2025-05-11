@@ -67,6 +67,11 @@ jobs:
           cd e2e-tests
           npx playwright install --with-deps chromium webkit
 
+      - name: Install WebKit dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwoff1 libopus0 libwebp7 libwebpdemux2 libenchant-2-2 libgudev-1.0-0 libsecret-1-0 libhyphen0 libgdk-pixbuf2.0-0 libegl1 libnotify4 libxslt1.1 libevent-2.1-7 libgles2 libvpx7 libwoff2-1 libharfbuzz-icu0 libmanette-0.2-0
+
       - name: Create .env file with login credentials
         run: |
           cd e2e-tests
