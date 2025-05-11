@@ -54,4 +54,6 @@ jobs:
     uses: ./.github/workflows/e2e-tests.yml
     with:
       base_url: "https://sila-danila.ru"
-    secrets: inherit
+    secrets:
+      TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}

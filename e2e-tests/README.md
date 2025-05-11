@@ -22,6 +22,18 @@ TEST_PASSWORD=your_test_password
 BASE_URL=https://sila-danila.ru
 ```
 
+### Настройка GitHub Secrets для CI
+
+Для запуска тестов в CI/CD необходимо добавить следующие секреты в GitHub Repository:
+
+1. Откройте репозиторий на GitHub
+2. Перейдите в Settings → Secrets and variables → Actions
+3. Добавьте следующие секреты:
+   - `TEST_EMAIL` - Email тестового пользователя
+   - `TEST_PASSWORD` - Пароль тестового пользователя
+
+![GitHub Secrets](https://docs.github.com/assets/cb-33159/mw-1440/images/help/repository/actions-secret-repository-creation.webp)
+
 ## Запуск тестов
 
 ```bash

@@ -15,6 +15,11 @@ on:
         required: false
         default: "https://sila-danila.ru"
         type: string
+    secrets:
+      TEST_EMAIL:
+        required: true
+      TEST_PASSWORD:
+        required: true
 
 jobs:
   e2e-tests:
@@ -66,15 +71,26 @@ jobs:
         run: |
           cd e2e-tests
           cat > .env << EOF
-          TEST_USERNAME=${{ secrets.TEST_USERNAME }}
+          TEST_EMAIL=${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}
           BASE_URL=${{ inputs.base_url }}
           EOF
+
+          echo "Created .env with BASE_URL=${{ inputs.base_url }}"
+          echo "TEST_EMAIL is set: $([ ! -z "${{ secrets.TEST_EMAIL }}" ] && echo 'YES' || echo 'NO')"
+          echo "TEST_PASSWORD is set: $([ ! -z "${{ secrets.TEST_PASSWORD }}" ] && echo 'YES' || echo 'NO')"
+
+          mkdir -p e2e-tests/playwright/.auth
+          chmod -R 777 e2e-tests/playwright
 
       - name: Run E2E tests
         run: |
           cd e2e-tests
           npm test
+        env:
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          BASE_URL: ${{ inputs.base_url }}
 
       - name: Archive test report
         uses: actions/upload-artifact@v4
