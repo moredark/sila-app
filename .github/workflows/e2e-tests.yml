@@ -8,6 +8,13 @@ on:
         required: true
         default: "https://sila-danila.ru"
         type: string
+  workflow_call:
+    inputs:
+      base_url:
+        description: "URL для тестирования"
+        required: false
+        default: "https://sila-danila.ru"
+        type: string
 
 jobs:
   e2e-tests:
