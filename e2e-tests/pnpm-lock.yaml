@@ -11,6 +11,15 @@ importers:
       '@playwright/test':
         specifier: ^1.37.0
         version: 1.52.0
+      '@types/dotenv':
+        specifier: ^8.2.0
+        version: 8.2.3
+      '@types/node':
+        specifier: ^20.11.0
+        version: 20.17.46
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.5.0
       typescript:
         specifier: ^5.1.6
         version: 5.8.3
@@ -21,6 +30,17 @@ packages:
     resolution: {integrity: sha512-uh6W7sb55hl7D6vsAeA+V2p5JnlAqzhqFyF0VcJkKZXkgnFcVG9PziERRHQfPLfNGx1C292a4JqbWzhR8L4R1g==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@types/dotenv@8.2.3':
+    resolution: {integrity: sha512-g2FXjlDX/cYuc5CiQvyU/6kkbP1JtmGzh0obW50zD7OKeILVL0NSpPWLXVfqoAGQjom2/SLLx9zHq0KXvD6mbw==}
+    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
+
+  '@types/node@20.17.46':
+    resolution: {integrity: sha512-0PQHLhZPWOxGW4auogW0eOQAuNIlCYvibIpG67ja0TOJ6/sehu+1en7sfceUn+QQtx4Rk3GxbLNwPh0Cav7TWw==}
+
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+    engines: {node: '>=12'}
 
   fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
@@ -42,11 +62,24 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
 snapshots:
 
   '@playwright/test@1.52.0':
     dependencies:
       playwright: 1.52.0
+
+  '@types/dotenv@8.2.3':
+    dependencies:
+      dotenv: 16.5.0
+
+  '@types/node@20.17.46':
+    dependencies:
+      undici-types: 6.19.8
+
+  dotenv@16.5.0: {}
 
   fsevents@2.3.2:
     optional: true
@@ -60,3 +93,5 @@ snapshots:
       fsevents: 2.3.2
 
   typescript@5.8.3: {}
+
+  undici-types@6.19.8: {}

@@ -1,4 +1,14 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
+
+const envPath = path.resolve(__dirname, ".env");
+console.log(`Loading environment from: ${envPath}`);
+dotenv.config({ path: envPath });
+
+console.log(
+  `Using BASE_URL: ${process.env.BASE_URL}`
+);
 
 const mobileDevice = devices["iPhone 14"];
 
@@ -33,7 +43,7 @@ export default defineConfig({
     {
       name: "webkit-mobile",
       use: {
-        ...devices["iPhone 12"],
+        ...devices["iPhone 14"],
       },
     },
   ],
