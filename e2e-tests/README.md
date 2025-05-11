@@ -1,4 +1,4 @@
-# E2E Tests для Sila App
+# E2E тесты для Sila App
 
 Этот каталог содержит end-to-end тесты для Sila App с использованием Playwright на мобильных устройствах.
 
@@ -17,7 +17,7 @@ pnpm run install
 Создайте файл `.env` в директории e2e-tests со следующими переменными:
 
 ```
-TEST_USERNAME=your_test_username
+TEST_EMAIL=your_test_email
 TEST_PASSWORD=your_test_password
 BASE_URL=https://sila-danila.ru
 ```
@@ -46,13 +46,109 @@ pnpm report
 Тесты можно запустить вручную из GitHub Actions. При этом:
 
 1. Вы можете указать URL для тестирования (по умолчанию https://sila-danila.ru)
-2. Креды для авторизации хранятся в GitHub Secrets (TEST_USERNAME, TEST_PASSWORD)
+2. Креды для авторизации хранятся в GitHub Secrets (TEST_EMAIL, TEST_PASSWORD)
 
 ## Структура тестов
 
-- `/tests` - Файлы тестов
-- `/fixtures` - Тестовые фикстуры и моковые данные
-- `/utils` - Вспомогательные функции и утилиты
+- **fixtures/base.fixture.ts** - расширенные фикстуры и класс EnhancedPage
+- **tests/auth-setup.spec.ts** - специальный тест для настройки авторизации
+- **tests/** - основные тесты (с авторизацией по умолчанию)
+- **tests/public/** - тесты, не требующие авторизации (запускаются отдельно)
+
+## Архитектура тестов
+
+### Фикстуры и EnhancedPage
+
+В проекте реализована система типобезопасных фикстур с использованием класса `EnhancedPage`, который:
+
+- Расширяет стандартный `Page` Playwright, добавляя полезные методы
+- Обеспечивает типобезопасность без использования `any`
+- Улучшает стабильность тестов через механизмы повторных попыток
+- Предоставляет решения для проблемных мест UI (комбобоксы, нестабильные элементы)
+
+Основные расширенные методы:
+
+| Метод                      | Описание                                                           |
+| -------------------------- | ------------------------------------------------------------------ |
+| `safeGoto(url)`            | Безопасная навигация с ожиданием загрузки страницы                 |
+| `retryAction(fn, options)` | Выполняет действие с автоматическими повторными попытками          |
+| `openCombobox(selector)`   | Надежно открывает комбобокс с автоматическими повторными попытками |
+
+### Авторизация
+
+Глобальная настройка авторизации в `global-setup.ts`:
+
+- Автоматически применяется ко всем тестам (кроме тестов в папке `public/`)
+- Состояние авторизации сохраняется в файле `playwright/.auth/user.json`
+- Имеет TTL 24 часа для оптимизации повторных запусков
+- Поддерживает механизм повторных попыток авторизации
+
+## Добавление новых тестов
+
+### Тесты с авторизацией (основной тип)
+
+Создайте файл в папке `tests/` и используйте `authTest` и `enhancedPage`:
+
+```typescript
+import { authTest, expect } from "../fixtures/base.fixture";
+
+authTest.describe("Название тестового набора", () => {
+  authTest("Название теста", async ({ enhancedPage, page }) => {
+    // `enhancedPage` - расширенная типобезопасная страница с доп. методами
+    // `page` - стандартный Page от Playwright
+
+    // Безопасный переход на страницу
+    await enhancedPage.safeGoto("/some-path");
+
+    // Нестабильное действие с повторными попытками
+    await enhancedPage.retryAction(
+      async () => {
+        await page.getByRole("button", { name: "Кнопка" }).click();
+      },
+      { maxRetries: 3, label: "нажатие кнопки" }
+    );
+
+    // Работа с комбобоксом
+    await enhancedPage.openCombobox();
+    await page.getByText("Опция").click();
+
+    // Проверка
+    await expect(page.getByText("Результат")).toBeVisible();
+  });
+});
+```
+
+### Тесты без авторизации
+
+Если нужно создать тест без авторизации, разместите его в папке `tests/public/` и используйте обычный тест:
+
+```typescript
+import { test, expect } from "@playwright/test";
+
+test("Название теста", async ({ page }) => {
+  await page.goto("/auth/login");
+  // ...
+});
+```
+
+Для запуска этих тестов используйте:
+
+```bash
+npx playwright test --project=public
+```
+
+## Запуск тестов
+
+```bash
+# Запуск всех тестов (включая авторизацию)
+npx playwright test
+
+# Запуск конкретного теста (с авторизацией)
+npx playwright test tests/workout-session.spec.ts
+
+# Запуск тестов без авторизации
+npx playwright test --project=public
+```
 
 ## Конфигурация
 
@@ -67,6 +163,7 @@ pnpm report
   - Device Scale Factor
   - Touch события
   - Мобильный User Agent
+- **Авторизация включена по умолчанию** для всех тестов (кроме папки `public/`)
 
 ## Переменные окружения
 

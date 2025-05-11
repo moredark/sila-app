@@ -12,6 +12,7 @@ export const ExerciseSelector = ({ exercises, defaultValue, onSelect }: Exercise
 
   return (
     <Combobox
+      data-testid="exercise-selector"
       placeholder={t('select-exercise')}
       searchPlaceholder={t('search')}
       defaultValue={defaultValue}
