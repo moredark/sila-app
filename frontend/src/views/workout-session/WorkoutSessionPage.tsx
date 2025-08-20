@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 
 import { useGetWorkout } from '@/entities/workout/api'
 import { ErrorCard } from '@/shared/ui/error-card'
-import { Timer, useWorkoutTimer } from '@/widgets/Timer'
+import { Timer } from '@/widgets/Timer'
 
 import CurrentWorkoutContent from './ui/CurrentWorkoutContent'
 import LastWorkoutContent from './ui/LastWorkoutContent'
