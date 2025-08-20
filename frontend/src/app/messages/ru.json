@@ -75,7 +75,7 @@
   "delete": "Удалить",
   "workout-deleted": "Тренировка успешно удалена",
   "workout-delete-failed": "Не удалось удалить тренировку",
-  "search":"Поиск...",
+  "search": "Поиск...",
   "logout-successful": "Вы успешно вышли из системы",
   "auth-error": "Произошла ошибка при аутентификации",
   "login-successful": "Вы успешно вошли в систему",
@@ -83,5 +83,8 @@
   "register-failed": "Ошибка при регистрации",
   "auth-required": "Требуется авторизация",
   "session-expired": "Сессия истекла, пожалуйста, войдите снова",
-  "email-already-registered": "Пользователь с таким email уже зарегистрирован"
+  "email-already-registered": "Пользователь с таким email уже зарегистрирован",
+  "timer-settings": "Настройки таймера",
+  "restart-timer-on-new-set": "Перезапускать таймер при новом подходе",
+  "restart-timer-on-new-set-description": "Автоматически перезапускать таймер при добавлении нового подхода"
 }

@@ -23,8 +23,6 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
     workoutId: workoutId,
   })
 
-  const { time, isRunning, resetTimer, togglePause, handleSetAdded } = useWorkoutTimer()
-
   const [isAddSetDrawerOpen, setAddSetDrawerOpen] = useState(false)
   const [isEndWorkoutDrawerOpen, setEndWorkoutDrawerOpen] = useState(false)
 
@@ -46,13 +44,12 @@ export const WorkoutSessionPage: FC<Props> = ({ workoutId }) => {
           setAddSetDrawerOpen={setAddSetDrawerOpen}
           isEndWorkoutDrawerOpen={isEndWorkoutDrawerOpen}
           setEndWorkoutDrawerOpen={setEndWorkoutDrawerOpen}
-          handleSetAdded={handleSetAdded}
         />
         <LastWorkoutContent data={workoutData} isLoading={isLoading} />
       </WorkoutTabs>
 
       <div className="absolute bottom-2 w-full">
-        <Timer time={time} isRunning={isRunning} onPauseToggle={togglePause} onReset={resetTimer} />
+        <Timer />
       </div>
     </div>
   )

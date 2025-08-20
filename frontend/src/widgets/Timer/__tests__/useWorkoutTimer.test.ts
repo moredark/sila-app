@@ -2,6 +2,15 @@ import { act, renderHook } from '@testing-library/react'
 
 import { useWorkoutTimer } from '../useWorkoutTimer'
 
+// Mock settings store
+const mockUseSettingsStore = jest.fn(() => ({
+  shouldRestartOnNewSet: true,
+}))
+
+jest.mock('@/entities/settings/model/settings.store', () => ({
+  useSettingsStore: mockUseSettingsStore,
+}))
+
 const mockLocalStorage = (() => {
   let store: Record<string, string> = {}
   return {
@@ -27,6 +36,9 @@ describe('useWorkoutTimer', () => {
     jest.clearAllMocks()
     mockLocalStorage.clear()
     mockNow.mockReturnValue(1000)
+    mockUseSettingsStore.mockReturnValue({
+      shouldRestartOnNewSet: true,
+    })
   })
 
   it('should initialize with default values', () => {
@@ -109,7 +121,7 @@ describe('useWorkoutTimer', () => {
     expect(result.current.isPaused).toBe(false)
   })
 
-  it('should have handleSetAdded function defined', () => {
+  it('should restart timer when handleSetAdded is called with shouldRestartOnNewSet enabled', () => {
     const { result } = renderHook(() => useWorkoutTimer())
 
     expect(result.current.handleSetAdded).toBeDefined()
@@ -118,11 +130,54 @@ describe('useWorkoutTimer', () => {
       result.current.startTimer()
     })
 
+    mockNow.mockReturnValue(6000)
+
     act(() => {
-      mockNow.mockReturnValue(6000)
       result.current.handleSetAdded()
     })
 
-    expect(typeof result.current.handleSetAdded).toBe('function')
+    // Timer should be reset and restarted
+    expect(result.current.time).toBe(0)
+    expect(result.current.isRunning).toBe(true)
+    expect(result.current.isPaused).toBe(false)
+  })
+
+  it('should start timer automatically when handleSetAdded is called and timer is not running', () => {
+    mockUseSettingsStore.mockReturnValue({
+      shouldRestartOnNewSet: false,
+    })
+
+    const { result } = renderHook(() => useWorkoutTimer())
+
+    expect(result.current.isRunning).toBe(false)
+    expect(result.current.isPaused).toBe(false)
+
+    act(() => {
+      result.current.handleSetAdded()
+    })
+
+    expect(result.current.isRunning).toBe(true)
+  })
+
+  it('should not restart timer when handleSetAdded is called with shouldRestartOnNewSet disabled', () => {
+    mockUseSettingsStore.mockReturnValue({
+      shouldRestartOnNewSet: false,
+    })
+
+    const { result } = renderHook(() => useWorkoutTimer())
+
+    act(() => {
+      result.current.startTimer()
+    })
+
+    mockNow.mockReturnValue(6000)
+
+    act(() => {
+      result.current.handleSetAdded()
+    })
+
+    // Timer should continue running without restart
+    expect(result.current.isRunning).toBe(true)
+    expect(result.current.isPaused).toBe(false)
   })
 })

@@ -84,4 +84,7 @@
     'register-failed' |
     'auth-required' |
     'session-expired' |
-    'email-already-registered';
+    'email-already-registered' |
+    'timer-settings' |
+    'restart-timer-on-new-set' |
+    'restart-timer-on-new-set-description';
