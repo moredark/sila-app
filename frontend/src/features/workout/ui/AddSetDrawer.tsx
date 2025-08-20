@@ -16,6 +16,7 @@ import {
   DrawerTitle,
   Input,
 } from '@/shared/ui'
+import { useTimerStore } from '@/widgets/Timer/timer.store'
 
 import { REPS_STEP, WEIGHT_STEP } from '../config'
 
@@ -23,11 +24,12 @@ interface AddSetDrawerProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   workoutId: number
-  onSetAdded: () => void
+  onSetAdded?: () => void
 }
 
 const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, onSetAdded }) => {
   const t = useTranslation()
+  const { triggerSetAdded } = useTimerStore()
   const {
     register,
     handleSubmit,
@@ -52,7 +54,8 @@ const AddSetDrawer: FC<AddSetDrawerProps> = ({ open, onOpenChange, workoutId, on
       reps: Number(data.reps),
       weight: Number(data.weight),
     })
-    onSetAdded()
+    onSetAdded?.()
+    triggerSetAdded()
     onOpenChange(false)
   }
 

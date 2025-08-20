@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { PauseCircle, PlayCircle, RotateCcw } from 'lucide-react'
 
@@ -8,14 +8,18 @@ import { cn, formatTime } from '@/shared/lib'
 import { Button } from '@/shared/ui/button'
 import { Card } from '@/shared/ui/card'
 
-interface TimerProps {
-  time: number
-  isRunning: boolean
-  onReset: () => void
-  onPauseToggle: () => void
-}
+import { useTimerStore } from './timer.store'
+import { useWorkoutTimer } from './useWorkoutTimer'
 
-export const Timer: FC<TimerProps> = ({ time, isRunning, onReset, onPauseToggle }) => {
+export const Timer: FC = () => {
+  const { time, isRunning, togglePause, resetTimer, handleSetAdded } = useWorkoutTimer()
+  const { setOnSetAdded } = useTimerStore()
+
+  useEffect(() => {
+    setOnSetAdded(handleSetAdded)
+    return () => setOnSetAdded(null)
+  }, [handleSetAdded, setOnSetAdded])
+
   return (
     <Card
       className={cn(
@@ -35,7 +39,7 @@ export const Timer: FC<TimerProps> = ({ time, isRunning, onReset, onPauseToggle 
             'h-12 w-12 rounded-full transition-all duration-200',
             isRunning && 'text-primary',
           )}
-          onClick={onPauseToggle}
+          onClick={togglePause}
           aria-label={isRunning ? 'Pause timer' : 'Start timer'}
         >
           {isRunning ? <PauseCircle className="size-7" /> : <PlayCircle className="size-7" />}
@@ -45,7 +49,7 @@ export const Timer: FC<TimerProps> = ({ time, isRunning, onReset, onPauseToggle 
           variant="outline"
           size="icon"
           className="size-10 rounded-full transition-all duration-200 hover:scale-105"
-          onClick={onReset}
+          onClick={resetTimer}
           aria-label="Reset timer"
         >
           <RotateCcw className="size-5" />

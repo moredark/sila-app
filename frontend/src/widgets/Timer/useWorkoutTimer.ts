@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useSettingsStore } from '@/entities/settings/model/settings.store'
+
 interface UseWorkoutTimerReturn {
   time: number
   isRunning: boolean
@@ -39,6 +41,7 @@ const safeLocalStorage = {
 }
 
 export function useWorkoutTimer(): UseWorkoutTimerReturn {
+  const { shouldRestartOnNewSet } = useSettingsStore()
   const [time, setTime] = useState<number>(0)
   const [isRunning, setIsRunning] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
@@ -130,38 +133,6 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
   useEffect(() => {
     if (typeof window === 'undefined' || !isMountedRef.current) return
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && isRunning) {
-        const storedStartTimestamp = safeLocalStorage.getItem(STORAGE_KEYS.START_TIMESTAMP)
-        const storedElapsedTime = safeLocalStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
-
-        if (storedStartTimestamp && storedElapsedTime) {
-          const startTimestamp = parseInt(storedStartTimestamp, 10)
-          const baseElapsedTime = parseInt(storedElapsedTime, 10)
-          const now = Date.now()
-
-          const timePassed = Math.floor((now - startTimestamp) / 1000)
-          const newTime = baseElapsedTime + timePassed
-
-          setTime(newTime)
-          safeLocalStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newTime.toString())
-          safeLocalStorage.setItem(STORAGE_KEYS.START_TIMESTAMP, now.toString())
-        }
-      }
-    }
-
-    window.addEventListener('visibilitychange', handleVisibilityChange)
-    window.addEventListener('focus', handleVisibilityChange)
-
-    return () => {
-      window.removeEventListener('visibilitychange', handleVisibilityChange)
-      window.removeEventListener('focus', handleVisibilityChange)
-    }
-  }, [isRunning])
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !isMountedRef.current) return
-
     const handleAppFocus = () => {
       if (isRunning) {
         const storedStartTimestamp = safeLocalStorage.getItem(STORAGE_KEYS.START_TIMESTAMP)
@@ -182,9 +153,19 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
       }
     }
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        handleAppFocus()
+      }
+    }
+
+    window.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('focus', handleAppFocus)
     window.addEventListener('pageshow', handleAppFocus)
 
     return () => {
+      window.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('focus', handleAppFocus)
       window.removeEventListener('pageshow', handleAppFocus)
     }
   }, [isRunning])
@@ -258,36 +239,24 @@ export function useWorkoutTimer(): UseWorkoutTimerReturn {
   const handleSetAdded = useCallback(() => {
     if (typeof window === 'undefined') return
 
-    if (isRunning) {
-      const storedStartTimestamp = safeLocalStorage.getItem(STORAGE_KEYS.START_TIMESTAMP)
-      const storedElapsedTime = safeLocalStorage.getItem(STORAGE_KEYS.ELAPSED_TIME)
+    if (shouldRestartOnNewSet) {
+      const now = Date.now()
+      safeLocalStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, '0')
+      safeLocalStorage.setItem(STORAGE_KEYS.START_TIMESTAMP, now.toString())
+      safeLocalStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'true')
+      safeLocalStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'false')
 
-      if (storedStartTimestamp && storedElapsedTime) {
-        const startTimestamp = parseInt(storedStartTimestamp, 10)
-        const baseElapsedTime = parseInt(storedElapsedTime, 10)
-        const now = Date.now()
-
-        const timePassed = Math.floor((now - startTimestamp) / 1000)
-        const newTime = baseElapsedTime + timePassed
-
-        setTime(newTime)
-        safeLocalStorage.setItem(STORAGE_KEYS.ELAPSED_TIME, newTime.toString())
-      }
-
+      setTime(0)
       setIsRunning(false)
-      safeLocalStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'false')
-
+      setIsPaused(false)
+      
       setTimeout(() => {
-        const now = Date.now()
-        safeLocalStorage.setItem(STORAGE_KEYS.START_TIMESTAMP, now.toString())
-        safeLocalStorage.setItem(STORAGE_KEYS.IS_RUNNING, 'true')
-        safeLocalStorage.setItem(STORAGE_KEYS.IS_PAUSED, 'false')
-
-        setIsPaused(false)
         setIsRunning(true)
       }, 0)
+    } else if (!isRunning && !isPaused) {
+      startTimer()
     }
-  }, [isRunning])
+  }, [shouldRestartOnNewSet, startTimer, isRunning, isPaused])
 
   return {
     time,

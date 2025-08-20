@@ -19,7 +19,7 @@ interface CurrentWorkoutContentProps {
   setAddSetDrawerOpen: (open: boolean) => void
   isEndWorkoutDrawerOpen: boolean
   setEndWorkoutDrawerOpen: (open: boolean) => void
-  handleSetAdded: () => void
+  handleSetAdded?: () => void
 }
 
 const CurrentWorkoutContent: FC<CurrentWorkoutContentProps> = ({

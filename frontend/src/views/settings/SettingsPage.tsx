@@ -2,7 +2,7 @@
 
 import { CardContent } from '@/shared/ui/card'
 
-import { SettingsCard, LanguageSection, LogoutSection } from './ui'
+import { SettingsCard, LanguageSection, LogoutSection, TimerSettings } from './ui'
 
 export const SettingsPage = () => {
   return (
@@ -10,6 +10,10 @@ export const SettingsPage = () => {
       <SettingsCard>
         <CardContent className="w-full">
           <LanguageSection />
+        </CardContent>
+
+        <CardContent className="w-full">
+          <TimerSettings />
         </CardContent>
 
         <CardContent className="space-y-4">
