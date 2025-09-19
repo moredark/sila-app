@@ -91,7 +91,7 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
   }
 
   return (
-    <div className="p-4">
+    <div className="h-full overflow-y-auto p-4">
       <Card>
         <CardHeader>
           <h2 className="mb-4 text-2xl">{t('create-plan')}</h2>
