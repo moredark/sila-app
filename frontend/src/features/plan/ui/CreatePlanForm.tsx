@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { GripVertical } from 'lucide-react'
+import { CirclePlus, GripVertical } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -114,7 +114,7 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
                   onSelect={value => setSelectedExercise(value)}
                   placeholder={t('select-exercise')}
                 />
-                <Button type="button" onClick={onAddExercise}>{t('add')}</Button>
+                <CirclePlus className="cursor-pointer" onClick={onAddExercise} />
               </div>
 
               {fields.map((field, index) => (

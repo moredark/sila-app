@@ -102,5 +102,6 @@
   "failed-to-create-plan": "Не удалось создать план.",
   "add": "Добавить",
   "plan-deleted-successfully": "План успешно удален!",
-  "confirm-plan-deletion-message": "Вы уверены, что хотите удалить этот план?"
+  "confirm-plan-deletion-message": "Вы уверены, что хотите удалить этот план?",
+  "no-plans-yet": "Планов пока нет"
 }

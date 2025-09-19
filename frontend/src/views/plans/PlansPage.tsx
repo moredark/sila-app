@@ -9,7 +9,7 @@ import { Plan } from '@/entities/plan/model'
 import { CreatePlanForm } from '@/features/plan/ui'
 import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui'
-import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/ui/drawer'
+import { Drawer, DrawerContent, DrawerDescription, DrawerTrigger } from '@/shared/ui/drawer'
 import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/shared/ui/pagination'
 import { Skeleton } from '@/shared/ui/skeleton'
 
@@ -54,11 +54,12 @@ export const PlansPage = () => {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t('plans')}</h1>
-        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen} >
+          <DrawerDescription></DrawerDescription>
           <DrawerTrigger asChild>
             <Button>{t('create-plan')}</Button>
           </DrawerTrigger>
-          <DrawerContent>
+          <DrawerContent className="h-[95%]">
             <CreatePlanForm onSuccess={handlePlanCreated} />
           </DrawerContent>
         </Drawer>
@@ -72,7 +73,13 @@ export const PlansPage = () => {
         </div>
       )}
 
-      {plans && <PlansGrid plans={plans} onDeletePlan={handleDeleteClick} />}
+      {plans && plans.length > 0 && <PlansGrid plans={plans} onDeletePlan={handleDeleteClick} />}
+
+      {!!!plans && (
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <p className="text-muted-foreground">{t('no-plans-yet')}</p>
+        </div>
+      )}
 
       <DeletePlanDialog
         plan={planToDelete}

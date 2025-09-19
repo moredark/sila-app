@@ -103,4 +103,5 @@
     'failed-to-create-plan' |
     'add' |
     'plan-deleted-successfully' |
-    'confirm-plan-deletion-message';
+    'confirm-plan-deletion-message' |
+    'no-plans-yet';
