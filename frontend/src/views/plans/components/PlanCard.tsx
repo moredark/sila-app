@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 
 import { Plan } from '@/entities/plan/model'
 import { APP_ROUTES } from '@/shared/config'
-import { useTranslation } from '@/shared/lib'
 import { Button } from '@/shared/ui'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
 
@@ -16,7 +15,6 @@ interface PlanCardProps {
 
 export const PlanCard = ({ plan, onDelete }: PlanCardProps) => {
   const router = useRouter()
-  const t = useTranslation()
 
   return (
     <Card className='relative'>
