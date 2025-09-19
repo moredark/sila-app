@@ -5,6 +5,10 @@ export const APP_ROUTES = {
   HOME: '/main',
   PROFILE: '/profile',
   SETTINGS: '/settings',
+  PLAN: {
+    LIST: '/plans',
+    DETAIL: (id: number | string): string => `/plans/${id}`,
+  },
   WORKOUT: {
     /** Маршрут списка тренировок */
     LIST: '/workout',

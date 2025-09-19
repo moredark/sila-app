@@ -18,6 +18,7 @@
     'nav-profile' |
     'nav-workout' |
     'nav-home' |
+    'nav-plans' |
     'choose-exercise' |
     'start' |
     'add-set' |
@@ -87,4 +88,19 @@
     'email-already-registered' |
     'timer-settings' |
     'restart-timer-on-new-set' |
-    'restart-timer-on-new-set-description';
+    'restart-timer-on-new-set-description' |
+    'plans' |
+    'create-plan' |
+    'plan-name' |
+    'plan-description' |
+    'exercises' |
+    'order' |
+    'description' |
+    'remove' |
+    'add-exercise' |
+    'creating' |
+    'plan-created-successfully' |
+    'failed-to-create-plan' |
+    'add' |
+    'plan-deleted-successfully' |
+    'confirm-plan-deletion-message';

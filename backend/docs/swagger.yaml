@@ -58,6 +58,19 @@ definitions:
     - name_eng
     - name_ru
     type: object
+  models.CreatePlanRequest:
+    properties:
+      description:
+        type: string
+      exercises:
+        items:
+          $ref: '#/definitions/models.PlanExerciseRequest'
+        type: array
+      name:
+        type: string
+    required:
+    - name
+    type: object
   models.ErrorResponse:
     properties:
       error:
@@ -269,6 +282,18 @@ definitions:
     - items
     - total
     type: object
+  models.PaginatedPlanResponse:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/models.PlanDetailResponse'
+        type: array
+      total:
+        type: integer
+    required:
+    - items
+    - total
+    type: object
   models.PaginatedWorkoutResponse:
     properties:
       items:
@@ -289,6 +314,51 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  models.PlanDetailResponse:
+    properties:
+      description:
+        type: string
+      exercises:
+        items:
+          $ref: '#/definitions/models.PlanExerciseResponse'
+        type: array
+      id:
+        type: integer
+      name:
+        type: string
+      user:
+        $ref: '#/definitions/models.UserBasicInfo'
+    type: object
+  models.PlanExerciseRequest:
+    properties:
+      description:
+        type: string
+      exercise_id:
+        type: integer
+      order:
+        type: integer
+    required:
+    - exercise_id
+    - order
+    type: object
+  models.PlanExerciseResponse:
+    properties:
+      description:
+        type: string
+      exercise:
+        $ref: '#/definitions/models.ExerciseResponse'
+      order:
+        type: integer
+    type: object
+  models.PlanSummaryResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
     type: object
   models.Provider:
     properties:
@@ -399,6 +469,17 @@ definitions:
     - muscle_group_id
     - name_eng
     - name_ru
+    type: object
+  models.UpdatePlanRequest:
+    properties:
+      description:
+        type: string
+      exercises:
+        items:
+          $ref: '#/definitions/models.PlanExerciseRequest'
+        type: array
+      name:
+        type: string
     type: object
   models.User:
     properties:
@@ -869,6 +950,158 @@ paths:
       summary: Update a muscle group
       tags:
       - MuscleGroups
+  /plans:
+    get:
+      description: Get all training plans for the authenticated user.
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Paginated list of plans
+          schema:
+            $ref: '#/definitions/models.PaginatedPlanResponse'
+        "500":
+          description: Failed to retrieve plans
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all training plans
+      tags:
+      - Plans
+    post:
+      consumes:
+      - application/json
+      description: Create a new training plan for the authenticated user.
+      parameters:
+      - description: Plan data
+        in: body
+        name: plan
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePlanRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created plan summary
+          schema:
+            $ref: '#/definitions/models.PlanSummaryResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to create plan
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new training plan
+      tags:
+      - Plans
+  /plans/{id}:
+    delete:
+      description: Delete a training plan by ID for the authenticated user.
+      parameters:
+      - description: Plan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Plan not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to delete plan
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a training plan
+      tags:
+      - Plans
+    get:
+      description: Get a single training plan by ID for the authenticated user.
+      parameters:
+      - description: Plan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Plan details
+          schema:
+            $ref: '#/definitions/models.PlanDetailResponse'
+        "404":
+          description: Plan not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to retrieve plan
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get a single training plan
+      tags:
+      - Plans
+    put:
+      consumes:
+      - application/json
+      description: Update an existing training plan for the authenticated user.
+      parameters:
+      - description: Plan ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Plan data
+        in: body
+        name: plan
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePlanRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated plan details
+          schema:
+            $ref: '#/definitions/models.PlanDetailResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Plan not found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Failed to update plan
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a training plan
+      tags:
+      - Plans
   /user/profile:
     get:
       description: Retrieves the profile information of the authenticated user, including

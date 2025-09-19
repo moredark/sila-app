@@ -1,6 +1,6 @@
 'use client'
 
-import { BicepsFlexed, HistoryIcon, User } from 'lucide-react'
+import { BicepsFlexed, HistoryIcon, NotebookText, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { APP_ROUTES } from '@/shared/config'
@@ -26,6 +26,11 @@ export const NavigationMenu = () => {
       route: APP_ROUTES.WORKOUT_HISTORY.LIST,
     },
     {
+      label: t('nav-plans'),
+      icon: <NotebookText />,
+      route: APP_ROUTES.PLAN.LIST,
+    },
+    {
       label: t('nav-workout'),
       icon: <BicepsFlexed />,
       route: APP_ROUTES.WORKOUT.LIST,
@@ -42,7 +47,6 @@ export const NavigationMenu = () => {
           label={item.label}
           onClick={() => router.push(item.route)}
           isActive={pathname === item.route}
-          isMain={index === 1}
         />
       ))}
     </nav>
