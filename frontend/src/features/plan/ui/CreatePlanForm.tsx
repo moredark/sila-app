@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CirclePlus, GripVertical } from 'lucide-react'
+import { CirclePlus, GripVertical, X } from 'lucide-react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -120,20 +120,18 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
               {fields.map((field, index) => (
                 <div
                   key={field.id}
-                  className="mt-2 flex items-center gap-2 rounded-md border p-2"
+                  className="relative mt-2 flex items-center gap-2 rounded-md border p-2"
                   draggable
                   onDragStart={() => handleDragStart(index)}
                   onDragOver={handleDragOver}
                   onDrop={() => handleDrop(index)}
                 >
+                  <X className="absolute right-2 top-2 size-5 cursor-pointer text-red-600 hover:text-red-700" size={16} onClick={() => remove(index)} />
                   <GripVertical className="cursor-move" />
                   <div className="grow">
                     <p>{exercises?.find(e => e.id === field.exercise_id)?.name}</p>
                     <Textarea placeholder={t('description')} {...register(`exercises.${index}.description`)} className="mt-1 text-sm" />
                   </div>
-                  <Button type="button" variant="destructive" onClick={() => remove(index)}>
-                    {t('remove')}
-                  </Button>
                 </div>
               ))}
             </div>
