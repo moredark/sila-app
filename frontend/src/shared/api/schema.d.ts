@@ -4,1657 +4,1952 @@
  */
 
 export interface paths {
-  '/auth/google/token': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Google OAuth2 Token Login
-     * @description Logs in a user using Google OAuth2 Access Token.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Google OAuth2 Access Token */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.GoogleTokenRequest']
-        }
-      }
-      responses: {
-        /** @description Access and refresh tokens */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.TokensResponse']
-          }
-        }
-        /** @description Invalid request payload or access token is required */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.ErrorResponse']
-          }
-        }
-        /** @description Failed to get user info from Google or error creating/updating user */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.ErrorResponse']
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/auth/login': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Login user
-     * @description This endpoint logs in a user and returns tokens
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Login user */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.LoginRequest']
-        }
-      }
-      responses: {
-        /** @description Tokens */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.TokensResponse']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Invalid credentials */
-        401: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/auth/refresh-token': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Refresh JWT tokens
-     * @description Refreshes the access and refresh tokens using a valid refresh token.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Refresh token */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.RefreshTokenRequest']
-        }
-      }
-      responses: {
-        /** @description access_token" "refresh_token */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description error" "Invalid input or Refresh token required */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description error" "Unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/auth/register': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Register a new user
-     * @description This endpoint registers a new user with email, password, and username
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Register user */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.User']
-        }
-      }
-      responses: {
-        /** @description Tokens */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.TokensResponse']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Email already in use */
-        409: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/auth/validate-token': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Validate user token
-     * @description This endpoint validates a user's JWT token
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Valid token */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Invalid token */
-        401: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/exercises': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get all exercises
-     * @description Get a list of all exercises with information on muscle groups in the requested language (English or Russian). Supports filtering by muscle_group_id and searching by name.
-     */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Filter by muscle group ID */
-          muscle_group_id?: number
-          /** @description Search by exercise name (both in Russian and English) */
-          search?: string
-        }
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description List of exercises */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.ExerciseResponse'][]
-          }
-        }
-        /** @description Failed to retrieve exercises */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    /**
-     * Create a new exercise
-     * @description Create a new exercise with names in both English and Russian, and specify the muscle group.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Create new exercise */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.CreateExerciseRequest']
-        }
-      }
-      responses: {
-        /** @description Created exercise */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.Exercise']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to create exercise */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/exercises/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    /**
-     * Update an existing exercise
-     * @description Update an existing exercise with new names in both English and Russian, and update the muscle group.
-     */
-    put: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Exercise ID */
-          id: number
-        }
-        cookie?: never
-      }
-      /** @description Update exercise */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.UpdateExerciseRequest']
-        }
-      }
-      responses: {
-        /** @description Updated exercise */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.Exercise']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Exercise not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to update exercise */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/fitness-levels': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get all fitness levels
-     * @description Получение списка всех уровней физической подготовки с названиями на английском и русском языках.
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description List of fitness levels */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.FitnessLevel'][]
-          }
-        }
-        /** @description Failed to retrieve fitness levels */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/muscle-groups': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get all muscle groups
-     * @description Get a list of all muscle groups in the requested language (English or Russian).
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description List of muscle groups */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.GetMuscleGroupsResponse'][]
-          }
-        }
-        /** @description Failed to retrieve muscle groups */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    /**
-     * Create a new muscle group
-     * @description Create a new muscle group with names in both English and Russian.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Muscle group data */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.CreateMuscleGroupRequest']
-        }
-      }
-      responses: {
-        /** @description Created muscle group */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.MuscleGroup']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-        /** @description Failed to create muscle group */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/muscle-groups/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    /**
-     * Update a muscle group
-     * @description Обновление информации о группе мышц с учетом названий на двух языках.
-     */
-    put: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Muscle group ID */
-          id: string
-        }
-        cookie?: never
-      }
-      /** @description Updated muscle group data */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.MuscleGroup']
-        }
-      }
-      responses: {
-        /** @description Updated muscle group */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.MuscleGroup']
-          }
-        }
-        /** @description Invalid input */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-        /** @description Muscle group not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-        /** @description Failed to update muscle group */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-      }
-    }
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/user/profile': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get User Profile
-     * @description Retrieves the profile information of the authenticated user, including email, username, fitness level, avatar, and role.
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Returns the user profile data */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.GetUserProfileResponse']
-          }
-        }
-        /** @description No token provided or invalid token */
-        401: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description User not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/add-set/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Add a set to a workout session
-     * @description This endpoint allows adding a set (reps and weight) to an ongoing workout session.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Workout session ID */
-          id: number
-        }
-        cookie?: never
-      }
-      /** @description Set data */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.AddSetRequest']
-        }
-      }
-      responses: {
-        /** @description Set added successfully */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-        /** @description Invalid input or session ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Workout session not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to add set */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/complete/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    /**
-     * Complete a workout session
-     * @description Marks a workout session as completed and allows adding a final note.
-     */
-    put: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Workout session ID */
-          id: number
-        }
-        cookie?: never
-      }
-      /** @description Completion note */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.CompleteWorkoutRequest']
-        }
-      }
-      responses: {
-        /** @description Workout session completed successfully */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-        /** @description Invalid input or session ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Workout session not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to complete workout session */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/exercise/{exercise_id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get workout sessions by exercise
-     * @description Retrieve paginated workout sessions for a specific exercise for the authenticated user, with support for different languages.
-     */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Limit the number of results */
-          limit?: number
-          /** @description Offset for pagination */
-          offset?: number
-        }
-        header?: never
-        path: {
-          /** @description Exercise ID */
-          exercise_id: number
-        }
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Paginated list of workout sessions */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.PaginatedWorkoutResponse']
-          }
-        }
-        /** @description Invalid exercise ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to retrieve workout sessions */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/exercise/{exercise_id}/history': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get exercise history by users
-     * @description Retrieve paginated history of users who performed a specific exercise
-     */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Limit the number of results */
-          limit?: number
-          /** @description Offset for pagination */
-          offset?: number
-        }
-        header?: never
-        path: {
-          /** @description Exercise ID */
-          exercise_id: number
-        }
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Paginated list of users' exercise history */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.PaginatedExerciseHistoryResponse']
-          }
-        }
-        /** @description Invalid exercise ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to retrieve exercise history */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/incomplete': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get incomplete workout sessions
-     * @description Retrieve all incomplete workout sessions for the authenticated user, with support for different languages.
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description List of incomplete workouts */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.IncompleteWorkoutResponse'][]
-          }
-        }
-        /** @description Failed to retrieve incomplete workouts */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: unknown
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/set/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    post?: never
-    /**
-     * Delete a set from a workout session
-     * @description This endpoint allows deleting a set by its ID from a workout session.
-     */
-    delete: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Set ID */
-          id: number
-        }
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Set deleted successfully */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Invalid set ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description You do not have permission to delete this set */
-        403: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Set not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to delete set */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/start': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Start a workout session
-     * @description This endpoint starts a workout session for a specific exercise and optionally returns the last completed session if available.
-     */
-    post: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      /** @description Exercise ID */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['models.StartWorkoutRequest']
-        }
-      }
-      responses: {
-        /** @description New workout session and last session (if any) */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.StartWorkoutResponse']
-          }
-        }
-        /** @description Invalid input or Exercise ID missing */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to start workout session */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/workout/{id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get details of a workout session
-     * @description Retrieve details of a specific workout session including sets, exercise info, muscle group, and last session.
-     */
-    get: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Workout session ID */
-          id: number
-        }
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Workout session details with last session */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': components['schemas']['models.WorkoutSessionResponse']
-          }
-        }
-        /** @description Invalid session ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Workout session not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    put?: never
-    post?: never
-    /**
-     * Delete a workout session
-     * @description This endpoint allows deleting a workout session by its ID.
-     */
-    delete: {
-      parameters: {
-        query?: never
-        header?: never
-        path: {
-          /** @description Workout session ID */
-          id: number
-        }
-        cookie?: never
-      }
-      requestBody?: never
-      responses: {
-        /** @description Workout session deleted successfully */
-        200: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Invalid session ID */
-        400: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description You do not have permission to delete this workout session */
-        403: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Workout session not found */
-        404: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-        /** @description Failed to delete workout session */
-        500: {
-          headers: {
-            [name: string]: unknown
-          }
-          content: {
-            'application/json': {
-              [key: string]: string
-            }
-          }
-        }
-      }
-    }
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
+    "/auth/google/token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Google OAuth2 Token Login
+         * @description Logs in a user using Google OAuth2 Access Token.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Google OAuth2 Access Token */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.GoogleTokenRequest"];
+                };
+            };
+            responses: {
+                /** @description Access and refresh tokens */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.TokensResponse"];
+                    };
+                };
+                /** @description Invalid request payload or access token is required */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Failed to get user info from Google or error creating/updating user */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Login user
+         * @description This endpoint logs in a user and returns tokens
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Login user */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.LoginRequest"];
+                };
+            };
+            responses: {
+                /** @description Tokens */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.TokensResponse"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Invalid credentials */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/refresh-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Refresh JWT tokens
+         * @description Refreshes the access and refresh tokens using a valid refresh token.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Refresh token */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.RefreshTokenRequest"];
+                };
+            };
+            responses: {
+                /** @description access_token" "refresh_token */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description error" "Invalid input or Refresh token required */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description error" "Unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Register a new user
+         * @description This endpoint registers a new user with email, password, and username
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Register user */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.User"];
+                };
+            };
+            responses: {
+                /** @description Tokens */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.TokensResponse"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Email already in use */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/validate-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Validate user token
+         * @description This endpoint validates a user's JWT token
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Valid token */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Invalid token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/exercises": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all exercises
+         * @description Get a list of all exercises with information on muscle groups in the requested language (English or Russian). Supports filtering by muscle_group_id and searching by name.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Filter by muscle group ID */
+                    muscle_group_id?: number;
+                    /** @description Search by exercise name (both in Russian and English) */
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of exercises */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ExerciseResponse"][];
+                    };
+                };
+                /** @description Failed to retrieve exercises */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /**
+         * Create a new exercise
+         * @description Create a new exercise with names in both English and Russian, and specify the muscle group.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Create new exercise */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.CreateExerciseRequest"];
+                };
+            };
+            responses: {
+                /** @description Created exercise */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.Exercise"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to create exercise */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/exercises/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update an existing exercise
+         * @description Update an existing exercise with new names in both English and Russian, and update the muscle group.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Exercise ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            /** @description Update exercise */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.UpdateExerciseRequest"];
+                };
+            };
+            responses: {
+                /** @description Updated exercise */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.Exercise"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Exercise not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to update exercise */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/fitness-levels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all fitness levels
+         * @description Получение списка всех уровней физической подготовки с названиями на английском и русском языках.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of fitness levels */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.FitnessLevel"][];
+                    };
+                };
+                /** @description Failed to retrieve fitness levels */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/muscle-groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all muscle groups
+         * @description Get a list of all muscle groups in the requested language (English or Russian).
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of muscle groups */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.GetMuscleGroupsResponse"][];
+                    };
+                };
+                /** @description Failed to retrieve muscle groups */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /**
+         * Create a new muscle group
+         * @description Create a new muscle group with names in both English and Russian.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Muscle group data */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.CreateMuscleGroupRequest"];
+                };
+            };
+            responses: {
+                /** @description Created muscle group */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.MuscleGroup"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Failed to create muscle group */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/muscle-groups/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update a muscle group
+         * @description Обновление информации о группе мышц с учетом названий на двух языках.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Muscle group ID */
+                    id: string;
+                };
+                cookie?: never;
+            };
+            /** @description Updated muscle group data */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.MuscleGroup"];
+                };
+            };
+            responses: {
+                /** @description Updated muscle group */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.MuscleGroup"];
+                    };
+                };
+                /** @description Invalid input */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Muscle group not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Failed to update muscle group */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all training plans
+         * @description Get all training plans for the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit */
+                    limit?: number;
+                    /** @description Offset */
+                    offset?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Paginated list of plans */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PaginatedPlanResponse"];
+                    };
+                };
+                /** @description Failed to retrieve plans */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        /**
+         * Create a new training plan
+         * @description Create a new training plan for the authenticated user.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Plan data */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.CreatePlanRequest"];
+                };
+            };
+            responses: {
+                /** @description Created plan summary */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PlanSummaryResponse"];
+                    };
+                };
+                /** @description Invalid request body */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Failed to create plan */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/plans/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a single training plan
+         * @description Get a single training plan by ID for the authenticated user.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Plan ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Plan details */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PlanDetailResponse"];
+                    };
+                };
+                /** @description Plan not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Failed to retrieve plan */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        /**
+         * Update a training plan
+         * @description Update an existing training plan for the authenticated user.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Plan ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            /** @description Plan data */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.UpdatePlanRequest"];
+                };
+            };
+            responses: {
+                /** @description Updated plan details */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PlanDetailResponse"];
+                    };
+                };
+                /** @description Invalid request body */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Plan not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Failed to update plan */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        post?: never;
+        /**
+         * Delete a training plan
+         * @description Delete a training plan by ID for the authenticated user.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Plan ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Plan not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+                /** @description Failed to delete plan */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "*/*": components["schemas"]["models.ErrorResponse"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get User Profile
+         * @description Retrieves the profile information of the authenticated user, including email, username, fitness level, avatar, and role.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Returns the user profile data */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.GetUserProfileResponse"];
+                    };
+                };
+                /** @description No token provided or invalid token */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description User not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/add-set/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add a set to a workout session
+         * @description This endpoint allows adding a set (reps and weight) to an ongoing workout session.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Workout session ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            /** @description Set data */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.AddSetRequest"];
+                };
+            };
+            responses: {
+                /** @description Set added successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid input or session ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Workout session not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to add set */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/complete/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Complete a workout session
+         * @description Marks a workout session as completed and allows adding a final note.
+         */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Workout session ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            /** @description Completion note */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.CompleteWorkoutRequest"];
+                };
+            };
+            responses: {
+                /** @description Workout session completed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+                /** @description Invalid input or session ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Workout session not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to complete workout session */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/exercise/{exercise_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get workout sessions by exercise
+         * @description Retrieve paginated workout sessions for a specific exercise for the authenticated user, with support for different languages.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit the number of results */
+                    limit?: number;
+                    /** @description Offset for pagination */
+                    offset?: number;
+                };
+                header?: never;
+                path: {
+                    /** @description Exercise ID */
+                    exercise_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Paginated list of workout sessions */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PaginatedWorkoutResponse"];
+                    };
+                };
+                /** @description Invalid exercise ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to retrieve workout sessions */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/exercise/{exercise_id}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get exercise history by users
+         * @description Retrieve paginated history of users who performed a specific exercise
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Limit the number of results */
+                    limit?: number;
+                    /** @description Offset for pagination */
+                    offset?: number;
+                };
+                header?: never;
+                path: {
+                    /** @description Exercise ID */
+                    exercise_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Paginated list of users' exercise history */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.PaginatedExerciseHistoryResponse"];
+                    };
+                };
+                /** @description Invalid exercise ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to retrieve exercise history */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/incomplete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get incomplete workout sessions
+         * @description Retrieve all incomplete workout sessions for the authenticated user, with support for different languages.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of incomplete workouts */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.IncompleteWorkoutResponse"][];
+                    };
+                };
+                /** @description Failed to retrieve incomplete workouts */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: unknown;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/set/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete a set from a workout session
+         * @description This endpoint allows deleting a set by its ID from a workout session.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Set ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Set deleted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Invalid set ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description You do not have permission to delete this set */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Set not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to delete set */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Start a workout session
+         * @description This endpoint starts a workout session for a specific exercise and optionally returns the last completed session if available.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description Exercise ID */
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["models.StartWorkoutRequest"];
+                };
+            };
+            responses: {
+                /** @description New workout session and last session (if any) */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.StartWorkoutResponse"];
+                    };
+                };
+                /** @description Invalid input or Exercise ID missing */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to start workout session */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/workout/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get details of a workout session
+         * @description Retrieve details of a specific workout session including sets, exercise info, muscle group, and last session.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Workout session ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Workout session details with last session */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["models.WorkoutSessionResponse"];
+                    };
+                };
+                /** @description Invalid session ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Workout session not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        /**
+         * Delete a workout session
+         * @description This endpoint allows deleting a workout session by its ID.
+         */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Workout session ID */
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Workout session deleted successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Invalid session ID */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description You do not have permission to delete this workout session */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Workout session not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Failed to delete workout session */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-export type webhooks = Record<string, never>
+export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    'models.AddSetRequest': {
-      /** @example 10 */
-      reps: number
-      /** @example 50.5 */
-      weight: number
-    }
-    'models.CompleteWorkoutRequest': {
-      /** @example Great workout! */
-      note?: string
-    }
-    'models.CreateExerciseRequest': {
-      /** @example A basic chest exercise. */
-      description_eng?: string
-      /** @example Базовое упражнение для груди. */
-      description_ru?: string
-      /** @example https://example.com/benchpress.jpg */
-      image_url?: string
-      /** @example 1 */
-      muscle_group_id: number
-      /** @example Bench Press */
-      name_eng: string
-      /** @example Жим лежа */
-      name_ru: string
-    }
-    'models.CreateMuscleGroupRequest': {
-      /** @example http://example.com/chest.jpg */
-      image_url?: string
-      /** @example Chest */
-      name_eng: string
-      /** @example Грудь */
-      name_ru: string
-    }
-    'models.ErrorResponse': {
-      error: string
-    }
-    'models.Exercise': {
-      created_at?: string
-      description_eng?: string
-      description_ru?: string
-      id?: number
-      image_url?: string
-      muscle_group?: components['schemas']['models.MuscleGroup']
-      name_eng: string
-      name_ru: string
-    }
-    'models.ExerciseHistoryEntry': {
-      created_at?: string
-      exercise?: components['schemas']['models.ExerciseResponse']
-      is_completed?: boolean
-      note?: string
-      session_id?: number
-      sets?: components['schemas']['models.Set'][]
-      user?: components['schemas']['models.UserBasicInfo']
-    }
-    'models.ExerciseResponse': {
-      created_at: string
-      description?: string
-      id: number
-      muscle_group: components['schemas']['models.GetMuscleGroupsResponse']
-      name: string
-    }
-    'models.FitnessLevel': {
-      id?: number
-      name_eng: string
-      name_ru: string
-    }
-    'models.GetMuscleGroupsResponse': {
-      id: number
-      image_url?: string
-      name: string
-    }
-    'models.GetUserProfileResponse': {
-      avatar_url?: string
-      bio?: string
-      created_at: string
-      email: string
-      fitness_level: string
-      last_login?: string
-      role: string
-      username: string
-    }
-    'models.GoogleTokenRequest': {
-      access_token: string
-    }
-    'models.IncompleteWorkoutResponse': {
-      created_at: string
-      exercise: components['schemas']['models.ExerciseResponse']
-      id: number
-      is_completed: boolean
-      note?: string
-      sets: components['schemas']['models.Set'][]
-    }
-    'models.LastWorkoutSessionResponse': {
-      /** @example 2023-10-01T10:00:00Z */
-      created_at: string
-      exercise: components['schemas']['models.ExerciseResponse']
-      /** @example 1 */
-      id: number
-      /** @example true */
-      is_completed: boolean
-      /** @example Previous workout notes */
-      note?: string
-      sets: components['schemas']['models.Set'][]
-    }
-    'models.LoginRequest': {
-      email: string
-      password: string
-    }
-    'models.MuscleGroup': {
-      id?: number
-      /** @example http://example.com/chest.jpg */
-      image_url?: string
-      /** @example Chest */
-      name_eng: string
-      /** @example Грудь */
-      name_ru: string
-    }
-    'models.PaginatedExerciseHistoryResponse': {
-      items: components['schemas']['models.ExerciseHistoryEntry'][]
-      total: number
-    }
-    'models.PaginatedWorkoutResponse': {
-      items: components['schemas']['models.IncompleteWorkoutResponse'][]
-      total: number
-    }
-    'models.Permission': {
-      id?: number
-      name: string
-    }
-    'models.Provider': {
-      id?: number
-      name: string
-      users?: components['schemas']['models.User'][]
-    }
-    'models.RefreshTokenRequest': {
-      refresh_token: string
-    }
-    'models.Role': {
-      id?: number
-      name: string
-      permissions?: components['schemas']['models.Permission'][]
-    }
-    'models.Set': {
-      created_at: string
-      id: number
-      reps: number
-      weight: number
-      workout_session_id: number
-    }
-    'models.StartWorkoutRequest': {
-      /** @example 1 */
-      exercise_id: number
-    }
-    'models.StartWorkoutResponse': {
-      created_at: string
-      is_completed: boolean
-      last_session?: components['schemas']['models.WorkoutSessionResponse']
-      session_id: number
-    }
-    'models.TokensResponse': {
-      access_token: string
-      refresh_token: string
-    }
-    'models.UpdateExerciseRequest': {
-      /** @example A basic chest exercise. */
-      description_eng?: string
-      /** @example Базовое упражнение для груди. */
-      description_ru?: string
-      /** @example https://example.com/benchpress.jpg */
-      image_url?: string
-      /** @example 1 */
-      muscle_group_id: number
-      /** @example Bench Press */
-      name_eng: string
-      /** @example Жим лежа */
-      name_ru: string
-    }
-    'models.User': {
-      avatar_url?: string
-      bio?: string
-      created_at?: string
-      email?: string
-      fitness_level?: components['schemas']['models.FitnessLevel']
-      fitness_level_id?: number
-      id?: string
-      last_login?: string
-      provider?: components['schemas']['models.Provider']
-      provider_id?: number
-      provider_user_id?: string
-      role?: components['schemas']['models.Role']
-      role_id?: number
-      username?: string
-    }
-    'models.UserBasicInfo': {
-      avatar_url?: string
-      email: string
-      id: string
-      username: string
-    }
-    'models.WorkoutSessionResponse': {
-      created_at: string
-      exercise: components['schemas']['models.ExerciseResponse']
-      id: number
-      is_completed: boolean
-      last_session?: components['schemas']['models.LastWorkoutSessionResponse']
-      note?: string
-      sets: components['schemas']['models.Set'][]
-      user: components['schemas']['models.UserBasicInfo']
-    }
-  }
-  responses: never
-  parameters: never
-  requestBodies: never
-  headers: never
-  pathItems: never
+    schemas: {
+        "models.AddSetRequest": {
+            /** @example 10 */
+            reps: number;
+            /** @example 50.5 */
+            weight: number;
+        };
+        "models.CompleteWorkoutRequest": {
+            /** @example Great workout! */
+            note?: string;
+        };
+        "models.CreateExerciseRequest": {
+            /** @example A basic chest exercise. */
+            description_eng?: string;
+            /** @example Базовое упражнение для груди. */
+            description_ru?: string;
+            /** @example https://example.com/benchpress.jpg */
+            image_url?: string;
+            /** @example 1 */
+            muscle_group_id: number;
+            /** @example Bench Press */
+            name_eng: string;
+            /** @example Жим лежа */
+            name_ru: string;
+        };
+        "models.CreateMuscleGroupRequest": {
+            /** @example http://example.com/chest.jpg */
+            image_url?: string;
+            /** @example Chest */
+            name_eng: string;
+            /** @example Грудь */
+            name_ru: string;
+        };
+        "models.CreatePlanRequest": {
+            description?: string;
+            exercises?: components["schemas"]["models.PlanExerciseRequest"][];
+            name: string;
+        };
+        "models.ErrorResponse": {
+            error: string;
+        };
+        "models.Exercise": {
+            created_at?: string;
+            description_eng?: string;
+            description_ru?: string;
+            id?: number;
+            image_url?: string;
+            muscle_group?: components["schemas"]["models.MuscleGroup"];
+            name_eng: string;
+            name_ru: string;
+        };
+        "models.ExerciseHistoryEntry": {
+            created_at?: string;
+            exercise?: components["schemas"]["models.ExerciseResponse"];
+            is_completed?: boolean;
+            note?: string;
+            session_id?: number;
+            sets?: components["schemas"]["models.Set"][];
+            user?: components["schemas"]["models.UserBasicInfo"];
+        };
+        "models.ExerciseResponse": {
+            created_at: string;
+            description?: string;
+            id: number;
+            muscle_group: components["schemas"]["models.GetMuscleGroupsResponse"];
+            name: string;
+        };
+        "models.FitnessLevel": {
+            id?: number;
+            name_eng: string;
+            name_ru: string;
+        };
+        "models.GetMuscleGroupsResponse": {
+            id: number;
+            image_url?: string;
+            name: string;
+        };
+        "models.GetUserProfileResponse": {
+            avatar_url?: string;
+            bio?: string;
+            created_at: string;
+            email: string;
+            fitness_level: string;
+            last_login?: string;
+            role: string;
+            username: string;
+        };
+        "models.GoogleTokenRequest": {
+            access_token: string;
+        };
+        "models.IncompleteWorkoutResponse": {
+            created_at: string;
+            exercise: components["schemas"]["models.ExerciseResponse"];
+            id: number;
+            is_completed: boolean;
+            note?: string;
+            sets: components["schemas"]["models.Set"][];
+        };
+        "models.LastWorkoutSessionResponse": {
+            /** @example 2023-10-01T10:00:00Z */
+            created_at: string;
+            exercise: components["schemas"]["models.ExerciseResponse"];
+            /** @example 1 */
+            id: number;
+            /** @example true */
+            is_completed: boolean;
+            /** @example Previous workout notes */
+            note?: string;
+            sets: components["schemas"]["models.Set"][];
+        };
+        "models.LoginRequest": {
+            email: string;
+            password: string;
+        };
+        "models.MuscleGroup": {
+            id?: number;
+            /** @example http://example.com/chest.jpg */
+            image_url?: string;
+            /** @example Chest */
+            name_eng: string;
+            /** @example Грудь */
+            name_ru: string;
+        };
+        "models.PaginatedExerciseHistoryResponse": {
+            items: components["schemas"]["models.ExerciseHistoryEntry"][];
+            total: number;
+        };
+        "models.PaginatedPlanResponse": {
+            items: components["schemas"]["models.PlanDetailResponse"][];
+            total: number;
+        };
+        "models.PaginatedWorkoutResponse": {
+            items: components["schemas"]["models.IncompleteWorkoutResponse"][];
+            total: number;
+        };
+        "models.Permission": {
+            id?: number;
+            name: string;
+        };
+        "models.PlanDetailResponse": {
+            description?: string;
+            exercises?: components["schemas"]["models.PlanExerciseResponse"][];
+            id?: number;
+            name?: string;
+            user?: components["schemas"]["models.UserBasicInfo"];
+        };
+        "models.PlanExerciseRequest": {
+            description?: string;
+            exercise_id: number;
+            order: number;
+        };
+        "models.PlanExerciseResponse": {
+            description?: string;
+            exercise?: components["schemas"]["models.ExerciseResponse"];
+            order?: number;
+        };
+        "models.PlanSummaryResponse": {
+            description?: string;
+            id?: number;
+            name?: string;
+        };
+        "models.Provider": {
+            id?: number;
+            name: string;
+            users?: components["schemas"]["models.User"][];
+        };
+        "models.RefreshTokenRequest": {
+            refresh_token: string;
+        };
+        "models.Role": {
+            id?: number;
+            name: string;
+            permissions?: components["schemas"]["models.Permission"][];
+        };
+        "models.Set": {
+            created_at: string;
+            id: number;
+            reps: number;
+            weight: number;
+            workout_session_id: number;
+        };
+        "models.StartWorkoutRequest": {
+            /** @example 1 */
+            exercise_id: number;
+        };
+        "models.StartWorkoutResponse": {
+            created_at: string;
+            is_completed: boolean;
+            last_session?: components["schemas"]["models.WorkoutSessionResponse"];
+            session_id: number;
+        };
+        "models.TokensResponse": {
+            access_token: string;
+            refresh_token: string;
+        };
+        "models.UpdateExerciseRequest": {
+            /** @example A basic chest exercise. */
+            description_eng?: string;
+            /** @example Базовое упражнение для груди. */
+            description_ru?: string;
+            /** @example https://example.com/benchpress.jpg */
+            image_url?: string;
+            /** @example 1 */
+            muscle_group_id: number;
+            /** @example Bench Press */
+            name_eng: string;
+            /** @example Жим лежа */
+            name_ru: string;
+        };
+        "models.UpdatePlanRequest": {
+            description?: string;
+            exercises?: components["schemas"]["models.PlanExerciseRequest"][];
+            name?: string;
+        };
+        "models.User": {
+            avatar_url?: string;
+            bio?: string;
+            created_at?: string;
+            email?: string;
+            fitness_level?: components["schemas"]["models.FitnessLevel"];
+            fitness_level_id?: number;
+            id?: string;
+            last_login?: string;
+            provider?: components["schemas"]["models.Provider"];
+            provider_id?: number;
+            provider_user_id?: string;
+            role?: components["schemas"]["models.Role"];
+            role_id?: number;
+            username?: string;
+        };
+        "models.UserBasicInfo": {
+            avatar_url?: string;
+            email: string;
+            id: string;
+            username: string;
+        };
+        "models.WorkoutSessionResponse": {
+            created_at: string;
+            exercise: components["schemas"]["models.ExerciseResponse"];
+            id: number;
+            is_completed: boolean;
+            last_session?: components["schemas"]["models.LastWorkoutSessionResponse"];
+            note?: string;
+            sets: components["schemas"]["models.Set"][];
+            user: components["schemas"]["models.UserBasicInfo"];
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-export type $defs = Record<string, never>
-export type operations = Record<string, never>
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;

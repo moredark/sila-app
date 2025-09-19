@@ -16,6 +16,7 @@ func Setup(app *fiber.App) {
 	SetupMuscleGroupRoutes(api)
 	SetupExercisesRoutes(api)
 	SetupWorkoutRoutes(api)
+	SetupPlanRoutes(api)
 
 	api.Get("/swagger/*", swagger.HandlerDefault)
 }
