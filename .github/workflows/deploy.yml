@@ -28,6 +28,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          timeout: 1800s
+          command_timeout: 1800s
           script: |
             cd sila-app/
             git pull origin main

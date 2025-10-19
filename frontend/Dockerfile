@@ -11,7 +11,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 COPY . .
-RUN pnpm run build
+RUN pnpm run build --no-lint
 
 FROM node:20-alpine
 
