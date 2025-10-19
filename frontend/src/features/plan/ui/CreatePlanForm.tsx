@@ -91,13 +91,13 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
   }
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="h-full touch-pan-y overflow-y-auto p-4">
       <Card>
         <CardHeader>
           <h2 className="mb-4 text-2xl">{t('create-plan')}</h2>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" onTouchMove={(e) => e.stopPropagation()}>
             <div>
               <Input placeholder={t('plan-name')} {...register('name')} />
               {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
@@ -109,7 +109,7 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
             <div>
               <h3 className="text-lg font-semibold">{t('exercises')}</h3>
               <div className="mt-2 flex items-center gap-2">
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 touch-pan-y">
                   <Combobox
                     options={exercises?.map(e => ({ label: e.name, value: e.id })) || []}
                     onSelect={value => setSelectedExercise(value)}
