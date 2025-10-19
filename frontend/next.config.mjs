@@ -7,5 +7,9 @@ const nextConfig = {
   env: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   },
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 }
 export default withNextIntl(nextConfig)
