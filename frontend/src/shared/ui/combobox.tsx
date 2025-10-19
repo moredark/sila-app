@@ -62,12 +62,12 @@ export function Combobox<T extends string | number>({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn('w-full justify-between', className)}
+          className={cn('w-full justify-between text-left', className)}
           data-testid={dataTestId}
         >
-          <span className="truncate">
+          <div className="min-w-0 flex-1 truncate">
             {value ? options.find(option => option.value === value)?.label : placeholder}
-          </span>
+          </div>
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
