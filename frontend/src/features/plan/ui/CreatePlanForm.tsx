@@ -109,12 +109,14 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
             <div>
               <h3 className="text-lg font-semibold">{t('exercises')}</h3>
               <div className="mt-2 flex items-center gap-2">
-                <Combobox
-                  options={exercises?.map(e => ({ label: e.name, value: e.id })) || []}
-                  onSelect={value => setSelectedExercise(value)}
-                  placeholder={t('select-exercise')}
-                  className="flex-1"
-                />
+                <div className="min-w-0 flex-1">
+                  <Combobox
+                    options={exercises?.map(e => ({ label: e.name, value: e.id })) || []}
+                    onSelect={value => setSelectedExercise(value)}
+                    placeholder={t('select-exercise')}
+                    className="w-full"
+                  />
+                </div>
                 <Button
                   type="button"
                   variant="outline"
