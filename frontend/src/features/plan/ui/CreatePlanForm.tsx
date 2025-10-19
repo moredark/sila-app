@@ -113,8 +113,18 @@ export const CreatePlanForm: React.FC<CreatePlanFormProps> = ({ onSuccess }) => 
                   options={exercises?.map(e => ({ label: e.name, value: e.id })) || []}
                   onSelect={value => setSelectedExercise(value)}
                   placeholder={t('select-exercise')}
+                  className="flex-1"
                 />
-                <CirclePlus className="cursor-pointer" onClick={onAddExercise} />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={onAddExercise}
+                  disabled={!selectedExercise}
+                  className="shrink-0"
+                >
+                  <CirclePlus />
+                </Button>
               </div>
 
               {fields.map((field, index) => (
