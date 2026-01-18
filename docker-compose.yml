@@ -22,7 +22,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: sila_app
     environment:
       DB_HOST: db
       DB_PORT: 5432
