@@ -19,7 +19,6 @@ services:
   backend:
     build:
       dockerfile: Dockerfile
-    container_name: sila_app
     environment:
       DB_HOST: postgres_db
       DB_PORT: 5432
