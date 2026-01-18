@@ -4,10 +4,11 @@ import (
 	"Sila/config"
 	"Sila/internal/middleware"
 	"Sila/internal/routes"
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
-	"log"
 )
 
 // @title Sila API
@@ -19,7 +20,7 @@ import (
 
 func main() {
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Println("No .env file found, using environment variables")
 	}
 
 	if err := config.ConnectDatabase(); err != nil {
@@ -38,5 +39,5 @@ func main() {
 
 	routes.Setup(app)
 
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen("0.0.0.0:8080"))
 }
